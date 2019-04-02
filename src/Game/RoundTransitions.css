@@ -1,0 +1,22 @@
+.round-title {
+    display: block;
+    top: 50vh;
+
+}
+
+h2 {
+    font-family: "Amatic SC";
+    font-size: 3em;
+    text-align: center;
+}
+
+.background {
+    margin: 0;
+    background-image: url("../Assets/images/magentaBG.png");
+    height: 100vh;
+    width: 100vw;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
