@@ -5,7 +5,7 @@
 .answer {
     position: relative;
     display : flex;
-    justify: center;
+    justify-content: center;
     height: 250px;
     width : 100%;
 }

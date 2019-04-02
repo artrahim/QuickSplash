@@ -1,30 +1,17 @@
-import React,{Component} from 'react'
+import React, {Component} from 'react'
 
 class ImageTextBox extends Component {
-    render() {
-        var textStyle = {
-            position: "absolute",
-            top: "30%",
-            textAlign:"center",
-        };
-        var imgStyle = {
-            maxWidth:"100%",
-            maxHeight:"100%",
-            margin : "0 0",
-            height: "250px"
-        };
 
+    render() {
         return(
-            <div className="answer" >
-                <img className="image" style={imgStyle} src={this.props.imgsrc} alt="answer" />
-                <h2 className="answerText" style={textStyle}> {this.props.text} </h2>
+            <div className="answer">
+                <img src={this.props.imgsrc} className="image" alt="answer" />
+                <h2 className="answerText"> {this.props.text} </h2>
             </div>
 
         );
-
-
-
     }
+    
 }
 
 export default ImageTextBox;

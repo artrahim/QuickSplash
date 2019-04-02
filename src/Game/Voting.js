@@ -6,6 +6,8 @@ import AnswerBox from './AnswerBox';
 import Answer from './Answer';
 import Question from './Question';
 
+import './Voting.css';
+
 class Voting extends Component {
 
     render() {

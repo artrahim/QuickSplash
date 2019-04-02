@@ -3,8 +3,6 @@ import React, {Component} from 'react'
 import Answer from './Answer';
 import answer from '../Assets/images/answer.png';
 
-import './Voting.css';
-
 class AnswerBox extends Component {
     render() {
 
