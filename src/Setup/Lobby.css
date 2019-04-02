@@ -1,0 +1,56 @@
+h1 {
+    font-family: "Amatic SC";
+    font-size: 3em;
+    line-height: 2px;
+    text-align: center;
+}
+
+label {
+    font-family: "Amatic SC";
+    font-size: 2em;
+    font-weight: bold;
+}
+
+input {
+    font-family: "Amatic SC";
+    font-size: 2em;
+    line-height: 70px;
+    border: none;
+}
+
+.textBox {
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 2px solid black;
+    width: 100%;
+    display: block;
+    margin: auto;
+}
+
+#container {
+    margin: auto;
+    width: 50%;
+    height: 100%;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 33px;
+    background: #DCDCDC;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 70px;
+    width: 30px;
+    background: #111111;
+    cursor: pointer;
+}
+
+#button {
+    display: block;
+    margin: 0 auto;
+    min-width: 250px;
+    max-width: 15%;
+}
