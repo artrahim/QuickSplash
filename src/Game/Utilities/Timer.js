@@ -4,7 +4,7 @@ class Timer extends Component {
 
     componentDidMount(){
         let c = window.createjs;
-        var stage = new c.Stage("canvasDisplay");
+        const stage = new c.Stage("canvasDisplay");
 
         // Set timer.
         let time = 20;
@@ -95,11 +95,7 @@ class Timer extends Component {
     }
 
     render() {
-        return (
-            <div className="display">
-                <canvas id="canvasDisplay" width={150} height={150}/>
-            </div>
-        );
+        return (<canvas id="canvasDisplay" width={150} height={150}/>);
     }
 }
 

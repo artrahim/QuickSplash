@@ -15,7 +15,7 @@ class Voting extends Component {
         return (
             <div>
                 <Timer/>
-                <Question/>
+                <Question question={"What is the worst place to be naked?"}/>
                 <AnswerBox answer1="sample1" answer2="sample2"/>
             </div>
         );
