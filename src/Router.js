@@ -23,7 +23,6 @@ class Router extends Component {
         return (
             <div>
                 <div className="content">
-                <Logo/>
                     <HashRouter>
                         <Route exact path="/" component={Home}/>
                         <Route path="/createLobby" component={CreateLobby}/>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Logo from "../Game/Utilities/Logo";
 import {socket} from '../Router';
 
 import Prompt from "./Prompt";
@@ -26,6 +27,7 @@ class Game extends Component {
 
         return (
             <div>
+                <Logo/>
                 {component}
             </div>
         );
