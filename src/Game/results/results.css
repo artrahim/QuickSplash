@@ -1,0 +1,169 @@
+*{
+	box-sizing: border-box;
+}
+
+body{
+	margin:0;
+}
+
+p{
+	font-family: "Amatic SC";
+}
+
+
+#Players{
+	height: 75vh;
+	min-width: 500px;
+	width: 100vw;
+}
+
+#Winner{
+	width: 100%;
+	height: auto;
+	min-height: 50%;
+	display: flex;
+	text-align:center;
+	position: relative;
+	justify-content: center; /* align horizontal */
+	align-items: center; /* align vertical */
+}
+
+#Winner p{
+	font-size: 35px;
+}
+
+
+
+
+#first{
+	max-width:40%;
+	min-width: 200px;
+	height: auto;
+}
+#gold{
+	min-width:70px;
+	max-width:100px;
+	height: auto;
+	position: absolute;
+	top: 5%;
+	margin-left: 13%;
+}
+
+#othermedals{
+	min-width:70px;
+	max-width:80px;
+	height: auto;
+	position: absolute;
+	top: 0;
+	margin-left: 20%;
+}
+
+
+
+
+#face1{
+	max-width:22%;
+	height: auto;
+	position: absolute;
+}
+
+
+#Username{
+	/*width: 40%;
+	min-width: 200px;
+	max-width: 300px;*/
+	width:200px;
+	height: 15%;
+	position: absolute;
+	bottom:0;
+	background-color: lightgray;
+	opacity: 0.8;
+}
+
+
+
+
+#Others{
+	text-align: center
+}
+
+.row{
+	width: 100%;
+	text-align:center;
+	display:inline-block;
+	height: auto;
+}
+
+
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  min-height: 50%;
+	display: flex;
+	text-align:center;
+	position: relative;
+	justify-content: center; /* align horizontal */
+	align-items: center; /* align vertical */
+}
+
+.column p{
+	font-size: 30px;
+}
+
+#otherusername{
+	/*width: 40%;
+	min-width: 200px;
+	max-width: 300px;*/
+	width:150px;
+	position: absolute;
+	bottom:0;
+	background-color: lightgray;
+	opacity: 0.8;
+	margin-bottom: 0;
+}
+	
+#otherPlayer{
+	width: 50%;
+	height: auto;
+}
+
+#otherface{
+	max-width:20%;
+	height: auto;
+	position: absolute;
+}
+
+@media screen and (max-width:750px) {
+	#face1 {
+		max-width:79px;
+	}
+	
+	#otherface {
+		max-width:59px;
+	}
+	
+	#gold{
+		margin-left: 25%;
+	}
+	
+	#othermedals{
+		margin-left: 25%;
+		max-width:50px;
+	}
+}
+
+
+@media screen and (max-width:599px) {
+	.column {
+		width: 100%;
+	}
+	
+}

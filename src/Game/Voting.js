@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {NavLink, HashRouter} from "react-router-dom";
+
 import {socket} from '../Router';
 
 import Timer from './Utilities/Timer'
@@ -7,6 +9,8 @@ import Answer from './Answer';
 import Question from './Question';
 
 import './Voting.css';
+
+// import Results from './Results';
 
 class Voting extends Component {
 
@@ -17,6 +21,8 @@ class Voting extends Component {
                 <Timer/>
                 <Question question={"What is the worst place to be naked?"}/>
                 <AnswerBox answer1="sample1" answer2="sample2"/>
+                {/* <Results/> */}
+                <NavLink to="/Results">Check Results</NavLink>
             </div>
         );
 
