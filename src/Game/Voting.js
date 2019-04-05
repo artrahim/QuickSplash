@@ -22,7 +22,7 @@ class Voting extends Component {
                 <Question question={"What is the worst place to be naked?"}/>
                 <AnswerBox answer1="sample1" answer2="sample2"/>
                 {/* <Results/> */}
-                <NavLink to="/Results">Check Results</NavLink>
+                <NavLink to="/resultmain">Check Results</NavLink>
             </div>
         );
 

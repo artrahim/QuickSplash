@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-
+import OtherPlayer from './OtherPlayer'
 import silver from '../../Assets/images/silver.png';
 import bronze from '../../Assets/images/bronze.png';
 
@@ -8,18 +8,8 @@ class Others extends Component{
         return (
             <div id="Others">
                 <div className="row">
-                    <div className="column">
-                        <img id="otherPlayer" src={this.props.splash2} alt="2nd ColorSplash" />
-                        <img id="othermedals" src={silver} alt="silvermedal" />
-                        <img id="otherface" src={this.props.Face2} alt="2nd place avatar" />
-                        <p id="otherusername">{this.props.Username2}</p>
-                    </div>
-                    <div className="column">
-                        <img id="otherPlayer" src={this.props.splash3} alt="3rd ColorSplash" />
-                        <img id="othermedals" src={bronze} alt="bronzemedal" />
-                        <img id="otherface" src={this.props.Face3} alt="3rd place avatar" />
-                        <p id="otherusername">{this.props.Username3}</p>
-                    </div>
+                    <OtherPlayer othersplash={this.props.splash2} otherFace={this.props.Face2} othermedal={silver} otherusername={this.props.Username2}/>
+                    <OtherPlayer othersplash={this.props.splash3} otherFace={this.props.Face3} othermedal={bronze} otherusername={this.props.Username3}/>
                 </div>
             </div>
         );

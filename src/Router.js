@@ -8,7 +8,7 @@ import CreateLobby from "./Setup/CreateLobby";
 import JoinLobby from "./Setup/JoinLobby";
 import Game from "./Game/Game";
 import RoundTransitions from "./Game/RoundTransitions";
-import Results from "./Game/results/Results";
+import resultmain from "./Game/results/resultmain";
 
 var socket;
 
@@ -30,7 +30,7 @@ class Router extends Component {
                         <Route path="/joinLobby" component={JoinLobby}/>
                         <Route path="/game" component={Game}/>
                         <Route path="/roundTransitions" component={RoundTransitions}/>
-                        <Route path="/Results" component = {Results}/>
+                        <Route path="/resultmain" component = {resultmain}/>
                     </HashRouter>
                 </div>
             </div>
