@@ -29,8 +29,6 @@ class Router extends Component {
                         <Route path="/createLobby" component={CreateLobby}/>
                         <Route path="/joinLobby" component={JoinLobby}/>
                         <Route path="/game" component={Game}/>
-                        <Route path="/roundTransitions" component={RoundTransitions}/>
-                        <Route path="/resultmain" component = {resultmain}/>
                     </HashRouter>
                 </div>
             </div>

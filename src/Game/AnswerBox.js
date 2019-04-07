@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 
 import Answer from './Answer';
-import answer from '../Assets/images/answer.png';
 
 class AnswerBox extends Component {
     render() {

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {NavLink} from "react-router-dom";
+import {socket} from '../Router';
+import $ from 'jquery';
 
 import Logo from '../Game/Utilities/Logo'
 import './Lobby.css';
@@ -7,7 +9,13 @@ import './Lobby.css';
 class JoinLobby extends Component {
 
     componentDidMount(){
+        $('#button').click(function(){
+            socket.emit('joinLobby', $("#joinCode").val(), $("#nickname").val());
+        });
 
+        socket.on('error', function(name){
+            alert("Failed to join lobby");
+        });
     }
 
     render() {
@@ -27,7 +35,7 @@ class JoinLobby extends Component {
                     <input defaultValue="" type="text" className="textBox" id="nickname"/>
                 </div>
                 <br/>
-                <NavLink to="/Game"><img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" /></NavLink>
+                <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
             </div>
         );
     }

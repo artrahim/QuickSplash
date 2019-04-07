@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import {socket} from '../Router';
 
+import Logo from "../Game/Utilities/Logo";
 import Waiting from "./Waiting";
 import RoundTransitions from "./RoundTransitions";
 import Prompt from "./Prompt";
 import Voting from "./Voting";
+import Resultmain from "./results/resultmain";
 
 class Game extends Component {
 
@@ -19,7 +21,7 @@ class Game extends Component {
 
     handleClick() {
         this.setState(state => ({
-          stage: (state.stage += 1) % 6
+          stage: (state.stage += 1) % 7
         }));
     }
 
@@ -44,6 +46,8 @@ class Game extends Component {
             case 5:
                 component = <Voting/>;
                 break;
+            case 6:
+                component = <Resultmain/>;
         }
 
         return (
@@ -51,6 +55,7 @@ class Game extends Component {
                 <button onClick={this.handleClick}>
                     Switch stage
                 </button>
+                <Logo/>
                 {component}
             </div>
         );
