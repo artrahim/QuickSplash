@@ -10,9 +10,61 @@ var rooms = [];
 var codes = [];
 var currentRoom = -1;
 
+let mongoose = require('mongoose');
+
+// set up default conn with the password
+let db = 'mongodb+srv://A:ABCd1234!@quicksplash-db-dmuwu.mongodb.net/test?retryWrites=true';
+mongoose.connect(db, {useNewUrlParser: true});
+let qpDB = mongoose.connection;
+
+// creating a Account Schema and Model
+let Schema = mongoose.Schema;
+let AccountSchema = new Schema(
+    {
+        fname: {type: String},
+        lname: {type: String},
+        email: {type: String},
+        username: {type: String},
+        password: {type: String}
+    }
+);
+
+let Account = mongoose.model("Account", AccountSchema);
+
+
+
 io.on('connection', function(socket){
 
     console.log("user connected");
+
+    socket.on("signUp", function (loginInfo) {
+        console.log(loginInfo);
+
+        logObj = JSON.parse(loginInfo);
+        let fname = logObj.fname;
+        let lname = logObj.lname;
+        let email = logObj.email;
+        let username = logObj.username;
+        let password = logObj.password;
+
+        // do input sanitization
+
+        // create and add new account to db
+        let newAccount = new Account({
+            fname: fname,
+            lname: lname,
+            email: email,
+            username: username,
+            password: password
+        });
+
+        newAccount.save(function (err) {
+            if (err) return "You Fucked up!";
+
+        });
+
+
+    });
 
 	socket.on('createLobby', function(ruleSet){
         while (true) {
@@ -68,6 +120,11 @@ io.on('connection', function(socket){
 	});
 
 });
+
+
+//Bind connection to error event (to get notification of connection errors)
+qpDB.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 
 http.listen(port, function(){
 	console.log('listening on *:' + port);
