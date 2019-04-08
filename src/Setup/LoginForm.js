@@ -27,7 +27,9 @@ class LoginForm extends Component {
         // listen for response
         socket.on('success', function (msg) {
             // re-route them to home page
+
             // set a lgoin flag true
+
 
         })
 

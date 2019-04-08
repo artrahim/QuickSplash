@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 var path = require('path')
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
+=======
+const path = require('path');
+const express = require('express');
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const port = process.env.PORT || 5000;
+>>>>>>> 4702fc1f82655dc62dd60576019b942d1cdb0dd7
 app.use(express.static(path.join(__dirname, '/public')));
 
 var rooms = [];
@@ -30,7 +39,6 @@ let AccountSchema = new Schema(
 );
 
 let Account = mongoose.model("Account", AccountSchema);
-
 
 io.on('connection', function(socket){
 
@@ -60,10 +68,7 @@ io.on('connection', function(socket){
             }else{
                 socket.emit('login-fail');
             }
-
-
         });
-
 
     });
 
@@ -96,9 +101,10 @@ io.on('connection', function(socket){
 
     });
 
-
-
+    //actions to be taken when a user creates a lobby
 	socket.on('createLobby', function(ruleSet){
+
+        //generate a join code and make sure it's unique
         while (true) {
     		var duplicate = false;
     		var generatedCode = (Math.floor((Math.random() * 1000))).toString(10);
@@ -112,37 +118,59 @@ io.on('connection', function(socket){
     			break;
     		}
         }
+
+        //set the variables for the created lobby
         currentRoom++;
         var room = {
-            name: "name" + currentRoom,
+            name: "room" + currentRoom,
             code: generatedCode,
             rules: ruleSet,
             players: []
         }
+
+        //add the lobby to the list of lobbies
         rooms.push(room);
-        socket.join(room.name);
+
+        //add the user to the lobby they just created
+        //socket.join(room.name);
+        socket.emit('joinAsCreator', generatedCode);
+
+        //debugging/logging statements
         console.log("***************");
         console.log("Created a lobby");
         console.log("Join code: " + room.code);
+
     });
 
+
+    //actions to be taken when a user joins a lobby
     socket.on('joinLobby', function(joinCode, nickname){
-        var joined = false
+
+        //compare the join code entered by the user to the join codes of all
+        //the lobbies on the server
+        //if a match is found, add user to correct lobby
+        var joined = false;
         for (var i=0; i < rooms.length; i++){
             if (joinCode.localeCompare(rooms[i].code) == 0){
                 joined = true;
                 rooms[i].players.push(nickname);
                 socket.join(rooms[i].name);
+                //debugging/logging statements
                 console.log("***************");
                 console.log(nickname + " joined " + rooms[i].name);
             }
         }
+        //send error message if the user failes to join
         if (!joined){
-            socket.emit('error', "hamzah");
+            socket.emit('failedToJoin', "hamzah");
         }
+
     });
 
-    socket.on('game', function(room){
+
+    //actions to be taken when a game starts.
+    //TODO: MAKE THE GAME LOOP HERE!
+    socket.on('game', function(creator){
 
     });
 
