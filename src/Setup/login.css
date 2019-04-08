@@ -1,0 +1,144 @@
+/*body {*/
+/*    background-image: url("bgn.png");*/
+/*}*/
+
+.rootContainer{
+
+    position: fixed;
+    padding: 0;
+    margin: 0;
+
+    width: 100%;
+    height: 100%;
+    background-image: url("bgn.png");
+}
+
+.wrapper {
+    /*margin-top: 150px;*/
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #fff;
+}
+
+.pageSelectorContainer {
+    display: flex;
+    min-width: 21em;
+    height: 35px;
+    -webkit-box-shadow: 0 0 20px 0 rgba(15, 15, 15, 0.2);
+    box-shadow: 0 0 20px 0 rgba(15, 15, 15, 0.2);
+    margin-bottom: 30px;
+    align-items: center;
+    width: 450px;
+
+    /*background-color: red;*/
+}
+
+.pageSelector {
+    flex: 1;
+    text-align: center;
+    height: 100%;
+    line-height: 2;
+    cursor: pointer;
+    font-size: 20px;
+
+    /*background-color: gold;*/
+}
+
+.currentlySelected {
+    transition: 0.5s ease-out;
+    background: #2ECC71;
+    color: white;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    min-width: 21em;
+    box-shadow: 0 0 20px 0 rgba(15, 15, 15, 0.2);
+    border-radius: 6px;
+    padding: 24px;
+    width: 500px;
+    background-color: #191919;
+}
+
+.header {
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 17px;
+    font-size: 30px;
+    font-weight: 100;
+    border-bottom: 2px solid #70a1ff;
+
+    /*background-color: purple;*/
+}
+
+.fieldContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    align-items: center;
+
+    /*background-color: orange;*/
+}
+
+.inputContainer::before {
+
+}
+
+.inputBox {
+    height: 75px;
+    width: 400px;
+    border: 2px solid #70a1ff;
+    padding: 14px 10px;
+    font-size: 35px;
+    font-weight: bold;
+    padding-left: 30px;
+    margin-bottom: 25px;
+    background-color: #fff;
+}
+
+.inputBox:hover {
+    border: 1px solid #70a1ff;
+}
+
+.inputBox:focus {
+    border: 1px solid #6565e7;
+    box-shadow: 0 0 20px rgba(15, 15, 15, 0.2);
+}
+
+.inputBox::placeholder {
+    font-size: 30px;
+    color: black;
+}
+
+.submitButton {
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 20px;
+    border-radius: 4px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    background-color: #2ECC71;
+    border-bottom: 4px solid #27AE60;
+}
+
+.submitButton:hover {
+    background-color: rgb(19, 170, 82);
+}
+
+.submitButton:focus {
+
+}

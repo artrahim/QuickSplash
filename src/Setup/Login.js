@@ -44,11 +44,32 @@ class Login extends Component {
         }
 
         return (
-            <div>
-                // something to switch
-                <button onClick={this.loginClick}>Login</button>
-                <button onClick={this.signUpClick}>Sign Up</button>
-                {displayComponent}
+
+            <div className="rootContainer">
+
+                <div className="wrapper">
+
+                    <div className="pageSelectorContainer">
+
+                        <div className={"pageSelector " + (this.state.page === 0 ? "currentlySelected" : "")}
+                             onClick={this.loginClick}>
+                            Login
+                        </div>
+
+                        <div className={"pageSelector " + (this.state.page === 1 ? "currentlySelected" : "")}
+                             onClick={this.signUpClick}>
+                            Sign Up
+                        </div>
+
+                    </div>
+
+                    <div className="formContainer">
+                        {displayComponent}
+                    </div>
+
+                </div>
+
+
             </div>
 
         );
