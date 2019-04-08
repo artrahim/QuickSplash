@@ -14,31 +14,99 @@ class SignUpForm extends Component {
         };
 
         this.signUpSubmitHandler = this.signUpSubmitHandler.bind(this);
+        this.setUsername = this.setUsername.bind(this);
+        this.setPassword = this.setPassword.bind(this);
+        this.setFirstName = this.setFirstName.bind(this);
+        this.setLastName = this.setLastName.bind(this);
+        this.setEmail = this.setEmail.bind(this);
     }
 
     signUpSubmitHandler(event) {
 
         event.preventDefault();
 
-
-        this.setState({
-            username: event.target.username.value,
-            password: event.target.password.value,
-            fname: event.target.fname.value,
-            lname: event.target.lname.value,
-            email: event.target.email.value
-
-        }, () => {
-
-            let loginInfo = JSON.stringify(this.state);
-            console.log(loginInfo);
-            socket.emit("signUp", loginInfo);
-        });
-
+        let loginInfo = JSON.stringify(this.state);
+        console.log(loginInfo);
+        socket.emit("signUp", loginInfo);
     }
+
+    setUsername(event) {
+        this.setState({username: event.target.value})
+    }
+
+    setPassword(event) {
+        this.setState({password: event.target.value})
+    }
+
+    setEmail(event) {
+        this.setState({email: event.target.value})
+    }
+
+    setFirstName(event) {
+        this.setState({fname: event.target.value})
+    }
+
+    setLastName(event) {
+        this.setState({lname: event.target.value})
+    }
+
 
     render() {
         return (
+
+            <div className="">
+
+                <div className="header">Sign Up</div>
+
+                <div className="fieldContainer">
+
+                    <div className="inputContainer">
+                        <label htmlFor="fname"/>
+                        <input className="inputBox" type="text" placeholder="First Name"
+                               onChange={this.setFirstName} autoComplete="off"/>
+                    </div>
+
+                    <div className="inputContainer">
+                        <label htmlFor="lname"/>
+                        <input className="inputBox" type="text" placeholder="Last Name"
+                               onChange={this.setLastName} autoComplete="off"/>
+                    </div>
+
+                    <div className="inputContainer">
+                        <label htmlFor="email"/>
+                        <input className="inputBox" type="text" placeholder="Email"
+                               onChange={this.setEmail} autoComplete="off"/>
+                    </div>
+
+                    <div className="inputContainer">
+                        <label htmlFor="username"/>
+                        <input className="inputBox" type="text" placeholder="Username"
+                               onChange={this.setUsername} autoComplete="off"/>
+                    </div>
+
+                    <div className="inputContainer">
+                        <label htmlFor="password"/>
+                        <input className="inputBox" type="password" placeholder="Password"
+                               onChange={this.setPassword} autoComplete="off"/>
+                    </div>
+
+                    <button className="submitButton" type="button" onClick={this.signUpSubmitHandler}>Sign Up</button>
+
+                </div>
+
+            </div>
+
+
+        );
+
+    }
+
+}
+
+export default SignUpForm;
+
+
+/*
             <div>
                 <div>
                     <form onSubmit={this.signUpSubmitHandler}>
@@ -71,11 +139,4 @@ class SignUpForm extends Component {
 
                 </div>
             </div>
-
-        );
-
-    }
-
-}
-
-export default SignUpForm;
+ */
