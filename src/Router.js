@@ -9,6 +9,7 @@ import JoinLobby from "./Setup/JoinLobby";
 import Game from "./Game/Game";
 import RoundTransitions from "./Game/RoundTransitions";
 import resultmain from "./Game/results/resultmain";
+import SignUp from "./Setup/SignUp";
 
 var socket;
 
@@ -26,11 +27,10 @@ class Router extends Component {
                 <div className="content">
                     <HashRouter>
                         <Route exact path="/" component={Home}/>
+                        <Route path="/signUp" component={SignUp}/>
                         <Route path="/createLobby" component={CreateLobby}/>
                         <Route path="/joinLobby" component={JoinLobby}/>
                         <Route path="/game" component={Game}/>
-                        <Route path="/roundTransitions" component={RoundTransitions}/>
-                        <Route path="/resultmain" component = {resultmain}/>
                     </HashRouter>
                 </div>
             </div>

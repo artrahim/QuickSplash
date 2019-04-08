@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {NavLink} from "react-router-dom";
+import {socket} from '../Router';
 import $ from 'jquery';
 
 import Logo from '../Game/Utilities/Logo'
@@ -8,14 +9,37 @@ import './Lobby.css';
 class CreateLobby extends Component {
 
     componentDidMount(){
+
         $(function(){
+
+            var rules = {
+                timePerRound: $("#slider1").val(),
+                numRounds: $("#slider2").val(),
+                lobbySize: $("#slider3").val(),
+                afkTimeout: $("#slider4").val()
+            }
+
             $(".slider").on("input", function() {
                 $("#timePerRound").val($("#slider1").val() + " SECONDS");
                 $("#numRounds").val($("#slider2").val() + " ROUND(S)");
                 $("#lobbySize").val($("#slider3").val() + " PLAYERS");
                 $("#afkTimeout").val($("#slider4").val() + " MINUTE(S)");
+
+                rules = {
+                    timePerRound: $("#slider1").val(),
+                    numRounds: $("#slider2").val(),
+                    lobbySize: $("#slider3").val(),
+                    afkTimeout: $("#slider4").val()
+                }
+
             });
+
+            $('#button').click(function(){
+                socket.emit('createLobby', rules);
+            });
+
         });
+
     }
 
     render() {
@@ -44,7 +68,7 @@ class CreateLobby extends Component {
                     <input type="range" min={1} max={5} defaultValue={1} className="slider" id="slider4" />
                 </div>
                 <br/>
-                <NavLink to="/Game"><img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" /></NavLink>
+                <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
             </div>
         );
     }
