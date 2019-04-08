@@ -9,7 +9,7 @@ import JoinLobby from "./Setup/JoinLobby";
 import Game from "./Game/Game";
 import RoundTransitions from "./Game/RoundTransitions";
 import resultmain from "./Game/results/resultmain";
-import SignUp from "./Setup/SignUp";
+import SignUpForm from "./Setup/SignUpForm";
 import Login from "./Setup/Login";
 
 var socket;
