@@ -2,37 +2,36 @@ import React, {Component} from 'react';
 import {socket} from '../Router';
 
 
-class SignUp extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fname: "",
-            lname: "",
-            email: "",
             username: "",
             password: ""
         };
 
-        this.signUpSubmitHandler = this.signUpSubmitHandler.bind(this);
+        this.loginSubmitHandler = this.loginSubmitHandler.bind(this);
     }
 
-    signUpSubmitHandler(event) {
+    loginSubmitHandler(event) {
 
         event.preventDefault();
-
 
         this.setState({
             username: event.target.username.value,
             password: event.target.password.value,
-            fname: event.target.fname.value,
-            lname: event.target.lname.value,
-            email: event.target.email.value
 
         }, () => {
 
             let loginInfo = JSON.stringify(this.state);
             console.log(loginInfo);
-            socket.emit("signUp", loginInfo);
+            socket.emit("login", loginInfo);
+
+            // listen for response
+
+            // if we good re-route to home page otherwise die here!
+
+
         });
 
     }
@@ -41,19 +40,7 @@ class SignUp extends Component {
         return (
             <div>
                 <div>
-                    <form onSubmit={this.signUpSubmitHandler}>
-                        <label>
-                            <b>First Name:</b>
-                            <input type="text" name="fname"/>
-                        </label>
-                        <label>
-                            <b>Last Name:</b>
-                            <input type="text" name="lname"/>
-                        </label>
-                        <label>
-                            <b>Email:</b>
-                            <input type="text" name="email"/>
-                        </label>
+                    <form onSubmit={this.loginSubmitHandler}>
                         <label>
                             <b>USERNAME:</b>
                             <input type="text" name="username"/>
@@ -73,9 +60,8 @@ class SignUp extends Component {
             </div>
 
         );
-
     }
 
 }
 
-export default SignUp;
+export default Login;

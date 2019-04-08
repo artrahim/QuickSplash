@@ -32,15 +32,37 @@ let AccountSchema = new Schema(
 let Account = mongoose.model("Account", AccountSchema);
 
 
-
 io.on('connection', function(socket){
 
     console.log("user connected");
 
-    socket.on("signUp", function (loginInfo) {
-        console.log(loginInfo);
+    socket.on("login", function (loginInfo) {
 
         logObj = JSON.parse(loginInfo);
+        let username = logObj.username;
+        let password = logObj.password;
+
+        // query db for Account
+        let auth = false;
+
+        // find all athletes who play tennis, selecting the 'name' and 'age' fields
+        Account.findOne({'username': username}, 'password', function (err,account) {
+            if (err) {
+                // emit Login Failed
+                return handleError(err);
+            }
+
+            console.log(account.password);
+
+        });
+
+
+    });
+
+    socket.on("signUp", function (signUpInfo) {
+        console.log(signUpInfo);
+
+        logObj = JSON.parse(signUpInfo);
         let fname = logObj.fname;
         let lname = logObj.lname;
         let email = logObj.email;
@@ -65,6 +87,8 @@ io.on('connection', function(socket){
 
 
     });
+
+
 
 	socket.on('createLobby', function(ruleSet){
         while (true) {
