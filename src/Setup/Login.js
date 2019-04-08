@@ -4,18 +4,18 @@ import SignUpForm from "./SignUpForm";
 
 import './login.css'
 
+
 class Login extends Component {
 
     constructor() {
         super();
         // if 0 then displays login otherwise sign up!!!
         this.state = {
-            page: 0
+            page: 0,
         };
 
         this.loginClick = this.loginClick.bind(this);
         this.signUpClick = this.signUpClick.bind(this);
-
     }
 
     loginClick() {
@@ -29,6 +29,13 @@ class Login extends Component {
             page: 1
         }));
     }
+
+///////////////////////////////////////////////////////////////////////////
+
+
+
+    ///////////////////////////////////////////////////////////////////////////
+
 
     render() {
 

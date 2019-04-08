@@ -1,13 +1,18 @@
 import React, {Component} from 'react';
 import {socket} from '../Router';
 
+import {fakeAuth} from '../Router';
+
+import {Redirect} from 'react-router-dom'
+
 
 class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            redirectToReferrer: false
         };
 
         this.loginSubmitHandler = this.loginSubmitHandler.bind(this);
@@ -17,6 +22,8 @@ class LoginForm extends Component {
     }
 
     loginSubmitHandler(event) {
+
+        this.login();
 
         event.preventDefault();
 
@@ -44,8 +51,32 @@ class LoginForm extends Component {
         this.setState({password: event.target.value})
     }
 
+    login = () => {
+
+        console.log("pllzzzz killl me...");
+
+        fakeAuth.authenticate(() => {
+            this.setState({redirectToReferrer: true});
+        });
+    };
+
+
     render() {
+
+        let {from} = {from: {pathname: "/createLobby"}};
+        let {redirectToReferrer} = this.state;
+
+        // this.state.redirectToReferrer = true;
+
+        console.log("<<<<redirect = >>>>" + this.state.redirectToReferrer);
+
+        if (redirectToReferrer)
+            return <Redirect to={from}/>;
+
+
         return (
+
+
 
             <div className="">
 
