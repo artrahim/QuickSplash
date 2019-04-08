@@ -1,65 +1,54 @@
 import React, {Component} from 'react';
-import {socket} from '../Router';
+import LoginForm from "./LoginForm";
+import SignUpForm from "./SignUpForm";
+import Waiting from "../Game/Waiting";
+import RoundTransitions from "../Game/RoundTransitions";
 
 
 class Login extends Component {
-    constructor(props) {
-        super(props);
+
+    constructor() {
+        super();
+        // if 0 then displays login otherwise sign up!!!
         this.state = {
-            username: "",
-            password: ""
+            page: 0
         };
 
-        this.loginSubmitHandler = this.loginSubmitHandler.bind(this);
-    }
-
-    loginSubmitHandler(event) {
-
-        event.preventDefault();
-
-        this.setState({
-            username: event.target.username.value,
-            password: event.target.password.value,
-
-        }, () => {
-
-            let loginInfo = JSON.stringify(this.state);
-            console.log(loginInfo);
-            socket.emit("login", loginInfo);
-
-            // listen for response
-
-            // if we good re-route to home page otherwise die here!
-
-
-        });
+        this.clickHandler = this.clickHandler.bind(this);
 
     }
+
+    clickHandler() {
+        let newState = (this.state.page + 1 )% 2;
+         console.log(newState);
+        this.setState(state => ({
+            page: (state.page += 1) % 2
+        }));
+    }
+
 
     render() {
+
+        let displayComponent = null;
+        switch (this.state.page) {
+            case 0:
+                displayComponent = <LoginForm/>;
+                break;
+            case 1:
+                displayComponent = <SignUpForm/>;
+                break;
+        }
+
         return (
             <div>
-                <div>
-                    <form onSubmit={this.loginSubmitHandler}>
-                        <label>
-                            <b>USERNAME:</b>
-                            <input type="text" name="username"/>
-                        </label>
-
-                        <label>
-                            <b>PASSWORD:</b>
-                            <input type="text" name="password"/>
-                        </label>
-
-                        <input type="submit" value="Submit"/>
-                    </form>
-
-                    <p>{"Info: " + this.state.username + "\t" + this.state.password}</p>
-
-                </div>
+                // something to switch
+                <button onClick={this.clickHandler}>Login</button>
+                <button onClick={this.clickHandler}>Sign Up</button>
+                {displayComponent}
             </div>
 
         );
+
     }
 
 }

@@ -54,6 +54,14 @@ io.on('connection', function(socket){
 
             console.log(account.password);
 
+
+            if (password === account.password){
+                socket.emit('login-success');
+            }else{
+                socket.emit('login-fail');
+            }
+
+
         });
 
 
