@@ -12,7 +12,7 @@ class JoinLobby extends Component {
 
         super();
         this.state = {
-            started : false
+            started: false
         }
 
     }
@@ -37,28 +37,6 @@ class JoinLobby extends Component {
           started: true
         }));
     };
-
-    render() {
-        return (
-            <div>
-                <Logo/>
-                <title>Join a lobby</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet" />
-                <h1>JOIN A LOBBY</h1>
-                <br/>
-                <div id="container">
-                    <label htmlFor="joinCode">ENTER A JOIN CODE: </label>
-                    <input defaultValue="" type="text" className="textBox" id="joinCode"/>
-                    <br/><br/>
-                    <label htmlFor="nickname">WHAT SHOULD WE CALL YOU?: </label>
-                    <input defaultValue="" type="text" className="textBox" id="nickname"/>
-                </div>
-                <br/>
-                <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
-            </div>
-        );
-    }
 
     render() {
 
@@ -86,6 +64,11 @@ class JoinLobby extends Component {
                 break;
             case true:
                 component = <Redirect to='/game'/>;
+                component =
+                <Redirect to={{
+                    pathname: '/game',
+                    state: {isCreator: true}
+                }}/>
                 break;
             default:
                 break;

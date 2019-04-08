@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import {socket} from '../Router';
 import $ from 'jquery';
 
-import Logo from '../Game/Utilities/Logo'
+import Logo from '../Game/Utilities/Logo';
 import './Lobby.css';
 
 class CreateLobby extends Component {
@@ -90,7 +90,11 @@ class CreateLobby extends Component {
                 </div>
                 break;
             case true:
-                component = <Redirect to='/joinLobby'/>;
+                component =
+                <Redirect to={{
+                    pathname: '/joinLobby',
+                    state: {isCreator: true}
+                }}/>
                 break;
             default:
                 break;

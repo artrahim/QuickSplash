@@ -1,14 +1,32 @@
 import React, { Component } from 'react';
+import {socket} from '../Router';
+import $ from 'jquery';
 
 class Waiting extends Component {
+
+    componentDidMount(){
+
+        $('#button').click(function(){
+            socket.emit('startGame');
+        });
+
+        /*
+        socket.on('joinAsCreator', (code) => {
+            this.join(code);
+        });
+        */
+
+    }
 
     render() {
         let button = null;
         let text = null;
         const isCreator = this.props.isCreator;
         const isStarted = this.props.isStarted;
-        if (!isStarted && isCreator){
-            button = <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
+        if (!isStarted){
+            if (isCreator){
+                button = <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
+            }
             text = "THE GAME TO START"
         }
         else {

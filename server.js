@@ -164,7 +164,7 @@ io.on('connection', function(socket){
     //actions to be taken when a game starts.
     //TODO: MAKE THE GAME LOOP HERE!
     socket.on('startGame', function(creator){
-        var room = "";
+        io.to('room0').emit('changeState');
 
     });
 
