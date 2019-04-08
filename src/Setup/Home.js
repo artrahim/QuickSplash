@@ -18,8 +18,8 @@ class Home extends Component {
                     </div>
                     <div id="navbarButton">
                             <div className="container-flex">
-                                <NavLink className="loginButton" to="/signUp">
-                                    <ButtonSplash imagesource = { require('../Assets/images/blueSplash.png')} text={"Sign Up"} />
+                                <NavLink className="loginButton" to="/login">
+                                    <ButtonSplash imagesource = { require('../Assets/images/blueSplash.png')} text={"Login"} />
                                 </NavLink>
                                 <NavLink className="createLobbyButton" to="/createLobby">
                                     <ButtonSplash imagesource = { require('../Assets/images/blueSplash.png')} text={"Create a Lobby"} />
