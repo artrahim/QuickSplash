@@ -25,6 +25,9 @@ class Router extends Component {
                     <HashRouter>
                         <Route exact path="/" component={Home}/>
                         <Route path="/login" component={Login}/>
+
+
+
                         <Route path="/createLobby" component={CreateLobby}/>
                         <Route path="/joinLobby" component={JoinLobby}/>
                         <Route path="/game" component={Game}/>

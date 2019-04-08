@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {socket} from '../Router';
 
 
-class Login extends Component {
+class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -78,4 +78,4 @@ class Login extends Component {
 
 }
 
-export default Login;
+export default LoginForm;

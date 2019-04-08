@@ -1,9 +1,18 @@
+<<<<<<< HEAD
+var path = require('path')
+var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var port = process.env.PORT || 3000;
+=======
 const path = require('path');
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 5000;
+>>>>>>> 4702fc1f82655dc62dd60576019b942d1cdb0dd7
 app.use(express.static(path.join(__dirname, '/public')));
 
 var rooms = [];
