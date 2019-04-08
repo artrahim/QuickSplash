@@ -90,7 +90,6 @@ io.on('connection', function(socket){
 
         newAccount.save(function (err) {
             if (err) return "You Fucked up!";
-
         });
 
 
