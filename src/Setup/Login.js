@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
-import Waiting from "../Game/Waiting";
-import RoundTransitions from "../Game/RoundTransitions";
 
+import './login.css'
 
 class Login extends Component {
 
@@ -14,15 +13,20 @@ class Login extends Component {
             page: 0
         };
 
-        this.clickHandler = this.clickHandler.bind(this);
+        this.loginClick = this.loginClick.bind(this);
+        this.signUpClick = this.signUpClick.bind(this);
 
     }
 
-    clickHandler() {
-        let newState = (this.state.page + 1 )% 2;
-         console.log(newState);
+    loginClick() {
         this.setState(state => ({
-            page: (state.page += 1) % 2
+            page: 0
+        }));
+    }
+
+    signUpClick() {
+        this.setState(state => ({
+            page: 1
         }));
     }
 
@@ -42,8 +46,8 @@ class Login extends Component {
         return (
             <div>
                 // something to switch
-                <button onClick={this.clickHandler}>Login</button>
-                <button onClick={this.clickHandler}>Sign Up</button>
+                <button onClick={this.loginClick}>Login</button>
+                <button onClick={this.signUpClick}>Sign Up</button>
                 {displayComponent}
             </div>
 
