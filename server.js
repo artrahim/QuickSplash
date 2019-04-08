@@ -146,6 +146,7 @@ io.on('connection', function(socket){
                 joined = true;
                 rooms[i].players.push(nickname);
                 socket.join(rooms[i].name);
+                socket.emit('waiting');
                 //debugging/logging statements
                 console.log("***************");
                 console.log(nickname + " joined " + rooms[i].name);
@@ -153,7 +154,7 @@ io.on('connection', function(socket){
         }
         //send error message if the user failes to join
         if (!joined){
-            socket.emit('failedToJoin', "hamzah");
+            socket.emit('failedToJoin');
         }
 
     });
@@ -161,8 +162,9 @@ io.on('connection', function(socket){
 
     //actions to be taken when a game starts.
     //TODO: MAKE THE GAME LOOP HERE!
-    socket.on('game', function(creator){
-
+    socket.on('startGame', function(creator){
+        var room = "";
+        
     });
 
 	//actions to be taken when a user disconnects

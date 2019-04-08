@@ -19,7 +19,7 @@ class Game extends Component {
             round: 1,
             question1: "",
             question2: "",
-            answered: false,
+            hasAnswered: false,
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -54,6 +54,9 @@ class Game extends Component {
                 break;
             case 6:
                 component = <Resultmain/>;
+                break;
+            default:
+                component = <Waiting isCreator={true} isStarted={false}/>;
         }
 
         return (

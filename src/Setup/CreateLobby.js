@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
-import {NavLink} from "react-router-dom";
+import { Redirect } from 'react-router-dom';
 import {socket} from '../Router';
 import $ from 'jquery';
 
@@ -13,7 +12,7 @@ class CreateLobby extends Component {
 
         super();
         this.state = {
-            readyToJoin: 0
+            readyToJoin: false
         }
 
     }
@@ -21,7 +20,7 @@ class CreateLobby extends Component {
     componentDidMount(){
 
         socket.on('joinAsCreator', (code) => {
-            this.join();
+            this.join(code);
         });
 
         $(function(){
@@ -50,18 +49,18 @@ class CreateLobby extends Component {
 
     }
 
-    join(){
+    join(code){
         this.setState(state => ({
-          readyToJoin: 1
+          readyToJoin: true
         }));
-        alert("Changed state");
+        alert("The lobby code is: " + code);
     };
 
     render() {
 
         let component = null;
         switch (this.state.readyToJoin){
-            case 0:
+            case false:
                 component =
                 <div>
                     <Logo/>
@@ -90,8 +89,10 @@ class CreateLobby extends Component {
                     <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
                 </div>
                 break;
-            case 1:
+            case true:
                 component = <Redirect to='/joinLobby'/>;
+                break;
+            default:
                 break;
         }
 

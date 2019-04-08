@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {NavLink} from "react-router-dom";
 
 class Waiting extends Component {
 
@@ -8,7 +7,7 @@ class Waiting extends Component {
         let text = null;
         const isCreator = this.props.isCreator;
         const isStarted = this.props.isStarted;
-        if (!isStarted){
+        if (!isStarted && isCreator){
             button = <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
             text = "THE GAME TO START"
         }

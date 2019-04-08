@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 
 import {socket} from '../Router';
 
-import Timer from './Utilities/Timer'
-import AnswerBox from './AnswerBox';
-import Answer from './Answer';
+import Timer from './Utilities/Timer';
 import Question from './Question';
+import AnswerBox from './AnswerBox';
 
 import './Voting.css';
 
