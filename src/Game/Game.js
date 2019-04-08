@@ -13,7 +13,13 @@ class Game extends Component {
     constructor() {
         super();
         this.state = {
-            stage: 0
+            stage: 0,
+            isCreator: false,
+            isStarted: false,
+            round: 1,
+            question1: "",
+            question2: "",
+            answered: false,
         };
 
         this.handleClick = this.handleClick.bind(this);
