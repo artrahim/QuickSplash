@@ -13,9 +13,10 @@ class JoinLobby extends Component {
             socket.emit('joinLobby', $("#joinCode").val(), $("#nickname").val());
         });
 
-        socket.on('error', function(name){
+        socket.on('failedToJoin', function(name){
             alert("Failed to join lobby");
         });
+
     }
 
     render() {
