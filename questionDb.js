@@ -1,6 +1,6 @@
 
 let lineReader = require('readline').createInterface({
-    input: require('fs').createReadStream("./Assets/questions/prompt.txt")
+    input: require('fs').createReadStream("./src/Assets/questions/prompts.txt")
 });
 
 lineReader.on('line', function (line) {

@@ -18,7 +18,7 @@ class Router extends Component {
 
     constructor() {
         super();
-        this.state = {endpoint: "http://localhost:3000/"};
+        this.state = {endpoint: "http://localhost:5000/"};
         socket = socketIOClient(this.state.endpoint);
     }
 
