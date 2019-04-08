@@ -82,6 +82,10 @@
     justify-content: center;
 }
 
+.signUpFieldContainer {
+    height: 100%;
+}
+
 .inputContainer {
     display: flex;
     flex-direction: column;
@@ -101,10 +105,9 @@
     height: 75px;
     width: 400px;
     border: 2px solid #70a1ff;
-    padding: 14px 10px;
     font-size: 35px;
     font-weight: bold;
-    padding-left: 30px;
+    padding: 14px 10px 14px 30px;
     margin-bottom: 25px;
     background-color: #fff;
 }
@@ -121,6 +124,17 @@
 .inputBox::placeholder {
     font-size: 30px;
     color: black;
+}
+
+/* for sign Up page*/
+.signUpFieldContainer .inputBox {
+    height: 40px;
+    font-size: 25px;
+    margin-bottom: 0px;
+}
+
+.signUpContainer .header {
+    margin: 0px;
 }
 
 .submitButton {

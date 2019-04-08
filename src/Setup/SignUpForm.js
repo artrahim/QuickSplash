@@ -50,15 +50,14 @@ class SignUpForm extends Component {
         this.setState({lname: event.target.value})
     }
 
-
     render() {
         return (
 
-            <div className="">
+            <div className="signUpContainer">
 
                 <div className="header">Sign Up</div>
 
-                <div className="fieldContainer">
+                <div className="fieldContainer signUpFieldContainer">
 
                     <div className="inputContainer">
                         <label htmlFor="fname"/>

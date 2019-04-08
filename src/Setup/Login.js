@@ -30,7 +30,6 @@ class Login extends Component {
         }));
     }
 
-
     render() {
 
         let displayComponent = null;
