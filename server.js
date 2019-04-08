@@ -37,6 +37,7 @@ io.on('connection', function(socket){
     console.log("user connected");
 
     socket.on("login", function (loginInfo) {
+
         logObj = JSON.parse(loginInfo);
         let username = logObj.username;
         let password = logObj.password;
@@ -53,12 +54,17 @@ io.on('connection', function(socket){
 
             console.log(account.password);
 
+
             if (password === account.password){
                 socket.emit('login-success');
             }else{
                 socket.emit('login-fail');
             }
+
+
         });
+
+
     });
 
     socket.on("signUp", function (signUpInfo) {
@@ -84,10 +90,13 @@ io.on('connection', function(socket){
 
         newAccount.save(function (err) {
             if (err) return "You Fucked up!";
+
         });
 
 
     });
+
+
 
 	socket.on('createLobby', function(ruleSet){
         while (true) {
