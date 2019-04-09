@@ -19,6 +19,7 @@ class Game extends Component {
             round: 0,
             question1: "",
             question2: "",
+            answer1: ""
         };
 
     }
@@ -78,10 +79,11 @@ class Game extends Component {
         let component = null;
         switch (this.state.stage){
             case 0:
-                component = <Waiting nickname={this.props.location.state.nickname} isCreator={this.props.location.state.isCreator} hasStarted={false}/>;
+                component = <Waiting lobbyCode={this.props.location.state.lobbyCode} isCreator={this.props.location.state.isCreator} hasStarted={false}/>;
                 break;
             case 1:
-                component = <RoundTransitions handleTransition = {() => this.handleClick()}/>;
+                //component = <RoundTransitions handleTransition = {() => this.handleClick()}/>;
+                component = <RoundTransitions/>;
                 break;
             case 2:
                 component = <Prompt/>;

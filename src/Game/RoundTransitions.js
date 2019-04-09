@@ -15,7 +15,7 @@ class RoundTransitions extends Component {
     }
 
     componentDidMount() {
-        this.id = setTimeout(() => this.props.handleTransition(), 3000);
+        //this.id = setTimeout(() => this.props.handleTransition(), 3000);
     }
 
     componentWillUnmount() {
