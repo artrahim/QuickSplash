@@ -32,13 +32,13 @@ class Game extends Component {
                 component = <Waiting isCreator={true} isStarted={false}/>;
                 break;
             case 1:
-                component = <RoundTransitions/>;
+                component = <RoundTransitions handleTransition = {() => this.handleClick()}/>;
                 break;
             case 2:
                 component = <Prompt/>;
                 break;
             case 3:
-                component = <Prompt/>
+                component = <Prompt/>;
                 break;
             case 4:
                 component = <Waiting isCreator={true} isStarted={true}/>;
