@@ -1,8 +1,16 @@
 #logo {
-    display: block;
+    flex: 1;
     margin: 0 auto;
     min-width: 500px;
     max-width: 30%;
+    justify-content: center;
+    align-content: center;
+}
+
+a {
+    margin: 0;
+    padding: 0;
+    max-width: 500px;
 }
 
 #question {
@@ -18,4 +26,23 @@
     width: 50%;
     display: block;
     margin: auto;
+}
+
+.center-back{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.empty{
+    flex: 1;
+    max-width: 10vw;
 }
