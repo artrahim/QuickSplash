@@ -11,25 +11,65 @@ import Resultmain from "./results/resultmain";
 class Game extends Component {
 
     constructor() {
-        
+
         super();
         this.state = {
             stage: 0,
             hasStarted: false,
-            round: 1,
+            round: 0,
             question1: "",
             question2: "",
-            hasAnswered: false,
         };
 
     }
 
     componentDidMount(){
-        socket.on('changeStage', () => {
+        socket.on('waiting1', () => {
             this.setState(state => ({
-              stage: (state.stage += 1) % 7
+              stage: 0
             }));
         });
+
+        socket.on('roundTransition', () => {
+            this.setState(state => ({
+              hasStarted: true,
+              round: this.round+=1,
+              stage: 0
+            }));
+        });
+
+        socket.on('prompt1', (aQuestion) => {
+            this.setState(state => ({
+              question1: aQuestion,
+              stage: 2,
+            }));
+        });
+
+        socket.on('prompt2', (aQuestion) => {
+            this.setState(state => ({
+              question2: aQuestion,
+              stage: 3
+            }));
+        });
+
+        socket.on('waiting2', () => {
+            this.setState(state => ({
+              stage: 4
+            }));
+        });
+
+        socket.on('vote', () => {
+            this.setState(state => ({
+              stage: 5
+            }));
+        });
+
+        socket.on('result', () => {
+            this.setState(state => ({
+              stage: 6
+            }));
+        });
+
     }
 
     render() {

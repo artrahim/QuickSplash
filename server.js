@@ -166,13 +166,13 @@ io.on('connection', function(socket){
     //actions to be taken when a game starts.
     //TODO: MAKE THE GAME LOOP HERE!
     socket.on('startGame', function(creator){
-        var room = "";
+        var room = {};
         for (var i=0; i < rooms.length; i++){
             if (rooms[i].players.includes(creator)){
-                room = rooms[i].name;
+                room = rooms[i];
             }
         }
-        io.to(room).emit('changeStage');
+        io.to(room.name).emit('waiting1');
     });
 
 	//actions to be taken when a user disconnects
