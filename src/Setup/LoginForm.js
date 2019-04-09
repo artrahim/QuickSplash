@@ -12,7 +12,8 @@ class LoginForm extends Component {
         this.state = {
             username: "",
             password: "",
-            isLoggedIn: false
+            isLoggedIn: false,
+            wrongAuth: false
         };
 
         this.loginSubmitHandler = this.loginSubmitHandler.bind(this);
@@ -30,7 +31,6 @@ class LoginForm extends Component {
 
     }
 
-
     loginSubmitHandler(event) {
 
         event.preventDefault();
@@ -40,18 +40,27 @@ class LoginForm extends Component {
             this.login();
 
 
+        var self = this;
+
+
         let loginInfo = JSON.stringify(this.state);
         console.log(loginInfo);
         socket.emit("login", loginInfo);
 
         // listen for response
-        socket.on('success', function (msg) {
+        socket.on('login-success', function (msg) {
 
             // re-route them to home page
-           this.login();
+           self.login();
 
 
-        })
+        });
+
+        socket.on('login-fail', function () {
+
+            self.render();
+
+        });
 
     }
 
@@ -77,7 +86,12 @@ class LoginForm extends Component {
 
             <div className="">
 
-                <div className="header">Login</div>
+                <div className="header">
+
+                    {/*<div className="error">Username or password is invalid.</div>*/}
+                    Login
+
+                </div>
 
                 <div className="fieldContainer">
 

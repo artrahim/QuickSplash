@@ -50,6 +50,7 @@ io.on('connection', function(socket){
         // find all athletes who play tennis, selecting the 'name' and 'age' fields
         Account.findOne({'username': username}, 'password', function (err,account) {
             if (err) {
+                console.log("<<<<Hakuna Matata>>>>");
                 // emit Login Failed
                 return handleError(err);
             }
@@ -57,11 +58,11 @@ io.on('connection', function(socket){
             console.log(account);
 
 
-            if (password === account.password){
+            if (account !== null && password === account.password)
                 socket.emit('login-success');
-            }else{
+            else
                 socket.emit('login-fail');
-            }
+
         });
 
     });

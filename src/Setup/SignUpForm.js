@@ -10,7 +10,8 @@ class SignUpForm extends Component {
             lname: "",
             email: "",
             username: "",
-            password: ""
+            password: "",
+            signUpComplete: false
         };
 
         this.signUpSubmitHandler = this.signUpSubmitHandler.bind(this);
@@ -24,6 +25,8 @@ class SignUpForm extends Component {
     signUpSubmitHandler(event) {
 
         event.preventDefault();
+
+        this.setState({signUpComplete: true});
 
         let loginInfo = JSON.stringify(this.state);
         console.log(loginInfo);
@@ -51,6 +54,14 @@ class SignUpForm extends Component {
     }
 
     render() {
+
+        if (this.state.signUpComplete)
+            return (
+                <div className="">
+                    Sign up complete. You can now login with your username and password.
+                </div>
+            );
+
         return (
 
             <div className="signUpContainer">
@@ -103,39 +114,3 @@ class SignUpForm extends Component {
 }
 
 export default SignUpForm;
-
-
-/*
-            <div>
-                <div>
-                    <form onSubmit={this.signUpSubmitHandler}>
-                        <label>
-                            <b>First Name:</b>
-                            <input type="text" name="fname"/>
-                        </label>
-                        <label>
-                            <b>Last Name:</b>
-                            <input type="text" name="lname"/>
-                        </label>
-                        <label>
-                            <b>Email:</b>
-                            <input type="text" name="email"/>
-                        </label>
-                        <label>
-                            <b>USERNAME:</b>
-                            <input type="text" name="username"/>
-                        </label>
-
-                        <label>
-                            <b>PASSWORD:</b>
-                            <input type="text" name="password"/>
-                        </label>
-
-                        <input type="submit" value="Submit"/>
-                    </form>
-
-                    <p>{"Info: " + this.state.username + "\t" + this.state.password}</p>
-
-                </div>
-            </div>
- */
