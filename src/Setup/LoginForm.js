@@ -1,24 +1,44 @@
 import React, {Component} from 'react';
-import {socket} from '../Router';
+import {socket, authenticate} from '../Router';
 
+import {Redirect} from 'react-router-dom'
 
-class Login extends Component {
+class LoginForm extends Component {
     constructor(props) {
         super(props);
+
+        console.log(props);
+
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            isLoggedIn: false
         };
 
         this.loginSubmitHandler = this.loginSubmitHandler.bind(this);
         this.setUsername = this.setUsername.bind(this);
         this.setPassword = this.setPassword.bind(this);
+        this.login = this.login.bind(this);
 
     }
+
+    login() {
+
+        authenticate.authenticate(() => {
+            this.setState({isLoggedIn: true});
+        });
+
+    }
+
 
     loginSubmitHandler(event) {
 
         event.preventDefault();
+
+        // For Testing without server.
+        if (this.state.username === "A" && this.state.password === "a")
+            this.login();
+
 
         let loginInfo = JSON.stringify(this.state);
         console.log(loginInfo);
@@ -26,12 +46,13 @@ class Login extends Component {
 
         // listen for response
         socket.on('success', function (msg) {
+
             // re-route them to home page
-            // set a lgoin flag true
+           this.login();
+
 
         })
 
-        // if we good re-route to home page otherwise die here!
     }
 
     setUsername(event) {
@@ -43,6 +64,15 @@ class Login extends Component {
     }
 
     render() {
+
+        // Set the path we are going to current page, or go back to index
+        let {from} = {from: {pathname: "/"}};
+        let {isLoggedIn} = this.state;
+
+
+        if (isLoggedIn)
+            return <Redirect to={from}/>;
+
         return (
 
             <div className="">
@@ -76,4 +106,4 @@ class Login extends Component {
 
 }
 
-export default Login;
+export default LoginForm;

@@ -1,7 +1,20 @@
 import React, { Component } from 'react';
-import {NavLink} from "react-router-dom";
+import {socket} from '../Router';
+import $ from 'jquery';
+
+import Logo from "../Game/Utilities/Logo";
 
 class Waiting extends Component {
+
+    componentDidMount(){
+
+        const nickname = this.props.nickname;
+
+        $('#button').click(function(){
+            socket.emit('startGame', nickname);
+        });
+
+    }
 
     render() {
         let button = null;
@@ -9,7 +22,9 @@ class Waiting extends Component {
         const isCreator = this.props.isCreator;
         const isStarted = this.props.isStarted;
         if (!isStarted){
-            button = <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
+            if (isCreator){
+                button = <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
+            }
             text = "THE GAME TO START"
         }
         else {
@@ -19,6 +34,7 @@ class Waiting extends Component {
         return (
             <div>
                 <title>Create a lobby</title>
+                <Logo/>
                 <br></br>
                 <h1>WAITING FOR {text}...</h1>
                 {button}

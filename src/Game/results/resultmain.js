@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import './results.css';
+
+import Logo from "../../Game/Utilities/Logo";
+
 import Results from './Results';
 
 // SPLASH COLORS
@@ -20,6 +23,7 @@ class Resultmain extends Component {
     render() {
         return (
             <div>
+                <Logo/>
                 <Results
                 splash1={redSplash}
                 splash2={blueSplash}
