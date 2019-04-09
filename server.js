@@ -4,6 +4,9 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+
+const dbUtil = require('./dbUtils');
+
 const port = process.env.PORT || 5000;
 app.use(express.static(path.join(__dirname, '/public')));
 
@@ -137,7 +140,6 @@ io.on('connection', function(socket){
 
     });
 
-
     //actions to be taken when a user joins a lobby
     socket.on('joinLobby', function(joinCode, nickname){
 
@@ -169,17 +171,31 @@ io.on('connection', function(socket){
 
     });
 
-
     //actions to be taken when a game starts.
     //TODO: MAKE THE GAME LOOP HERE!
     socket.on('startGame', function(code){
-        var room = {};
-        for (var i=0; i < rooms.length; i++){
-            if (rooms[i].code.localeCompare(code) == 0){
-                room = rooms[i];
+
+        // get random question here
+        let questionList = ["DD"];
+
+        dbUtil.getRandomQuestion(6).then((retQuestion)=> {
+            questionList = retQuestion;
+            console.log("-----------------------LOADED-------------------!");
+            gameLoop();
+            console.log(questionList);
+
+        });
+
+        function gameLoop() {
+            var room = {};
+            for (var i=0; i < rooms.length; i++){
+                if (rooms[i].code.localeCompare(code) == 0){
+                    room = rooms[i];
+                }
             }
+            io.to(room.name).emit('roundTransition');
         }
-        io.to(room.name).emit('roundTransition');
+
     });
 
 	//actions to be taken when a user disconnects

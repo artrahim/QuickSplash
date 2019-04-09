@@ -12,7 +12,6 @@ let Questions = require('./questionModel');
 async function getRandomQuestion(n) {
     let questions = [];
     let randQuestions = [];
-    console.log(questions);
 
     await Questions.find().then(function (doc) {
 
@@ -31,9 +30,11 @@ async function getRandomQuestion(n) {
         }
     });
 
-    console.log(randQuestions);
     return randQuestions;
 
 }
-let a = getRandomQuestion(6);
-console.log(a);
+// let a = getRandomQuestion(6).then((a)=>console.log(a));
+
+module.exports = {
+    getRandomQuestion,
+}
