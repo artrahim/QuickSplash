@@ -173,7 +173,7 @@ io.on('connection', function(socket){
                 room = rooms[i];
             }
         }
-        io.to(room.name).emit('waiting1');
+        io.to(room.name).emit('roundTransition');
     });
 
 	//actions to be taken when a user disconnects
