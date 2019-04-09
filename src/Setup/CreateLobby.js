@@ -12,24 +12,15 @@ class CreateLobby extends Component {
 
         super();
         this.state = {
-            readyToJoin: false
+            lobbyCreated: false
         }
 
     }
 
     componentDidMount(){
 
-        socket.on('joinAsCreator', (code) => {
-            this.join(code);
-        });
-
         $(function(){
-            var rules = {
-                timePerRound: $("#slider1").val(),
-                numRounds: $("#slider2").val(),
-                lobbySize: $("#slider3").val(),
-                afkTimeout: $("#slider4").val()
-            }
+            var rules = {};
             $(".slider").on("input", function() {
                 $("#timePerRound").val($("#slider1").val() + " SECONDS");
                 $("#numRounds").val($("#slider2").val() + " ROUND(S)");
@@ -47,19 +38,19 @@ class CreateLobby extends Component {
             });
         });
 
-    }
+        socket.on('joinAsCreator', (code) => {
+            this.setState(state => ({
+              lobbyCreated: true
+            }));
+            alert("The lobby code is: " + code);
+        });
 
-    join(code){
-        this.setState(state => ({
-          readyToJoin: true
-        }));
-        alert("The lobby code is: " + code);
-    };
+    }
 
     render() {
 
         let component = null;
-        switch (this.state.readyToJoin){
+        switch (this.state.lobbyCreated){
             case false:
                 component =
                 <div>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {socket} from '../Router';
 
+import Logo from "../Game/Utilities/Logo";
+
 import Timer from './Utilities/Timer'
 import Question from './Question';
 import Response from './Response';
@@ -11,6 +13,7 @@ class Prompt extends Component {
 
         return (
             <div>
+                <Logo/>
                 <Timer/>
                 <Question question={'Where is the worst place to be naked?'}/>
                 <br/>

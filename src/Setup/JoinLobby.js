@@ -12,7 +12,8 @@ class JoinLobby extends Component {
 
         super();
         this.state = {
-            started: false
+            started: false,
+            nickname: ""
         }
 
     }
@@ -26,17 +27,14 @@ class JoinLobby extends Component {
             alert("Failed to join lobby");
         });
 
-        socket.on('waiting', () => {
-            this.start();
+        socket.on('waiting', (nickname) => {
+            this.setState(state => ({
+              started: true,
+              nickname: nickname
+            }));
         });
 
     }
-
-    start(){
-        this.setState(state => ({
-          started: true
-        }));
-    };
 
     render() {
 
@@ -67,7 +65,10 @@ class JoinLobby extends Component {
                 component =
                 <Redirect to={{
                     pathname: '/game',
-                    state: {isCreator: true}
+                    state: {
+                        isCreator: this.props.location.state.isCreator,
+                        nickname: this.state.nickname
+                    }
                 }}/>
                 break;
             default:

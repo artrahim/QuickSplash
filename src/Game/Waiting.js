@@ -2,19 +2,17 @@ import React, { Component } from 'react';
 import {socket} from '../Router';
 import $ from 'jquery';
 
+import Logo from "../Game/Utilities/Logo";
+
 class Waiting extends Component {
 
     componentDidMount(){
 
-        $('#button').click(function(){
-            socket.emit('startGame');
-        });
+        const nickname = this.props.nickname;
 
-        /*
-        socket.on('joinAsCreator', (code) => {
-            this.join(code);
+        $('#button').click(function(){
+            socket.emit('startGame', nickname);
         });
-        */
 
     }
 
@@ -36,6 +34,7 @@ class Waiting extends Component {
         return (
             <div>
                 <title>Create a lobby</title>
+                <Logo/>
                 <br></br>
                 <h1>WAITING FOR {text}...</h1>
                 {button}

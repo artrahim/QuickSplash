@@ -147,7 +147,7 @@ io.on('connection', function(socket){
                 joined = true;
                 rooms[i].players.push(nickname);
                 socket.join(rooms[i].name);
-                socket.emit('waiting');
+                socket.emit('waiting', nickname);
                 //debugging/logging statements
                 console.log("***************");
                 console.log(nickname + " joined " + rooms[i].name);
@@ -164,8 +164,13 @@ io.on('connection', function(socket){
     //actions to be taken when a game starts.
     //TODO: MAKE THE GAME LOOP HERE!
     socket.on('startGame', function(creator){
-        io.to('room0').emit('changeState');
-
+        var room = "";
+        for (var i=0; i < rooms.length; i++){
+            if (rooms[i].players.includes(creator)){
+                room = rooms[i].name;
+            }
+        }
+        io.to(room).emit('changeStage');
     });
 
 	//actions to be taken when a user disconnects

@@ -11,10 +11,11 @@ import Resultmain from "./results/resultmain";
 class Game extends Component {
 
     constructor() {
+        
         super();
         this.state = {
             stage: 0,
-            isStarted: false,
+            hasStarted: false,
             round: 1,
             question1: "",
             question2: "",
@@ -24,7 +25,7 @@ class Game extends Component {
     }
 
     componentDidMount(){
-        socket.on('changeState', () => {
+        socket.on('changeStage', () => {
             this.setState(state => ({
               stage: (state.stage += 1) % 7
             }));
@@ -37,7 +38,7 @@ class Game extends Component {
         let component = null;
         switch (this.state.stage){
             case 0:
-                component = <Waiting isCreator={true} isStarted={false}/>;
+                component = <Waiting nickname={this.props.location.state.nickname} isCreator={this.props.location.state.isCreator} hasStarted={false}/>;
                 break;
             case 1:
                 component = <RoundTransitions/>;
@@ -49,7 +50,7 @@ class Game extends Component {
                 component = <Prompt/>
                 break;
             case 4:
-                component = <Waiting isCreator={this.state.isCreator} isStarted={true}/>;
+                component = <Waiting isCreator={this.state.isCreator} hasStarted={true}/>;
                 break;
             case 5:
                 component = <Voting/>;
@@ -58,15 +59,11 @@ class Game extends Component {
                 component = <Resultmain/>;
                 break;
             default:
-                component = <Waiting isCreator={true} isStarted={false}/>;
+                component = <Waiting isCreator={true} hasStarted={false}/>;
         }
 
         return (
             <div>
-                <button onClick={this.handleClick}>
-                    Switch stage
-                </button>
-                <Logo/>
                 {component}
             </div>
         );
