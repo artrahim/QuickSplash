@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
+import Button from 'react-bootstrap/Button';
 
 import './login.css'
+import Logo from "./CreateLobby";
 
 
 class Login extends Component {
@@ -35,7 +37,7 @@ class Login extends Component {
         let displayComponent = null;
         switch (this.state.page) {
             case 0:
-                displayComponent = <LoginForm/>;
+                displayComponent = <LoginForm location={this.props.location}/>;
                 break;
             case 1:
                 displayComponent = <SignUpForm/>;
@@ -46,8 +48,8 @@ class Login extends Component {
 
             <div className="rootContainer">
 
+                <Button className ="back-button" variant="outline-primary"  href={"/"}>← Back</Button>
                 <div className="wrapper">
-
                     <div className="pageSelectorContainer">
 
                         <div className={"pageSelector " + (this.state.page === 0 ? "currentlySelected" : "")}

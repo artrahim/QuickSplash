@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import {socket} from '../Router';
 import $ from 'jquery';
+import Button from 'react-bootstrap/Button';
+
 
 import Logo from '../Game/Utilities/Logo';
 import './Lobby.css';
@@ -55,6 +57,8 @@ class CreateLobby extends Component {
                 component =
                 <div>
                     <Logo/>
+                    <Button className ="back-button" variant="outline-primary"  href={"/"}>← Back</Button>
+
                     <title>Create a lobby</title>
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
                     <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet" />

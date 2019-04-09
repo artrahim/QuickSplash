@@ -8,12 +8,12 @@ import './Lobby.css';
 
 class JoinLobby extends Component {
 
-    constructor() {
+    constructor(props) {
 
         super();
         this.state = {
             started: false,
-            nickname: ""
+            lobbyCode: 0
         }
 
     }
@@ -23,14 +23,14 @@ class JoinLobby extends Component {
             socket.emit('joinLobby', $("#joinCode").val(), $("#nickname").val());
         });
 
-        socket.on('failedToJoin', function(){
-            alert("Failed to join lobby");
+        socket.on('failedToJoin', function(errorMessage){
+            alert(errorMessage);
         });
 
-        socket.on('waiting', (nickname) => {
+        socket.on('waiting', (joinCode) => {
             this.setState(state => ({
               started: true,
-              nickname: nickname
+              lobbyCode: joinCode
             }));
         });
 
@@ -61,15 +61,14 @@ class JoinLobby extends Component {
                 </div>
                 break;
             case true:
-                component = <Redirect to='/game'/>;
                 component =
                 <Redirect to={{
                     pathname: '/game',
                     state: {
-                        isCreator: this.props.location.state.isCreator,
-                        nickname: this.state.nickname
+                        isCreator: this.props.location.state ? this.props.location.state.isCreator : false,
+                        lobbyCode: this.state.lobbyCode
                     }
-                }}/>
+                }}/>;
                 break;
             default:
                 break;

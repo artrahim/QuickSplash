@@ -8,7 +8,20 @@ import Question from './Question';
 import Response from './Response';
 
 class Prompt extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            redirect: false
+        }
+    }
 
+    componentDidMount() {
+        this.id = setTimeout(() => this.props.handleTransition(), 3000);
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.id);
+    }
     render() {
 
         return (
