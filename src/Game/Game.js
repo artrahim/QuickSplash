@@ -34,7 +34,7 @@ class Game extends Component {
             this.setState(state => ({
               hasStarted: true,
               round: this.round+=1,
-              stage: 0
+              stage: 1
             }));
         });
 

@@ -7,7 +7,8 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);
 
-        console.log(props);
+        console.log("<<<KILL ME>>>");
+        console.log("location = " + props.location.state);
 
         this.state = {
             username: "",
@@ -75,7 +76,7 @@ class LoginForm extends Component {
     render() {
 
         // Set the path we are going to current page, or go back to index
-        let {from} = {from: {pathname: "/"}};
+        let {from} = this.props.location.state || {from: {pathname: "/"}};
         let {isLoggedIn} = this.state;
 
 
