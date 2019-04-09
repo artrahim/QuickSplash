@@ -5,10 +5,6 @@ import './Prompt.css';
 
 class Question extends Component {
 
-    constructor() {
-        super();
-    }
-
     render() {
 
         return (

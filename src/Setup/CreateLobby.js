@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
 import {socket} from '../Router';
 import $ from 'jquery';
 
-import Logo from '../Game/Utilities/Logo'
+import Logo from '../Game/Utilities/Logo';
 import './Lobby.css';
 
 class CreateLobby extends Component {
@@ -12,24 +12,15 @@ class CreateLobby extends Component {
 
         super();
         this.state = {
-            readyToJoin: 0
+            lobbyCreated: false
         }
 
     }
 
     componentDidMount(){
 
-        socket.on('joinAsCreator', (code) => {
-            this.join();
-        });
-
         $(function(){
-            var rules = {
-                timePerRound: $("#slider1").val(),
-                numRounds: $("#slider2").val(),
-                lobbySize: $("#slider3").val(),
-                afkTimeout: $("#slider4").val()
-            }
+            var rules = {};
             $(".slider").on("input", function() {
                 $("#timePerRound").val($("#slider1").val() + " SECONDS");
                 $("#numRounds").val($("#slider2").val() + " ROUND(S)");
@@ -47,20 +38,20 @@ class CreateLobby extends Component {
             });
         });
 
-    }
+        socket.on('joinAsCreator', (code) => {
+            this.setState(state => ({
+              lobbyCreated: true
+            }));
+            alert("The lobby code is: " + code);
+        });
 
-    join(){
-        this.setState(state => ({
-          readyToJoin: 1
-        }));
-        alert("Changed state");
-    };
+    }
 
     render() {
 
         let component = null;
-        switch (this.state.readyToJoin){
-            case 0:
+        switch (this.state.lobbyCreated){
+            case false:
                 component =
                 <div>
                     <Logo/>
@@ -89,8 +80,14 @@ class CreateLobby extends Component {
                     <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
                 </div>
                 break;
-            case 1:
-                component = <Redirect to='/joinLobby'/>;
+            case true:
+                component =
+                <Redirect to={{
+                    pathname: '/joinLobby',
+                    state: {isCreator: true}
+                }}/>
+                break;
+            default:
                 break;
         }
 

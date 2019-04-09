@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-
 import {socket} from '../Router';
 
-import Timer from './Utilities/Timer'
-import AnswerBox from './AnswerBox';
-import Answer from './Answer';
+import Logo from "../Game/Utilities/Logo";
+
+import Timer from './Utilities/Timer';
 import Question from './Question';
+import AnswerBox from './AnswerBox';
 
 import './Voting.css';
 
@@ -17,6 +17,7 @@ class Voting extends Component {
 
         return (
             <div>
+                <Logo/>
                 <Timer/>
                 <Question question={"What is the worst place to be naked?"}/>
                 <br/>

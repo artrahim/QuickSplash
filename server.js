@@ -1,3 +1,4 @@
+
 const path = require('path');
 const express = require('express');
 const app = express();
@@ -41,24 +42,27 @@ io.on('connection', function(socket){
         let username = logObj.username;
         let password = logObj.password;
 
+        // console.log(logObj);
+
         // query db for Account
         let auth = false;
 
         // find all athletes who play tennis, selecting the 'name' and 'age' fields
         Account.findOne({'username': username}, 'password', function (err,account) {
             if (err) {
+                console.log("<<<<Hakuna Matata>>>>");
                 // emit Login Failed
                 return handleError(err);
             }
 
-            console.log(account.password);
+            console.log(account);
 
 
-            if (password === account.password){
+            if (account !== null && password === account.password)
                 socket.emit('login-success');
-            }else{
+            else
                 socket.emit('login-fail');
-            }
+
         });
 
     });
@@ -146,6 +150,7 @@ io.on('connection', function(socket){
                 joined = true;
                 rooms[i].players.push(nickname);
                 socket.join(rooms[i].name);
+                socket.emit('waiting', nickname);
                 //debugging/logging statements
                 console.log("***************");
                 console.log(nickname + " joined " + rooms[i].name);
@@ -153,7 +158,7 @@ io.on('connection', function(socket){
         }
         //send error message if the user failes to join
         if (!joined){
-            socket.emit('failedToJoin', "hamzah");
+            socket.emit('failedToJoin');
         }
 
     });
@@ -161,8 +166,14 @@ io.on('connection', function(socket){
 
     //actions to be taken when a game starts.
     //TODO: MAKE THE GAME LOOP HERE!
-    socket.on('game', function(creator){
-
+    socket.on('startGame', function(creator){
+        var room = {};
+        for (var i=0; i < rooms.length; i++){
+            if (rooms[i].players.includes(creator)){
+                room = rooms[i];
+            }
+        }
+        io.to(room.name).emit('waiting1');
     });
 
 	//actions to be taken when a user disconnects

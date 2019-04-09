@@ -1,18 +1,33 @@
 import React, {Component} from 'react';
-import {socket} from '../Router';
+import {socket, authenticate} from '../Router';
 
+import {Redirect} from 'react-router-dom'
 
-class Login extends Component {
+class LoginForm extends Component {
     constructor(props) {
         super(props);
+
+        console.log(props);
+
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            isLoggedIn: false,
+            wrongAuth: false
         };
 
         this.loginSubmitHandler = this.loginSubmitHandler.bind(this);
         this.setUsername = this.setUsername.bind(this);
         this.setPassword = this.setPassword.bind(this);
+        this.login = this.login.bind(this);
+
+    }
+
+    login() {
+
+        authenticate.authenticate(() => {
+            this.setState({isLoggedIn: true});
+        });
 
     }
 
@@ -20,20 +35,33 @@ class Login extends Component {
 
         event.preventDefault();
 
+        // For Testing without server.
+        if (this.state.username === "A" && this.state.password === "a")
+            this.login();
+
+
+        var self = this;
+
+
         let loginInfo = JSON.stringify(this.state);
         console.log(loginInfo);
         socket.emit("login", loginInfo);
 
         // listen for response
-        socket.on('success', function (msg) {
+        socket.on('login-success', function (msg) {
+
             // re-route them to home page
+           self.login();
 
-            // set a lgoin flag true
 
+        });
 
-        })
+        socket.on('login-fail', function () {
 
-        // if we good re-route to home page otherwise die here!
+            self.render();
+
+        });
+
     }
 
     setUsername(event) {
@@ -45,11 +73,25 @@ class Login extends Component {
     }
 
     render() {
+
+        // Set the path we are going to current page, or go back to index
+        let {from} = {from: {pathname: "/"}};
+        let {isLoggedIn} = this.state;
+
+
+        if (isLoggedIn)
+            return <Redirect to={from}/>;
+
         return (
 
             <div className="">
 
-                <div className="header">Login</div>
+                <div className="header">
+
+                    {/*<div className="error">Username or password is invalid.</div>*/}
+                    Login
+
+                </div>
 
                 <div className="fieldContainer">
 
@@ -78,4 +120,4 @@ class Login extends Component {
 
 }
 
-export default Login;
+export default LoginForm;
