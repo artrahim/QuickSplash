@@ -1,8 +1,23 @@
-/*body {*/
-/*    background-image: url("bgn.png");*/
-/*}*/
+
+.error {
+    /*position: relative;*/
+    /*position: center;*/
+    margin: 0 auto;
+    margin-right: 10px;
+    border: solid 1px darkred;
+    width: 400px;
+    height: 60px;
+    border-radius: .2em;
+    background: linear-gradient(lightcoral, firebrick);
+    justify-content: center;
+    align-items: center;
+}
+
+
 
 .rootContainer{
+
+    font-family: "Amatic SC", serif;
 
     position: fixed;
     padding: 0;
@@ -41,9 +56,11 @@
     flex: 1;
     text-align: center;
     height: 100%;
-    line-height: 2;
+    line-height: 1.2;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 30px;
+
+    color: black;
 
     /*background-color: gold;*/
 }
@@ -69,7 +86,7 @@
     text-align: center;
     padding: 5px;
     margin-bottom: 17px;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: 100;
     border-bottom: 2px solid #70a1ff;
 

@@ -81,13 +81,13 @@ class Game extends Component {
                 component = <Waiting nickname={this.props.location.state.nickname} isCreator={this.props.location.state.isCreator} hasStarted={false}/>;
                 break;
             case 1:
-                component = <RoundTransitions/>;
+                component = <RoundTransitions handleTransition = {() => this.handleClick()}/>;
                 break;
             case 2:
                 component = <Prompt/>;
                 break;
             case 3:
-                component = <Prompt/>
+                component = <Prompt/>;
                 break;
             case 4:
                 component = <Waiting isCreator={this.state.isCreator} hasStarted={true}/>;
