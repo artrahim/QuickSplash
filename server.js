@@ -42,6 +42,8 @@ io.on('connection', function(socket){
         let username = logObj.username;
         let password = logObj.password;
 
+        // console.log(logObj);
+
         // query db for Account
         let auth = false;
 
@@ -52,7 +54,7 @@ io.on('connection', function(socket){
                 return handleError(err);
             }
 
-            console.log(account.password);
+            console.log(account);
 
 
             if (password === account.password){

@@ -1,5 +1,10 @@
 import React, {Component} from "react";
-import {Route, HashRouter} from "react-router-dom";
+import {
+    Route,
+    HashRouter,
+    Redirect,
+} from "react-router-dom";
+
 import socketIOClient from "socket.io-client";
 
 import Home from "./Setup/Home";
@@ -9,6 +14,39 @@ import Game from "./Game/Game";
 import Login from "./Setup/Login";
 
 var socket;
+
+function PrivateRoute({component: Component, ...rest}) {
+    return (
+        <Route
+            {...rest}
+            render={props =>
+                authenticate.isAuthenticated ? (
+                    <Component {...props} />
+                ) : (
+                    <Redirect
+                        to={{
+                            pathname: "/login",
+                            state: {from: props.location}
+                        }}
+                    />
+                )
+            }
+        />
+    );
+}
+
+const authenticate = {
+    isAuthenticated: false,
+    authenticate(callback) {
+        this.isAuthenticated = true;
+        setTimeout(callback, 100);
+    },
+    logout(callback) {
+        this.isAuthenticated = false;
+        setTimeout(callback, 100);
+    }
+};
+
 
 class Router extends Component {
 
@@ -26,17 +64,15 @@ class Router extends Component {
                         <Route exact path="/" component={Home}/>
                         <Route path="/login" component={Login}/>
 
+                        <PrivateRoute path="/joinLobby" component={JoinLobby}/>
+                        <PrivateRoute path="/game" component={Game}/>
+                        <PrivateRoute path="/createLobby" component={CreateLobby}/>
 
-
-                        <Route path="/createLobby" component={CreateLobby}/>
-                        <Route path="/joinLobby" component={JoinLobby}/>
-                        <Route path="/game" component={Game}/>
                     </HashRouter>
                 </div>
             </div>
         );
     }
-
 }
 
-export { Router, socket };
+export {Router, socket, authenticate};
