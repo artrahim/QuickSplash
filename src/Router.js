@@ -2,9 +2,7 @@ import React, {Component} from "react";
 import {
     Route,
     HashRouter,
-    Link,
     Redirect,
-    withRouter
 } from "react-router-dom";
 
 import socketIOClient from "socket.io-client";
@@ -22,7 +20,7 @@ function PrivateRoute({component: Component, ...rest}) {
         <Route
             {...rest}
             render={props =>
-                fakeAuth.isAuthenticated ? (
+                authenticate.isAuthenticated ? (
                     <Component {...props} />
                 ) : (
                     <Redirect
@@ -37,33 +35,15 @@ function PrivateRoute({component: Component, ...rest}) {
     );
 }
 
-const AuthButton = withRouter(
-    ({history}) =>
-        fakeAuth.isAuthenticated ? (
-            <p>
-                Welcome!{" "}
-                <button
-                    onClick={() => {
-                        fakeAuth.signout(() => history.push("/"));
-                    }}
-                >
-                    Sign out
-                </button>
-            </p>
-        ) : (
-            <p>You are not logged in.</p>
-        )
-);
-
-const fakeAuth = {
+const authenticate = {
     isAuthenticated: false,
-    authenticate(cb) {
+    authenticate(callback) {
         this.isAuthenticated = true;
-        setTimeout(cb, 100); // fake async
+        setTimeout(callback, 100);
     },
-    signout(cb) {
+    logout(callback) {
         this.isAuthenticated = false;
-        setTimeout(cb, 100);
+        setTimeout(callback, 100);
     }
 };
 
@@ -84,10 +64,6 @@ class Router extends Component {
                         <Route exact path="/" component={Home}/>
                         <Route path="/login" component={Login}/>
 
-
-                        {/*<Route path="/createLobby" component={CreateLobby}/>*/}
-
-
                         <PrivateRoute path="/joinLobby" component={JoinLobby}/>
                         <PrivateRoute path="/game" component={Game}/>
                         <PrivateRoute path="/createLobby" component={CreateLobby}/>
@@ -97,94 +73,6 @@ class Router extends Component {
             </div>
         );
     }
-
 }
 
-export {Router, socket, fakeAuth};
-
-/*
-function AuthExample() {
-    return (
-        <Router>
-            <div>
-                <AuthButton/>
-                <ul>
-                    <li>
-                        <Link to="/public">Public Page</Link>
-                    </li>
-                    <li>
-                        <Link to="/protected">Protected Page</Link>
-                    </li>
-                </ul>
-                <Route path="/public" component={Public}/>
-                <Route path="/login" component={Login}/>
-                <PrivateRoute path="/protected" component={Protected}/>
-            </div>
-        </Router>
-    );
-}
-
-const fakeAuth = {
-    isAuthenticated: false,
-    authenticate(cb) {
-        this.isAuthenticated = true;
-        setTimeout(cb, 100); // fake async
-    },
-    signout(cb) {
-        this.isAuthenticated = false;
-        setTimeout(cb, 100);
-    }
-};
-
-const AuthButton = withRouter(
-    ({history}) =>
-        fakeAuth.isAuthenticated ? (
-            <p>
-                Welcome!{" "}
-                <button
-                    onClick={() => {
-                        fakeAuth.signout(() => history.push("/"));
-                    }}
-                >
-                    Sign out
-                </button>
-            </p>
-        ) : (
-            <p>You are not logged in.</p>
-        )
-);
-
-function PrivateRoute({component: Component, ...rest}) {
-    return (
-        <Route
-            {...rest}
-            render={props =>
-                fakeAuth.isAuthenticated ? (
-                    <Component {...props} />
-                ) : (
-                    <Redirect
-                        to={{
-                            pathname: "/login",
-                            state: {from: props.location}
-                        }}
-                    />
-                )
-            }
-        />
-    );
-}
-
-function Public() {
-    return <h3>Public</h3>;
-}
-
-function Protected() {
-    return <h3>Protected</h3>;
-}
-
-// export default AuthExample;
-
-
- */
-
-// export default AuthExample;
+export {Router, socket, authenticate};

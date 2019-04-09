@@ -1,31 +1,44 @@
 import React, {Component} from 'react';
-import {socket} from '../Router';
-
-import {fakeAuth} from '../Router';
+import {socket, authenticate} from '../Router';
 
 import {Redirect} from 'react-router-dom'
-
 
 class LoginForm extends Component {
     constructor(props) {
         super(props);
+
+        console.log(props);
+
         this.state = {
             username: "",
             password: "",
-            redirectToReferrer: false
+            isLoggedIn: false
         };
 
         this.loginSubmitHandler = this.loginSubmitHandler.bind(this);
         this.setUsername = this.setUsername.bind(this);
         this.setPassword = this.setPassword.bind(this);
+        this.login = this.login.bind(this);
 
     }
 
+    login() {
+
+        authenticate.authenticate(() => {
+            this.setState({isLoggedIn: true});
+        });
+
+    }
+
+
     loginSubmitHandler(event) {
 
-        this.login();
-
         event.preventDefault();
+
+        // For Testing without server.
+        if (this.state.username === "A" && this.state.password === "a")
+            this.login();
+
 
         let loginInfo = JSON.stringify(this.state);
         console.log(loginInfo);
@@ -33,14 +46,13 @@ class LoginForm extends Component {
 
         // listen for response
         socket.on('success', function (msg) {
-            // re-route them to home page
 
-            // set a lgoin flag true
+            // re-route them to home page
+           this.login();
 
 
         })
 
-        // if we good re-route to home page otherwise die here!
     }
 
     setUsername(event) {
@@ -51,32 +63,17 @@ class LoginForm extends Component {
         this.setState({password: event.target.value})
     }
 
-    login = () => {
-
-        console.log("pllzzzz killl me...");
-
-        fakeAuth.authenticate(() => {
-            this.setState({redirectToReferrer: true});
-        });
-    };
-
-
     render() {
 
-        let {from} = {from: {pathname: "/createLobby"}};
-        let {redirectToReferrer} = this.state;
+        // Set the path we are going to current page, or go back to index
+        let {from} = {from: {pathname: "/"}};
+        let {isLoggedIn} = this.state;
 
-        // this.state.redirectToReferrer = true;
 
-        console.log("<<<<redirect = >>>>" + this.state.redirectToReferrer);
-
-        if (redirectToReferrer)
+        if (isLoggedIn)
             return <Redirect to={from}/>;
 
-
         return (
-
-
 
             <div className="">
 
