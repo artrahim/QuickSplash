@@ -4,6 +4,9 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+
+const dbUtil = require('./dbUtils');
+
 const port = process.env.PORT || 5000;
 app.use(express.static(path.join(__dirname, '/public')));
 
@@ -137,43 +140,62 @@ io.on('connection', function(socket){
 
     });
 
-
     //actions to be taken when a user joins a lobby
     socket.on('joinLobby', function(joinCode, nickname){
 
+        var errorMessage = "Please check your join code and try again";
         //compare the join code entered by the user to the join codes of all
         //the lobbies on the server
         //if a match is found, add user to correct lobby
         var joined = false;
         for (var i=0; i < rooms.length; i++){
             if (joinCode.localeCompare(rooms[i].code) == 0){
-                joined = true;
-                rooms[i].players.push(nickname);
-                socket.join(rooms[i].name);
-                socket.emit('waiting', nickname);
-                //debugging/logging statements
-                console.log("***************");
-                console.log(nickname + " joined " + rooms[i].name);
+                if (rooms[i].players.includes(nickname)){
+                    errorMessage = "Your nickname is not unique. Please change it and try again";
+                }
+                else{
+                    joined = true;
+                    rooms[i].players.push(nickname);
+                    socket.join(rooms[i].name);
+                    socket.emit('waiting', joinCode);
+                    //debugging/logging statements
+                    console.log("***************");
+                    console.log(nickname + " joined " + rooms[i].name);
+                }
             }
         }
         //send error message if the user failes to join
         if (!joined){
-            socket.emit('failedToJoin');
+            socket.emit('failedToJoin', errorMessage);
         }
 
     });
 
-
     //actions to be taken when a game starts.
     //TODO: MAKE THE GAME LOOP HERE!
-    socket.on('startGame', function(creator){
-        var room = {};
-        for (var i=0; i < rooms.length; i++){
-            if (rooms[i].players.includes(creator)){
-                room = rooms[i];
+    socket.on('startGame', function(code){
+
+        // get random question here
+        let questionList = ["DD"];
+
+        dbUtil.getRandomQuestion(6).then((retQuestion)=> {
+            questionList = retQuestion;
+            console.log("-----------------------LOADED-------------------!");
+            gameLoop();
+            console.log(questionList);
+
+        });
+
+        function gameLoop() {
+            var room = {};
+            for (var i=0; i < rooms.length; i++){
+                if (rooms[i].code.localeCompare(code) == 0){
+                    room = rooms[i];
+                }
             }
+            io.to(room.name).emit('roundTransition');
         }
-        io.to(room.name).emit('roundTransition');
+
     });
 
 	//actions to be taken when a user disconnects

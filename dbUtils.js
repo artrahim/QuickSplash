@@ -8,19 +8,33 @@ let qpDB = mongoose.connection;
 
 let Questions = require('./questionModel');
 
-Questions.countDocuments({}, function(err, count){
-    console.log( "Number of docs: ", count );
-    let randIndex = Math.floor(Math.random() * count);
-    let rE= Questions.findOne({}).limit(1);
-    console.log(rE);
+// returns n random question
+async function getRandomQuestion(n) {
+    let questions = [];
+    let randQuestions = [];
 
+    await Questions.find().then(function (doc) {
 
+        doc.forEach(function(element) {
+            questions.push(element.question);
+        });
 
-});
+        for(let i = 0; i < n; i++) {
+            let randNum = Math.floor(Math.random() * questions.length + 0);
+            if(!randQuestions.includes(questions[randNum]))
+            {
+                randQuestions.push(questions[randNum]);
+            }else {
+                i--;
+            }
+        }
+    });
 
-// let n = Questions.count();
-// console.log('Count\t '+n);
-// let r = Math.floor(Math.random() * n);
-// let randomElement = Questions.skip(r);
+    return randQuestions;
 
-// console.log(randomElement);
+}
+// let a = getRandomQuestion(6).then((a)=>console.log(a));
+
+module.exports = {
+    getRandomQuestion,
+}

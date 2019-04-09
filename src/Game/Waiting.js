@@ -8,10 +8,10 @@ class Waiting extends Component {
 
     componentDidMount(){
 
-        const nickname = this.props.nickname;
+        const lobbyCode = this.props.lobbyCode;
 
         $('#button').click(function(){
-            socket.emit('startGame', nickname);
+            socket.emit('startGame', lobbyCode);
         });
 
     }
