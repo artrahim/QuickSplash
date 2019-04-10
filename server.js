@@ -151,6 +151,7 @@ io.on('connection', function (socket) {
         console.log("***************");
         console.log("Created a lobby");
         console.log("Join code: " + room.code);
+        console.log(room.rules)
 
     });
 
@@ -189,43 +190,59 @@ io.on('connection', function (socket) {
 
     socket.on('startGame', function(code){
 
+        //uses the code passed from the player to determine the correct lobby
+        var room = {};
+        for (var i=0; i < rooms.length; i++){
+            if (rooms[i].code.localeCompare(code) == 0){
+                room = rooms[i];
+            }
+        }
+
         // get random question here
         let questionList = ["DD"];
 
-        dbUtil.getRandomQuestion(6).then((retQuestion)=> {
+        //retrieve all the required questions
+        //For N players, N questions are needed per round
+        //So total number of questions needed = N * number of rounds
+        dbUtil.getRandomQuestion(room.players.length * room.rules.numRounds).then((retQuestion)=> {
             questionList = retQuestion;
             console.log("-----------------------LOADED-------------------!");
             // emit socket event to set the question
             gameLoop();
             console.log(questionList);
+            gameLoop(room, questionList);
 
         });
 
-        function gameLoop() {
-            var room = {};
-            for (var i=0; i < rooms.length; i++){
-                if (rooms[i].code.localeCompare(code) == 0){
-                    room = rooms[i];
-                }
-
-            }
-
-            io.to(room.name).emit('roundTransition');
-
-            // wait 5 sec before sending the first question to the server!
-            setTimeout(function () {
-                io.to(room.name).emit('prompt1', questionList[0]);
-            },5000);
-
-            // wait for 20.5 second before sending the second question
-            setTimeout(function () {
-                io.to(room.name).emit('prompt2', questionList[1]);
-            },20500);
-
-
-        }
-
     });
+
+    //TODO: MAKE THE GAME LOOP HERE!
+    function gameLoop(room, questionList) {
+        var currentRound = 0;
+        //while (currentRound < room.rules.numRounds){
+            io.to(room.name).emit('roundTransition');
+            setTimeout(function(){
+                sendQuestions(room, questionList);
+            }, 3000);
+        //}
+    }
+
+    function sendQuestions(room, questionList){
+        var players = io.sockets.adapter.rooms[room.name].sockets;
+        var index = 0;
+        /*
+        for (var i=0; i<players.length; i++){
+            players[i].emit('prompt1', questionList[index], questionList[index++]);
+        }
+        */
+       for (var player in players){
+           var playerSocket = io.sockets.connected[player];
+           var question1 = questionList[index++];
+           var question2 = questionList[index];
+           var timePerRound = room.rules.timePerRound;
+           playerSocket.emit('prompt1', question1, question2, timePerRound);
+       }
+    }
 
     //actions to be taken when a user disconnects
     socket.on('disconnect', function (socket) {

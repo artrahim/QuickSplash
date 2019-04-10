@@ -7,7 +7,7 @@ class Timer extends Component {
         const stage = new c.Stage("canvasDisplay");
 
         // Set timer.
-        let time = 20;
+        let time = this.props.time;
         let timeLeftColour = "blue";
         let timeOverColour = "red";
 
