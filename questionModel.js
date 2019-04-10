@@ -6,7 +6,6 @@ let Schema = mongoose.Schema;
 let QuestionsSchema = new Schema(
     {
         question: {type: String, required: true, unique: true},
-        // id: {type: Number, required: true, unique: true}
     }
 );
 
