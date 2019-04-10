@@ -7,6 +7,11 @@ class Response extends Component {
     constructor()
     {
         super();
+        this.state = {
+            count:0
+        };
+
+
         this.respnseHandler = this.respnseHandler.bind(this);
     }
 
@@ -19,12 +24,17 @@ class Response extends Component {
         // });
     }
 
-    respnseHandler(event)
+    async respnseHandler(event)
     {
         event.preventDefault();
+        await this.setState({count: (this.state.count + 1) % 2});
         // send the server a msg saying
-        socket.emit("response");
         $('#response').val('');
+        if(this.state.count === 1) {
+            socket.emit("response");
+        } else {
+            socket.emit("roundOver")
+        }
 
     }
 
