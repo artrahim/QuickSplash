@@ -3,17 +3,29 @@
     /*position: relative;*/
     /*position: center;*/
     margin: 0 auto;
-    margin-right: 10px;
-    border: solid 1px darkred;
+    margin-right: 20px;
+    padding-left: 20px;
+    /*border: solid 1px darkred;*/
     width: 400px;
-    height: 60px;
+    height: auto;
     border-radius: .2em;
     background: linear-gradient(lightcoral, firebrick);
     justify-content: center;
     align-items: center;
 }
 
+.error p{
+    font-size: 25px;
+    font-weight: bold;
+    /*color: red;*/
+}
 
+
+.complete p {
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+}
 
 .rootContainer{
 
