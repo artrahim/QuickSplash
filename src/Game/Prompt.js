@@ -16,7 +16,7 @@ class Prompt extends Component {
     }
 
     componentDidMount() {
-        this.id = setTimeout(() => this.props.handleTransition(), 3000);
+        //this.id = setTimeout(() => this.props.handleTransition(), 3000);
     }
 
     componentWillUnmount() {
@@ -27,8 +27,8 @@ class Prompt extends Component {
         return (
             <div>
                 <Logo/>
-                <Timer/>
-                <Question question={'Where is the worst place to be naked?'}/>
+                <Timer time={this.props.time}/>
+                <Question question={this.props.question}/>
                 <br/>
                 <br/>
                 <Response/>

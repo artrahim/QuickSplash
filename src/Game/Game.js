@@ -17,6 +17,7 @@ class Game extends Component {
             stage: 0,
             hasStarted: false,
             round: 0,
+            timePerRound: 0,
             question1: "",
             question2: "",
             answer1: ""
@@ -39,20 +40,21 @@ class Game extends Component {
             }));
         });
 
-        socket.on('prompt1', (aQuestion) => {
+        socket.on('prompt1', (first, second, time) => {
             this.setState(state => ({
-              question1: aQuestion,
-              stage: 2,
+                timePerRound: time,
+                question1: first,
+                question2: second,
+                stage: 2,
             }));
             console.log("1st Question:\t", this.state.question1);
+            console.log("2nd Question:\t", this.state.question2);
         });
 
-        socket.on('prompt2', (aQuestion) => {
+        socket.on('prompt2', () => {
             this.setState(state => ({
-              question2: aQuestion,
               stage: 3
             }));
-            console.log("1st Question:\t", this.state.question2);
         });
 
         socket.on('waiting2', () => {
@@ -88,10 +90,12 @@ class Game extends Component {
                 component = <RoundTransitions/>;
                 break;
             case 2:
-                component = <Prompt handleTransition = {() => this.handleClick()}/>;
+                //component = <Prompt handleTransition = {() => this.handleClick()}/>;
+                component = <Prompt time={this.state.timePerRound} question={this.state.question1}/>;
                 break;
             case 3:
-                component = <Prompt handleTransition = {() => this.handleClick()}/>;
+                //component = <Prompt handleTransition = {() => this.handleClick()}/>;
+                component = <Prompt time={this.state.timePerRound} question={this.state.question2}/>;
                 break;
             case 4:
                 component = <Waiting isCreator={this.state.isCreator} hasStarted={true}/>;

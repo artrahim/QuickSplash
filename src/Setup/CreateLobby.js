@@ -22,7 +22,12 @@ class CreateLobby extends Component {
     componentDidMount() {
 
         $(function () {
-            var rules = {};
+            var rules = {
+                timePerRound: $("#slider1").val(),
+                numRounds: $("#slider2").val(),
+                lobbySize: $("#slider3").val(),
+                afkTimeout: $("#slider4").val()
+            };
             $(".slider").on("input", function () {
                 $("#timePerRound").val($("#slider1").val() + " SECONDS");
                 $("#numRounds").val($("#slider2").val() + " ROUND(S)");
