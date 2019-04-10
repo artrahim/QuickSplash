@@ -29,12 +29,12 @@ class Response extends Component {
         event.preventDefault();
         await this.setState({count: (this.state.count + 1) % 2});
         // send the server a msg saying
-        $('#response').val('');
         if(this.state.count == 1) {
-            socket.emit("response");
+            socket.emit("response", $('#response').val());
         } else {
-            socket.emit("roundOver")
+            socket.emit("roundOver", $('#response').val());
         }
+        $('#response').val('');
 
     }
 
