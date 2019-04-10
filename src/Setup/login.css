@@ -4,16 +4,26 @@
     /*position: center;*/
     margin: 0 auto;
     margin-right: 10px;
-    border: solid 1px darkred;
+    /*border: solid 1px darkred;*/
     width: 400px;
-    height: 60px;
+    height: auto;
     border-radius: .2em;
     background: linear-gradient(lightcoral, firebrick);
     justify-content: center;
     align-items: center;
 }
 
+p{
+    font-size: 25px;
+    font-weight: bold;
+    color: red;
+}
 
+
+.complete p {
+    font-size: 30px;
+    font-weight: bold;
+}
 
 .rootContainer{
 
