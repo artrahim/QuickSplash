@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {socket} from '../Router';
 
-import Logo from "../Game/Utilities/Logo";
 import Waiting from "./Waiting";
 import RoundTransitions from "./RoundTransitions";
 import Prompt from "./Prompt";

@@ -210,9 +210,18 @@ io.on('connection', function (socket) {
 
             }
 
-            // send question to the room
-
             io.to(room.name).emit('roundTransition');
+
+            // wait 5 sec before sending the first question to the server!
+            setTimeout(function () {
+                io.to(room.name).emit('prompt1', questionList[0]);
+            },5000);
+
+            // wait for 20.5 second before sending the second question
+            setTimeout(function () {
+                io.to(room.name).emit('prompt2', questionList[1]);
+            },20500);
+
 
         }
 
