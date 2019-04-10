@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 
 import Logo from '../Game/Utilities/Logo';
 import './Lobby.css';
+import ButtonSplash from "../Game/Utilities/ButtonSplash";
 
 class CreateLobby extends Component {
 
@@ -60,7 +61,7 @@ class CreateLobby extends Component {
         switch (this.state.lobbyCreated) {
             case false:
                 component =
-                    <div>
+                    <div className="lobby">
                         <div className="center-back">
                             <Link to="/">
                                 <Button className="back-button" variant="outline-primary">← Back</Button>
@@ -72,25 +73,31 @@ class CreateLobby extends Component {
                         <meta name="viewport" content="width=device-width, initial-scale=1"/>
                         <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet"/>
                         <h1>CREATE A LOBBY</h1>
-                        <div id="container">
-                            <label htmlFor="timePerRound">TIME PER ROUND: </label>
-                            <input defaultValue="20 SECONDS" type="text" id="timePerRound" readOnly/>
-                            <input type="range" min={20} max={80} defaultValue={20} className="slider" id="slider1"/>
-                            <br/><br/>
-                            <label htmlFor="numRounds">NUMBER OF ROUNDS: </label>
-                            <input defaultValue="1 ROUND(S)" type="text" id="numRounds" readOnly/>
-                            <input type="range" min={1} max={10} defaultValue={1} className="slider" id="slider2"/>
-                            <br/><br/>
-                            <label htmlFor="lobbySize">LOBBY SIZE: </label>
-                            <input defaultValue="3 PLAYERS" type="text" id="lobbySize" readOnly/>
-                            <input type="range" min={3} max={8} defaultValue={3} className="slider" id="slider3"/>
-                            <br/><br/>
-                            <label htmlFor="afkTimeout">AFK TIMEOUT: </label>
-                            <input defaultValue="1 MINUTE(S)" type="text" id="afkTimeout" readOnly/>
-                            <input type="range" min={1} max={5} defaultValue={1} className="slider" id="slider4"/>
+                        <div id="split-container">
+                            <div id="left">
+                                <label htmlFor="timePerRound">TIME PER ROUND: </label>
+                                <input defaultValue="20 SECONDS" type="text" id="timePerRound" readOnly/>
+                                <input type="range" min={20} max={80} defaultValue={20} className="slider"
+                                       id="slider1"/>
+                                <br/><br/>
+                                <label htmlFor="numRounds">NUMBER OF ROUNDS: </label>
+                                <input defaultValue="1 ROUND(S)" type="text" id="numRounds" readOnly/>
+                                <input type="range" min={1} max={10} defaultValue={1} className="slider" id="slider2"/>
+                            </div>
+                            <div id="right">
+                                <label htmlFor="lobbySize">LOBBY SIZE: </label>
+                                <input defaultValue="3 PLAYERS" type="text" id="lobbySize" readOnly/>
+                                <input type="range" min={3} max={8} defaultValue={3} className="slider" id="slider3"/>
+                                <br/><br/>
+                                <label htmlFor="afkTimeout">AFK TIMEOUT: </label>
+                                <input defaultValue="1 MINUTE(S)" type="text" id="afkTimeout" readOnly/>
+                                <input type="range" min={1} max={5} defaultValue={1} className="slider" id="slider4"/>
+                            </div>
                         </div>
                         <br/>
-                        <img id="button" src={require('../Assets/images/blueSplash.png')} alt="button"/>
+                        <div id="button">
+                            <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')} text={"Create"}/>
+                        </div>
                     </div>
                 break;
             case true:

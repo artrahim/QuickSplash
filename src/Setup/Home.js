@@ -14,6 +14,31 @@ class Home extends Component {
         };
     }
 
+    componentDidMount() {
+        let c = window.createjs;
+
+        const w = window.innerWidth, h = window.innerHeight;
+        const logo = document.getElementById("navbarImage");
+        // const logo = document.getElementsByClassName("textImage");
+
+        // logo.style.left = w*0.1+"px";
+        // logo.style.top = h*0.1+"px";
+
+        c.Tween.get(logo, { loop: true })
+            .to({ x: w }, 3000, c.Ease.getPowInOut(4))
+            .to({ alpha: 0, y: 175 }, 500, c.Ease.getPowInOut(2))
+            .to({ alpha: 0, y: 225 }, 100)
+            .to({ alpha: 1, y: 200 }, 500, c.Ease.getPowInOut(2))
+            .to({ x: 0 }, 800, c.Ease.getPowInOut(2))
+            .to({rotate : 180},2000)
+            .call(() => {
+                console.log("done");
+            });
+
+        // c.Ticker.timingMode = c.Ticker.RAF;
+
+    }
+
     render() {
         return (
             <HashRouter>
