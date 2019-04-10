@@ -7,6 +7,7 @@ mongoose.connect(db, {useNewUrlParser: true});
 let qpDB = mongoose.connection;
 
 let Questions = require('./questionModel');
+let PlayerInfo = require('./PlayerInfoModel');
 
 // returns n random question
 async function getRandomQuestion(n) {
@@ -33,8 +34,67 @@ async function getRandomQuestion(n) {
     return randQuestions;
 
 }
-// let a = getRandomQuestion(6).then((a)=>console.log(a));
+
+// updating fields
+function updatePoints(username, points) {
+    let infoQ = {'username': username};
+    PlayerInfo.findOne(infoQ, 'tPoints', function (err, stats) {
+        if (err) {
+            console.log("<<<<Hakuna Matata>>>>");
+            // emit Login Failed
+            return handleError(err);
+        }
+
+        console.log(stats);
+        stats.tPoints = stats.tPoints + points;
+        stats.save(function () {
+            console.log('Updated the score to ', stats.tPoints);
+        });
+    });
+}
+
+function updateWins(username) {
+    let infoQ = {'username': username};
+    PlayerInfo.findOne(infoQ, 'tWins', function (err, stats) {
+        if (err) {
+            console.log("<<<<Hakuna Matata>>>>");
+            // emit Login Failed
+            return handleError(err);
+        }
+
+        console.log(stats);
+        stats.tWins = stats.tWins + 1;
+        stats.save(function () {
+            console.log('Updated the Wins to ', stats.tWins);
+        });
+    });
+}
+
+function updateGamePlayed(username) {
+    let infoQ = {'username': username};
+    PlayerInfo.findOne(infoQ, 'tGamePlayed', function (err, stats) {
+        if (err) {
+            console.log("<<<<Hakuna Matata>>>>");
+            // emit Login Failed
+            return handleError(err);
+        }
+
+        console.log(stats);
+        stats.tGamePlayed = stats.tGamePlayed + 1;
+        stats.save(function () {
+            console.log('Updated the Wins to ', stats.tGamePlayed);
+        });
+    });
+}
+
+// updatePoints('ds', 10000);
+// updateWins('ds');
+// updateGamePlayed('ds');
 
 module.exports = {
     getRandomQuestion,
-}
+    updatePoints,
+    updateWins,
+    updateGamePlayed
+
+};
