@@ -1,4 +1,3 @@
-
 const path = require('path');
 const express = require('express');
 const app = express();
@@ -35,7 +34,7 @@ let AccountSchema = new Schema(
 
 let Account = mongoose.model("Account", AccountSchema);
 
-io.on('connection', function(socket){
+io.on('connection', function (socket) {
 
     console.log("user connected");
 
@@ -51,7 +50,7 @@ io.on('connection', function(socket){
         let auth = false;
 
         // find all athletes who play tennis, selecting the 'name' and 'age' fields
-        Account.findOne({'username': username}, 'password', function (err,account) {
+        Account.findOne({'username': username}, 'password', function (err, account) {
             if (err) {
                 console.log("<<<<Hakuna Matata>>>>");
                 // emit Login Failed
@@ -82,39 +81,54 @@ io.on('connection', function(socket){
 
         // do input sanitization
 
-        // create and add new account to db
-        let newAccount = new Account({
-            fname: fname,
-            lname: lname,
-            email: email,
-            username: username,
-            password: password
-        });
+        Account.findOne({'username': username}, username, function (err, account) {
+            if (err) {
+                console.log("ERROR PLZ LEAVE.")
+                return handleError(err);
+            }
 
-        newAccount.save(function (err) {
-            if (err) return "You Fucked up!";
+            console.log(account);
 
+            // New Account -
+            if (account === null) {
+                // create and add new account to db
+                let newAccount = new Account({
+                    fname: fname,
+                    lname: lname,
+                    email: email,
+                    username: username,
+                    password: password
+                });
+
+                newAccount.save(function (err) {
+                    if (err) return "You Fucked up!";
+                });
+
+                socket.emit('signUp-success');
+            } else {
+                socket.emit('signUp-fail');
+            }
         });
 
 
     });
 
     //actions to be taken when a user creates a lobby
-	socket.on('createLobby', function(ruleSet){
+    socket.on('createLobby', function (ruleSet) {
 
         //generate a join code and make sure it's unique
         while (true) {
-    		var duplicate = false;
-    		var generatedCode = (Math.floor((Math.random() * 1000))).toString(10);
-    		for (var i=0; i < codes.length; i++){
-    			if (codes[i].localeCompare(generatedCode) == 0){
-    				duplicate = true;
-    			}
-    		}
-    		if (!duplicate){
+            var duplicate = false;
+            var generatedCode = (Math.floor((Math.random() * 1000))).toString(10);
+            for (var i = 0; i < codes.length; i++) {
+                if (codes[i].localeCompare(generatedCode) == 0) {
+                    duplicate = true;
+                }
+            }
+            if (!duplicate) {
                 codes.push(generatedCode);
-    			break;
-    		}
+                break;
+            }
         }
 
         //set the variables for the created lobby
@@ -142,19 +156,18 @@ io.on('connection', function(socket){
     });
 
     //actions to be taken when a user joins a lobby
-    socket.on('joinLobby', function(joinCode, nickname){
+    socket.on('joinLobby', function (joinCode, nickname) {
 
         var errorMessage = "Please check your join code and try again";
         //compare the join code entered by the user to the join codes of all
         //the lobbies on the server
         //if a match is found, add user to correct lobby
         var joined = false;
-        for (var i=0; i < rooms.length; i++){
-            if (joinCode.localeCompare(rooms[i].code) == 0){
-                if (rooms[i].players.includes(nickname)){
+        for (var i = 0; i < rooms.length; i++) {
+            if (joinCode.localeCompare(rooms[i].code) == 0) {
+                if (rooms[i].players.includes(nickname)) {
                     errorMessage = "Your nickname is not unique. Please change it and try again";
-                }
-                else{
+                } else {
                     joined = true;
                     rooms[i].players.push(nickname);
                     socket.join(rooms[i].name);
@@ -166,13 +179,15 @@ io.on('connection', function(socket){
             }
         }
         //send error message if the user failes to join
-        if (!joined){
+        if (!joined) {
             socket.emit('failedToJoin', errorMessage);
         }
 
     });
 
     //actions to be taken when a game starts.
+    //TODO: MAKE THE GAME LOOP HERE!
+
     socket.on('startGame', function(code){
 
         //uses the code passed from the player to determine the correct lobby
@@ -193,9 +208,7 @@ io.on('connection', function(socket){
             questionList = retQuestion;
             console.log("-----------------------LOADED-------------------!");
             // emit socket event to set the question
-            //socket.emit('prompt1',questionList[0]);
-            //socket.emit('prompt1',questionList[1]);
-
+            gameLoop();
             console.log(questionList);
             gameLoop(room, questionList);
 
@@ -231,10 +244,10 @@ io.on('connection', function(socket){
        }
     }
 
-	//actions to be taken when a user disconnects
-	socket.on('disconnect', function(socket){
+    //actions to be taken when a user disconnects
+    socket.on('disconnect', function (socket) {
         console.log("user disconnected");
-	});
+    });
 
 });
 
@@ -243,6 +256,6 @@ io.on('connection', function(socket){
 qpDB.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
-http.listen(port, function(){
-	console.log('listening on *:' + port);
+http.listen(port, function () {
+    console.log('listening on *:' + port);
 });

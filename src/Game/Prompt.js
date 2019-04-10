@@ -20,7 +20,8 @@ class Prompt extends Component {
     }
 
     componentWillUnmount() {
-        clearTimeout(this.id);
+        // !!!
+        // clearTimeout(this.id);
     }
     render() {
 
