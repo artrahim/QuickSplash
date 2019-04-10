@@ -88,10 +88,13 @@ class Game extends Component {
                 component = <RoundTransitions/>;
                 break;
             case 2:
-                component = <Prompt handleTransition = {() => this.handleClick()}/>;
+                // component = <Prompt handleTransition = {() => this.handleClick()}/>;
+                component = <Prompt question={this.state.question1}/>;
                 break;
             case 3:
-                component = <Prompt handleTransition = {() => this.handleClick()}/>;
+                // component = <Prompt handleTransition = {() => this.handleClick()}/>;
+                component = <Prompt question={this.state.question2}/>;
+
                 break;
             case 4:
                 component = <Waiting isCreator={this.state.isCreator} hasStarted={true}/>;

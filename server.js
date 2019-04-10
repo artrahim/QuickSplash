@@ -182,9 +182,6 @@ io.on('connection', function(socket){
             questionList = retQuestion;
             console.log("-----------------------LOADED-------------------!");
             // emit socket event to set the question
-            socket.emit('prompt1',questionList[0]);
-            socket.emit('prompt1',questionList[1]);
-
             gameLoop();
             console.log(questionList);
 
@@ -197,7 +194,11 @@ io.on('connection', function(socket){
                     room = rooms[i];
                 }
             }
+
+            // send question to the room
+
             io.to(room.name).emit('roundTransition');
+
         }
 
     });

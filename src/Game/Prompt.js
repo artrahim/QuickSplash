@@ -16,11 +16,13 @@ class Prompt extends Component {
     }
 
     componentDidMount() {
-        this.id = setTimeout(() => this.props.handleTransition(), 3000);
+        // !!!
+        // this.id = setTimeout(() => this.props.handleTransition(), 3000);
     }
 
     componentWillUnmount() {
-        clearTimeout(this.id);
+        // !!!
+        // clearTimeout(this.id);
     }
     render() {
 
@@ -28,7 +30,8 @@ class Prompt extends Component {
             <div>
                 <Logo/>
                 <Timer/>
-                <Question question={'Where is the worst place to be naked?'}/>
+                {/*<Question question={'Where is the worst place to be naked?'}/>*/}
+                <Question question={this.props.question}/>
                 <br/>
                 <br/>
                 <Response/>
