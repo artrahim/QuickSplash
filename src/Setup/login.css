@@ -3,7 +3,8 @@
     /*position: relative;*/
     /*position: center;*/
     margin: 0 auto;
-    margin-right: 10px;
+    margin-right: 20px;
+    padding-left: 20px;
     /*border: solid 1px darkred;*/
     width: 400px;
     height: auto;
@@ -13,16 +14,17 @@
     align-items: center;
 }
 
-p{
+.error p{
     font-size: 25px;
     font-weight: bold;
-    color: red;
+    /*color: red;*/
 }
 
 
 .complete p {
     font-size: 30px;
     font-weight: bold;
+    color: white;
 }
 
 .rootContainer{

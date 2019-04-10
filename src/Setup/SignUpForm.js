@@ -43,6 +43,7 @@ class SignUpForm extends Component {
         let passwordValid = this.state.passwordValid;
         let fnameValid = this.state.fnameValid;
         let lnameValid = this.state.lnameValid;
+        let usernameValid = this.state.usernameValid;
         let passLength = 5;
 
         switch (fieldName) {
@@ -63,6 +64,10 @@ class SignUpForm extends Component {
                 lnameValid = value.length >= 1;
                 fieldErrors.name = lnameValid ? '' : ' not given';
                 break;
+            case 'username':
+                usernameValid = value.length >= 1;
+                fieldErrors.username = usernameValid ? '' : ' cannot be blank';
+                break;
 
             default:
                 break;
@@ -79,10 +84,10 @@ class SignUpForm extends Component {
 
     validateForm() {
 
-        console.log("email " + this.state.emailValid )
-        console.log("pass = " + this.state.passwordValid )
+        console.log("email " + this.state.emailValid)
+        console.log("pass = " + this.state.passwordValid)
         console.log("first name = " + this.state.fnameValid)
-        console.log( "last name = " + this.state.lnameValid)
+        console.log("last name = " + this.state.lnameValid)
 
         this.setState({
             validForm: this.state.emailValid && this.state.usernameValid && this.state.passwordValid && this.state.fnameValid && this.state.lnameValid
@@ -126,11 +131,13 @@ class SignUpForm extends Component {
     }
 
     setUsername(event) {
-        this.setState({username: event.target.value})
+        this.setState({username: event.target.value}, ()=>{
+            this.checkField("username", this.state.username)
+        })
     }
 
     setPassword(event) {
-        this.setState({password: event.target.value}, ()=>{
+        this.setState({password: event.target.value}, () => {
             this.checkField("password", this.state.password);
         })
     }
@@ -148,7 +155,7 @@ class SignUpForm extends Component {
     }
 
     setLastName(event) {
-        this.setState({lname: event.target.value}, ()=>{
+        this.setState({lname: event.target.value}, () => {
             this.checkField("lname", this.state.lname);
         })
     }
@@ -166,7 +173,11 @@ class SignUpForm extends Component {
 
             <div className="signUpContainer">
 
-                <FormError formError={this.state.formError}/>
+                <div className="error">
+
+                    <FormError formError={this.state.formError}/>
+
+                </div>
 
                 <div className="header">Sign Up</div>
 
