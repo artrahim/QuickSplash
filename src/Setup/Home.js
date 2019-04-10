@@ -24,7 +24,11 @@ class Home extends Component {
                         <img className="starImage" src={ require('../Assets/images/homePage.png') } alt="button">
                         </img>
                         <img className="logo" src={ require('../Assets/images/logo.png') } ></img>
-                        <div className="textImage">Speak Your Mind!</div>
+                        <div className="textImage">Speak Your Mind!
+
+
+
+                        </div>
                     </div>
                     <div id="navbarButton">
                             <div className="container-flex">
