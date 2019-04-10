@@ -232,6 +232,11 @@ io.on('connection', function (socket) {
                 io.to(room.name).emit('prompt2');
             });
 
+            // send a round transition
+            socket.on('roundOver', function () {
+                io.to(room.name).emit('roundTransition');
+            });
+
 
         //}
     }
