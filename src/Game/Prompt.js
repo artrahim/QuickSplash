@@ -3,7 +3,7 @@ import {socket} from '../Router';
 
 import Logo from "../Game/Utilities/Logo";
 
-import Timer from './Utilities/Timer'
+import Timer from './Utilities/Timer';
 import Question from './Question';
 import Response from './Response';
 

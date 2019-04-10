@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {socket} from '../Router';
 import $ from 'jquery';
 
+import Timer from './Utilities/Timer';
 import Logo from "../Game/Utilities/Logo";
 
 class Waiting extends Component {
@@ -35,6 +36,7 @@ class Waiting extends Component {
             <div>
                 <title>Create a lobby</title>
                 <Logo/>
+                <Timer/>
                 <br></br>
                 <h1>WAITING FOR {text}...</h1>
                 {button}
