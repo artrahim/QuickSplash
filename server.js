@@ -181,6 +181,10 @@ io.on('connection', function(socket){
         dbUtil.getRandomQuestion(6).then((retQuestion)=> {
             questionList = retQuestion;
             console.log("-----------------------LOADED-------------------!");
+            // emit socket event to set the question
+            socket.emit('prompt1',questionList[0]);
+            socket.emit('prompt1',questionList[1]);
+
             gameLoop();
             console.log(questionList);
 
