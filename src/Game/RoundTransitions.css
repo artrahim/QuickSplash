@@ -17,11 +17,3 @@ h2 {
 .background {
     background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
 }
-
-body{
-    background: rgb(240,147,251);
-    background: radial-gradient(circle, rgba(240,147,251,1) 0%, rgba(245,87,227,1) 100%);
-
-    width: 100%;
-    height: 100%;
-}
