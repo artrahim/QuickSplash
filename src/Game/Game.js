@@ -44,6 +44,7 @@ class Game extends Component {
               question1: aQuestion,
               stage: 2,
             }));
+            console.log("1st Question:\t", this.state.question1);
         });
 
         socket.on('prompt2', (aQuestion) => {
@@ -51,6 +52,7 @@ class Game extends Component {
               question2: aQuestion,
               stage: 3
             }));
+            console.log("1st Question:\t", this.state.question2);
         });
 
         socket.on('waiting2', () => {

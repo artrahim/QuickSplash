@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {socket} from '../Router';
 import $ from 'jquery';
 
 import Logo from '../Game/Utilities/Logo'
 import './Lobby.css';
+import Button from "./CreateLobby";
 
 class JoinLobby extends Component {
 
@@ -44,6 +45,7 @@ class JoinLobby extends Component {
                 component =
                 <div>
                     <Logo/>
+
                     <title>Join a lobby</title>
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
                     <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet" />

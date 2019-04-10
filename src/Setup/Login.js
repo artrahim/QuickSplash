@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 
 import './login.css'
 import Logo from "./CreateLobby";
+import {Link} from "react-router-dom";
 
 
 class Login extends Component {
@@ -48,7 +49,9 @@ class Login extends Component {
 
             <div className="rootContainer">
 
-                <Button className ="back-button" variant="outline-primary"  href={"/"}>← Back</Button>
+                <Link to="/">
+                    <Button className="back-button" variant="outline-primary">← Back</Button>
+                </Link>
                 <div className="wrapper">
                     <div className="pageSelectorContainer">
 

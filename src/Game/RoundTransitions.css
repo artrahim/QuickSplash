@@ -14,14 +14,14 @@ h2 {
     -webkit-text-stroke-color: black;*/
 }
 
-body{
-    margin: 0;
-    top: 0;
-    background-image: url("../Assets/images/magentaBG.png");
-    height: 100vh;
-    width: 100vw;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+.background {
+    background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+}
 
+body{
+    background: rgb(240,147,251);
+    background: radial-gradient(circle, rgba(240,147,251,1) 0%, rgba(245,87,227,1) 100%);
+
+    width: 100%;
+    height: 100%;
 }
