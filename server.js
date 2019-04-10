@@ -204,11 +204,13 @@ io.on('connection', function (socket) {
         //retrieve all the required questions
         //For N players, N questions are needed per round
         //So total number of questions needed = N * number of rounds
-        dbUtil.getRandomQuestion(room.players.length * room.rules.numRounds).then((retQuestion)=> {
+
+        // TO:DO change back to n players n question
+        // dbUtil.getRandomQuestion(room.players.length * room.rules.numRounds)
+        dbUtil.getRandomQuestion(6).then((retQuestion)=> {
             questionList = retQuestion;
             console.log("-----------------------LOADED-------------------!");
             // emit socket event to set the question
-            gameLoop();
             console.log(questionList);
             gameLoop(room, questionList);
 
@@ -224,22 +226,32 @@ io.on('connection', function (socket) {
             setTimeout(function(){
                 sendQuestions(room, questionList);
             }, 3000);
+
+            // send a prompt2 when a response recieved
+            socket.on('response',function () {
+                io.to(room.name).emit('prompt2');
+            });
+
+
         //}
     }
 
     function sendQuestions(room, questionList){
-        var players = io.sockets.adapter.rooms[room.name].sockets;
-        var index = 0;
+        let players = io.sockets.adapter.rooms[room.name].sockets;
+        let index = 0;
         /*
         for (var i=0; i<players.length; i++){
             players[i].emit('prompt1', questionList[index], questionList[index++]);
         }
         */
-       for (var player in players){
-           var playerSocket = io.sockets.connected[player];
-           var question1 = questionList[index++];
-           var question2 = questionList[index];
-           var timePerRound = room.rules.timePerRound;
+       for (let player in players){
+           let playerSocket = io.sockets.connected[player];
+           let question1 = questionList[index++];
+           let question2 = questionList[index];
+           let timePerRound = room.rules.timePerRound;
+
+           console.log('1st Question: ' + question1 + '\n' + '2nd Question: ' + question2);
+
            playerSocket.emit('prompt1', question1, question2, timePerRound);
        }
     }
