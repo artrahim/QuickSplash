@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import {NavLink, HashRouter} from "react-router-dom";
 import ButtonSplash from "../Game/Utilities/ButtonSplash";
 
+// import TweenButton from '../../public/TweenButton'
+
 import './Home.css';
 
 class Home extends Component {
