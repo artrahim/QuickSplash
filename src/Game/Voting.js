@@ -18,7 +18,7 @@ class Voting extends Component {
         return (
             <div>
                 <Logo/>
-                <Timer/>
+                <Timer time={30}/>
                 <Question question={"What is the worst place to be naked?"}/>
                 <br/>
                 <br/>

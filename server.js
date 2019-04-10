@@ -187,7 +187,6 @@ io.on('connection', function (socket) {
 
     //actions to be taken when a game starts.
     //TODO: MAKE THE GAME LOOP HERE!
-
     socket.on('startGame', function(code){
 
         //uses the code passed from the player to determine the correct lobby
@@ -211,32 +210,29 @@ io.on('connection', function (socket) {
             console.log("-----------------------LOADED-------------------!");
             // emit socket event to set the question
             console.log(questionList);
-            gameLoop(room, questionList);
+            init(room, questionList);
 
         });
 
     });
 
-    //TODO: MAKE THE GAME LOOP HERE!
-    function gameLoop(room, questionList) {
+    // send a prompt2 when a response recieved
+    socket.on('response', function () {
+        socket.emit('prompt2');
+    });
+
+    // send a waiting screen
+    socket.on('roundOver', function () {
+        socket.emit('waiting2');
+    });
+
+    function init(room, questionList) {
         var currentRound = 0;
         //while (currentRound < room.rules.numRounds){
             io.to(room.name).emit('roundTransition');
             setTimeout(function(){
                 sendQuestions(room, questionList);
             }, 3000);
-
-            // send a prompt2 when a response recieved
-            socket.on('response',function () {
-                io.to(room.name).emit('prompt2');
-            });
-
-            // send a round transition
-            socket.on('roundOver', function () {
-                io.to(room.name).emit('roundTransition');
-            });
-
-
         //}
     }
 
@@ -248,19 +244,31 @@ io.on('connection', function (socket) {
             players[i].emit('prompt1', questionList[index], questionList[index++]);
         }
         */
-       for (let player in players){
+        let timePerRound = room.rules.timePerRound;
+        for (let player in players){
            let playerSocket = io.sockets.connected[player];
            let question1 = questionList[index++];
-           if (index === players.length - 1){
+           var numPlayers = Object.keys(players).length;
+           if (index === numPlayers){
                index = 0;
            }
            let question2 = questionList[index];
-           let timePerRound = room.rules.timePerRound;
 
            console.log('1st Question: ' + question1 + '\n' + '2nd Question: ' + question2);
 
            playerSocket.emit('prompt1', question1, question2, timePerRound);
+
        }
+
+       var timeUntilVote = timePerRound+1 * 1000;
+       setTimeout(function(){
+           voting(room);
+       }, 25000);
+
+    }
+
+    function voting(room){
+        io.to(room.name).emit('vote');
     }
 
     //actions to be taken when a user disconnects
