@@ -206,8 +206,7 @@ io.on('connection', function (socket) {
         //So total number of questions needed = N * number of rounds
 
         // TO:DO change back to n players n question
-        // dbUtil.getRandomQuestion(room.players.length * room.rules.numRounds)
-        dbUtil.getRandomQuestion(6).then((retQuestion)=> {
+        dbUtil.getRandomQuestion(room.players.length * room.rules.numRounds).then((retQuestion)=> {
             questionList = retQuestion;
             console.log("-----------------------LOADED-------------------!");
             // emit socket event to set the question
@@ -252,6 +251,9 @@ io.on('connection', function (socket) {
        for (let player in players){
            let playerSocket = io.sockets.connected[player];
            let question1 = questionList[index++];
+           if (index === players.length - 1){
+               index = 0;
+           }
            let question2 = questionList[index];
            let timePerRound = room.rules.timePerRound;
 

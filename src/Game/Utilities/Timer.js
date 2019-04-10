@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import {socket} from "../../Router";
 
 class Timer extends Component {
 
@@ -86,7 +87,10 @@ class Timer extends Component {
 
             // When timer is complete...
             if (time === 0)
+            {
                 clearInterval(timer);
+                socket.emit('roundOver');
+            }
 
         }, 1000);
 
