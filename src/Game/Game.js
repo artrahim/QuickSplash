@@ -80,9 +80,10 @@ class Game extends Component {
         //render correct stage based on game state
         //states are represented by numbers (0 to 6)
         let component = null;
+        let lobbyCode = this.props.location.state.lobbyCode;
         switch (this.state.stage){
             case 0:
-                component = <Waiting lobbyCode={this.props.location.state.lobbyCode} isCreator={this.props.location.state.isCreator} hasStarted={false}/>;
+                component = <Waiting lobbyCode={lobbyCode} isCreator={this.props.location.state.isCreator} hasStarted={false}/>;
                 break;
             case 1:
                 //component = <RoundTransitions handleTransition = {() => this.handleClick()}/>;
@@ -90,17 +91,17 @@ class Game extends Component {
                 break;
             case 2:
                 //component = <Prompt handleTransition = {() => this.handleClick()}/>;
-                component = <Prompt time={this.state.timePerRound} question={this.state.question1}/>;
+                component = <Prompt code={lobbyCode} time={this.state.timePerRound} question={this.state.question1}/>;
                 break;
             case 3:
                 //component = <Prompt handleTransition = {() => this.handleClick()}/>;
-                component = <Prompt time={this.state.timePerRound} question={this.state.question2}/>;
+                component = <Prompt code={lobbyCode} time={this.state.timePerRound} question={this.state.question2}/>;
                 break;
             case 4:
                 component = <Waiting isCreator={this.state.isCreator} hasStarted={true}/>;
                 break;
             case 5:
-                component = <Voting lobbyCode={this.props.location.state.lobbyCode}/>;
+                component = <Voting lobbyCode={lobbyCode}/>;
                 break;
             case 6:
                 component = <Resultmain/>;

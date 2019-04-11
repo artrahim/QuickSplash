@@ -36,7 +36,7 @@ class Prompt extends Component {
                 <Question question={this.props.question}/>
                 <br/>
                 <br/>
-                <Response/>
+                <Response question={this.props.question} code={this.props.code}/>
             </div>
         );
 
