@@ -4,7 +4,10 @@ import ButtonSplash from "../Game/Utilities/ButtonSplash";
 
 import posed from 'react-pose';
 
-import Test from './Test'
+// import Test from './Test'
+
+import {tween, easing, styler} from 'popmotion';
+
 
 import './Home.css';
 
@@ -21,7 +24,19 @@ class Home extends Component {
             auth: false
         };
     }
-    
+
+    componentDidMount() {
+
+        const logo = document.querySelector('.starImage');
+        const logoStyler = styler(logo);
+
+        tween({
+            to: 300,
+            duration: 300,
+            ease: easing.linear
+        }).start(logoStyler.set('x'));
+    }
+
     render() {
 
         return (
@@ -31,7 +46,7 @@ class Home extends Component {
                         <div id="navbarImage">
                             <img className="starImage" src={require('../Assets/images/homePage.png')} alt="button">
                             </img>
-                            <Test className="logo" src={require('../Assets/images/logo.png')} alt="button"/>
+                            <img className="logo" src={require('../Assets/images/logo.png')} alt="button"/>
                             <div className="textImage">Speak Your Mind!</div>
                         </div>
                         <div id="navbarButton">
