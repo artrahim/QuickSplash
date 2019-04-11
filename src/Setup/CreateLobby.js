@@ -67,7 +67,7 @@ class CreateLobby extends Component {
                                 <Button className="back-button" variant="outline-primary">← Back</Button>
                             </Link>
                             <Logo/>
-                            <div className="empty"></div>
+                            <div className="empty"/>
                         </div>
                         <title>Create a lobby</title>
                         <meta name="viewport" content="width=device-width, initial-scale=1"/>

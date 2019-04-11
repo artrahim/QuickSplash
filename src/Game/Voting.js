@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {socket} from '../Router';
 
 import Logo from "../Game/Utilities/Logo";
@@ -17,8 +17,11 @@ class Voting extends Component {
 
         return (
             <div>
-                <Logo/>
-                <Timer time={30}/>
+                <div className="center-back">
+                    <Timer time={30}/>
+                    <Logo/>
+                    <div className="empty"/>
+                </div>
                 <Question question={"What is the worst place to be naked?"}/>
                 <br/>
                 <br/>

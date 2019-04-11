@@ -4,7 +4,7 @@ html, body {
 }
 
 
-#navbarContainer {
+#home #navbarContainer {
     width: 100vw;
     height: 100vh;
     background-image: linear-gradient(100deg, #64b3f4 0%, #c2e59c 100%);
@@ -14,7 +14,7 @@ html, body {
 }
 
 
-#navbarButton {
+#home #navbarButton {
     margin: 0 auto;
     justify-content: center;
     align-items:center;
@@ -52,7 +52,7 @@ html, body {
     font-family: "Amatic SC";
 }
 
-#navbarImage {
+#home #navbarImage {
     margin: 0 auto;
     float:left;
     justify-content: center;
@@ -69,7 +69,7 @@ html, body {
 
 }
 
-.starImage {
+#home .starImage {
     display: table;
     margin: 0 auto;
     justify-content: center;
@@ -78,7 +78,7 @@ html, body {
 
 }
 
-.textImage {
+#home .textImage {
     position:absolute;
     font-size: 3vw;
     font-weight: bold;
