@@ -89,7 +89,7 @@ class Timer extends Component {
             if (time === 0)
             {
                 clearInterval(timer);
-                socket.emit('roundOver');
+                //socket.emit('roundOver');
             }
 
         }, 1000);

@@ -19,7 +19,9 @@ class Game extends Component {
             timePerRound: 0,
             question1: "",
             question2: "",
-            answer1: ""
+            beingVotedOn: "",
+            answer1: "",
+            answer2: "",
         };
 
     }
@@ -52,25 +54,28 @@ class Game extends Component {
 
         socket.on('prompt2', () => {
             this.setState(state => ({
-              stage: 3
+                stage: 3
             }));
         });
 
         socket.on('waiting2', () => {
             this.setState(state => ({
-              stage: 4
+                stage: 4
             }));
         });
 
-        socket.on('vote', () => {
+        socket.on('vote', (question, a1, a2) => {
             this.setState(state => ({
-              stage: 5
+                beingVotedOn: question,
+                answer1: a1,
+                answer2: a2,
+                stage: 5
             }));
         });
 
         socket.on('result', () => {
             this.setState(state => ({
-              stage: 6
+                stage: 6
             }));
         });
 
@@ -101,7 +106,7 @@ class Game extends Component {
                 component = <Waiting isCreator={this.state.isCreator} hasStarted={true}/>;
                 break;
             case 5:
-                component = <Voting lobbyCode={lobbyCode}/>;
+                component = <Voting question={this.state.beingVotedOn} answer1={this.state.answer1} answer2={this.state.answer2} lobbyCode={lobbyCode}/>;
                 break;
             case 6:
                 component = <Resultmain/>;

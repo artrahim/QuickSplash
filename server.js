@@ -191,7 +191,13 @@ io.on('connection', function (socket) {
         }
         */
 
-        var room = findLobby(code);
+        //var room = findLobby(code);
+        var room = {};
+        for (var i=0; i < rooms.length; i++){
+            if (rooms[i].code.localeCompare(code) == 0){
+                room = rooms[i];
+            }
+        }
 
         // get random question here
         let questionList = ["DD"];
@@ -212,19 +218,64 @@ io.on('connection', function (socket) {
     });
 
     // send a prompt2 when a response recieved
-    socket.on('response', function (answer, code) {
-        var room = findLobby(code);
+    socket.on('response', function (answer, question, code) {
+        //var room = findLobby(code);
+        var room = {};
+        for (var i=0; i < rooms.length; i++){
+            if (rooms[i].code.localeCompare(code) == 0){
+                room = rooms[i];
+                console.log("*********************************" + room.name);
+            }
+        }
         //find the question in the lobby's list of questions
         //assign answer to said question
+        for (var i=0; i<room.questions.length; i++){
+            if (room.questions[i].text === question){
+                var temp = {
+                    nickname: "",
+                    text: answer,
+                    votes: 0
+                }
+                room.questions[i].answers.push(temp);
+                console.log(room.questions);
+            }
+        }
         socket.emit('prompt2');
     });
 
     // send a waiting screen
-    socket.on('roundOver', function (code) {
+    socket.on('roundOver', function (answer, question, code) {
+        var room = {};
+        for (var i=0; i < rooms.length; i++){
+            if (rooms[i].code.localeCompare(code) == 0){
+                room = rooms[i];
+            }
+        }
+        //find the question in the lobby's list of questions
+        //assign answer to said question
+        for (var i=0; i<room.questions.length; i++){
+            if (room.questions[i].text === question){
+                var temp = {
+                    nickname: "",
+                    text: answer,
+                    votes: 0
+                }
+                room.questions[i].answers.push(temp);
+                console.log(room.questions);
+            }
+        }
         socket.emit('waiting2');
     });
 
     socket.on('vote', function(code, id) {
+        //var room = findLobby(code);
+        var room = {};
+        for (var i=0; i < rooms.length; i++){
+            if (rooms[i].code.localeCompare(code) == 0){
+                room = rooms[i];
+            }
+        }
+
         console.log("Voted for " + id);
     });
 
@@ -254,29 +305,12 @@ io.on('connection', function (socket) {
                text: question1,
                answers: []
            }
-           var answer = {
-               name: "",
-               text: "",
-               votes: 0
-           }
-           question.answers.push(answer);
            room.questions.push(question);
            var numPlayers = Object.keys(players).length;
            if (index === numPlayers){
                index = 0;
            }
            let question2 = questionList[index];
-           var question = {
-               text: question1,
-               answers: []
-           }
-           var answer = {
-               name: "",
-               text: "",
-               votes: 0
-           }
-           question.answers.push(answer);
-           room.questions.push(question);
            console.log(room.questions);
            //console.log('1st Question: ' + question1 + '\n' + '2nd Question: ' + question2);
 
@@ -293,9 +327,28 @@ io.on('connection', function (socket) {
     }
 
     function voting(room){
-        io.to(room.name).emit('vote');
+        var offset = 0;
+        for (var i=0; i<room.questions.length; i++){
+            console.log(i);
+            var prompt = room.questions[i].text;
+            var answer1 = room.questions[i].answers[0].text;
+            console.log(answer1);
+            var answer2 = room.questions[i].answers[1].text;
+            console.log(answer2);
+            sendVote(room, prompt, answer1, answer2, offset);
+            console.log("timeout set" + offset.toString(10))
+            offset += 5000
+        }
     }
 
+    function sendVote(room, prompt, answer1, answer2, offset){
+        setTimeout(function(){
+            console.log(prompt);
+            io.to(room.name).emit('vote', prompt, answer1, answer2);
+        }, offset);
+    }
+
+    /*
     function findLobby(code){
         //uses the code passed from the player to determine the correct lobby
         var room = {};
@@ -306,6 +359,7 @@ io.on('connection', function (socket) {
         }
         return room;
     }
+    */
 
     //actions to be taken when a user disconnects
     socket.on('disconnect', function (socket) {
