@@ -1,9 +1,11 @@
-
 const path = require('path');
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+
+const dbUtil = require('./dbUtils');
+
 const port = process.env.PORT || 5000;
 app.use(express.static(path.join(__dirname, '/public')));
 
@@ -18,21 +20,10 @@ let db = 'mongodb+srv://A:ABCd1234!@quicksplash-db-dmuwu.mongodb.net/test?retryW
 mongoose.connect(db, {useNewUrlParser: true});
 let qpDB = mongoose.connection;
 
-// creating a Account Schema and Model
-let Schema = mongoose.Schema;
-let AccountSchema = new Schema(
-    {
-        fname: {type: String},
-        lname: {type: String},
-        email: {type: String},
-        username: {type: String},
-        password: {type: String}
-    }
-);
+// getting a PlayerInfo Schema and Model
+let PlayerInfo = require('./PlayerInfoModel');
 
-let Account = mongoose.model("Account", AccountSchema);
-
-io.on('connection', function(socket){
+io.on('connection', function (socket) {
 
     console.log("user connected");
 
@@ -44,11 +35,12 @@ io.on('connection', function(socket){
 
         // console.log(logObj);
 
-        // query db for Account
+        // query db for PlayerInfo
         let auth = false;
 
+
         // find all athletes who play tennis, selecting the 'name' and 'age' fields
-        Account.findOne({'username': username}, 'password', function (err,account) {
+        PlayerInfo.findOne({'username': username}, 'password', function (err, account) {
             if (err) {
                 console.log("<<<<Hakuna Matata>>>>");
                 // emit Login Failed
@@ -56,7 +48,6 @@ io.on('connection', function(socket){
             }
 
             console.log(account);
-
 
             if (account !== null && password === account.password)
                 socket.emit('login-success');
@@ -79,39 +70,57 @@ io.on('connection', function(socket){
 
         // do input sanitization
 
-        // create and add new account to db
-        let newAccount = new Account({
-            fname: fname,
-            lname: lname,
-            email: email,
-            username: username,
-            password: password
-        });
+        PlayerInfo.findOne({'username': username}, username, function (err, account) {
+            if (err) {
+                console.log("ERROR PLZ LEAVE.")
+                return handleError(err);
+            }
 
-        newAccount.save(function (err) {
-            if (err) return "You Fucked up!";
+            console.log(account);
 
+            // New PlayerInfo -
+            if (account === null) {
+                // create and add new account to db
+                let newAccount = new PlayerInfo({
+                    fname: fname,
+                    lname: lname,
+                    email: email,
+                    username: username,
+                    password: password,
+                    tWins : 0,
+                    tPoints: 0,
+                    tGamePlayed: 0
+                });
+
+                newAccount.save(function (err) {
+                    if (err) return "You Fucked up!";
+                });
+
+                socket.emit('signUp-success');
+            } else {
+                socket.emit('signUp-fail');
+            }
         });
 
 
     });
 
     //actions to be taken when a user creates a lobby
-	socket.on('createLobby', function(ruleSet){
+    socket.on('createLobby', function (ruleSet) {
 
         //generate a join code and make sure it's unique
         while (true) {
-    		var duplicate = false;
-    		var generatedCode = (Math.floor((Math.random() * 1000))).toString(10);
-    		for (var i=0; i < codes.length; i++){
-    			if (codes[i].localeCompare(generatedCode) == 0){
-    				duplicate = true;
-    			}
-    		}
-    		if (!duplicate){
+            var duplicate = false;
+            var generatedCode = (Math.floor((Math.random() * 1000))).toString(10);
+            for (var i = 0; i < codes.length; i++) {
+                if (codes[i].localeCompare(generatedCode) == 0) {
+                    duplicate = true;
+                }
+            }
+            if (!duplicate) {
                 codes.push(generatedCode);
-    			break;
-    		}
+                break;
+            }
         }
 
         //set the variables for the created lobby
@@ -120,7 +129,8 @@ io.on('connection', function(socket){
             name: "room" + currentRoom,
             code: generatedCode,
             rules: ruleSet,
-            players: []
+            players: [],
+            questions: []
         }
 
         //add the lobby to the list of lobbies
@@ -134,52 +144,228 @@ io.on('connection', function(socket){
         console.log("***************");
         console.log("Created a lobby");
         console.log("Join code: " + room.code);
+        console.log(room.rules)
 
     });
 
-
     //actions to be taken when a user joins a lobby
-    socket.on('joinLobby', function(joinCode, nickname){
+    socket.on('joinLobby', function (joinCode, nickname) {
 
+        var errorMessage = "Please check your join code and try again";
         //compare the join code entered by the user to the join codes of all
         //the lobbies on the server
         //if a match is found, add user to correct lobby
         var joined = false;
-        for (var i=0; i < rooms.length; i++){
-            if (joinCode.localeCompare(rooms[i].code) == 0){
-                joined = true;
-                rooms[i].players.push(nickname);
-                socket.join(rooms[i].name);
-                socket.emit('waiting', nickname);
-                //debugging/logging statements
-                console.log("***************");
-                console.log(nickname + " joined " + rooms[i].name);
+        for (var i = 0; i < rooms.length; i++) {
+            if (joinCode.localeCompare(rooms[i].code) == 0) {
+                if (rooms[i].players.includes(nickname)) {
+                    errorMessage = "Your nickname is not unique. Please change it and try again";
+                } else {
+                    joined = true;
+                    rooms[i].players.push(nickname);
+                    socket.join(rooms[i].name);
+                    socket.emit('waiting', joinCode);
+                    //debugging/logging statements
+                    console.log("***************");
+                    console.log(nickname + " joined " + rooms[i].name);
+                }
             }
         }
         //send error message if the user failes to join
-        if (!joined){
-            socket.emit('failedToJoin');
+        if (!joined) {
+            socket.emit('failedToJoin', errorMessage);
         }
 
     });
-
 
     //actions to be taken when a game starts.
     //TODO: MAKE THE GAME LOOP HERE!
-    socket.on('startGame', function(creator){
+    socket.on('startGame', function(code){
+
+        /*
+        //uses the code passed from the player to determine the correct lobby
         var room = {};
         for (var i=0; i < rooms.length; i++){
-            if (rooms[i].players.includes(creator)){
+            if (rooms[i].code.localeCompare(code) == 0){
                 room = rooms[i];
             }
         }
-        io.to(room.name).emit('roundTransition');
+        */
+
+        //var room = findLobby(code);
+        var room = {};
+        for (var i=0; i < rooms.length; i++){
+            if (rooms[i].code.localeCompare(code) == 0){
+                room = rooms[i];
+            }
+        }
+
+        // get random question here
+        let questionList = ["DD"];
+
+        //retrieve all the required questions
+        //For N players, N questions are needed per round
+        //So total number of questions needed = N * number of rounds
+
+        // TO:DO change back to n players n question
+        dbUtil.getRandomQuestion(room.players.length * room.rules.numRounds).then((retQuestion)=> {
+            questionList = retQuestion;
+            console.log("-----------------------LOADED-------------------!");
+            // emit socket event to set the question
+            console.log(questionList);
+            init(room, questionList);
+        });
+
     });
 
-	//actions to be taken when a user disconnects
-	socket.on('disconnect', function(socket){
+    // send a prompt2 when a response recieved
+    socket.on('response', function (answer, question, code) {
+        //var room = findLobby(code);
+        var room = {};
+        for (var i=0; i < rooms.length; i++){
+            if (rooms[i].code.localeCompare(code) == 0){
+                room = rooms[i];
+                console.log("*********************************" + room.name);
+            }
+        }
+        //find the question in the lobby's list of questions
+        //assign answer to said question
+        for (var i=0; i<room.questions.length; i++){
+            if (room.questions[i].text === question){
+                var temp = {
+                    nickname: "",
+                    text: answer,
+                    votes: 0
+                }
+                room.questions[i].answers.push(temp);
+                console.log(room.questions);
+            }
+        }
+        socket.emit('prompt2');
+    });
+
+    // send a waiting screen
+    socket.on('roundOver', function (answer, question, code) {
+        var room = {};
+        for (var i=0; i < rooms.length; i++){
+            if (rooms[i].code.localeCompare(code) == 0){
+                room = rooms[i];
+            }
+        }
+        //find the question in the lobby's list of questions
+        //assign answer to said question
+        for (var i=0; i<room.questions.length; i++){
+            if (room.questions[i].text === question){
+                var temp = {
+                    nickname: "",
+                    text: answer,
+                    votes: 0
+                }
+                room.questions[i].answers.push(temp);
+                console.log(room.questions);
+            }
+        }
+        socket.emit('waiting2');
+    });
+
+    socket.on('vote', function(code, id) {
+        //var room = findLobby(code);
+        var room = {};
+        for (var i=0; i < rooms.length; i++){
+            if (rooms[i].code.localeCompare(code) == 0){
+                room = rooms[i];
+            }
+        }
+
+        console.log("Voted for " + id);
+    });
+
+    function init(room, questionList) {
+        var currentRound = 0;
+        //while (currentRound < room.rules.numRounds){
+            io.to(room.name).emit('roundTransition');
+            setTimeout(function(){
+                sendQuestions(room, questionList);
+            }, 3000);
+        //}
+    }
+
+    function sendQuestions(room, questionList){
+        let players = io.sockets.adapter.rooms[room.name].sockets;
+        let index = 0;
+        /*
+        for (var i=0; i<players.length; i++){
+            players[i].emit('prompt1', questionList[index], questionList[index++]);
+        }
+        */
+        let timePerRound = room.rules.timePerRound;
+        for (let player in players){
+           let playerSocket = io.sockets.connected[player];
+           let question1 = questionList[index++];
+           var question = {
+               text: question1,
+               answers: []
+           }
+           room.questions.push(question);
+           var numPlayers = Object.keys(players).length;
+           if (index === numPlayers){
+               index = 0;
+           }
+           let question2 = questionList[index];
+           console.log(room.questions);
+           //console.log('1st Question: ' + question1 + '\n' + '2nd Question: ' + question2);
+
+           playerSocket.emit('prompt1', question1, question2, timePerRound);
+
+
+       }
+
+       var timeUntilVote = ((parseInt(timePerRound, 10) + 2) * 1000);
+       setTimeout(function(){
+           voting(room);
+       }, timeUntilVote);
+
+    }
+
+    function voting(room){
+        var offset = 0;
+        for (var i=0; i<room.questions.length; i++){
+            console.log(i);
+            var prompt = room.questions[i].text;
+            var answer1 = room.questions[i].answers[0].text;
+            console.log(answer1);
+            var answer2 = room.questions[i].answers[1].text;
+            console.log(answer2);
+            sendVote(room, prompt, answer1, answer2, offset);
+            console.log("timeout set" + offset.toString(10))
+            offset += 5000
+        }
+    }
+
+    function sendVote(room, prompt, answer1, answer2, offset){
+        setTimeout(function(){
+            console.log(prompt);
+            io.to(room.name).emit('vote', prompt, answer1, answer2);
+        }, offset);
+    }
+
+    /*
+    function findLobby(code){
+        //uses the code passed from the player to determine the correct lobby
+        var room = {};
+        for (var i=0; i < rooms.length; i++){
+            if (rooms[i].code.localeCompare(code) == 0){
+                room = rooms[i];
+            }
+        }
+        return room;
+    }
+    */
+
+    //actions to be taken when a user disconnects
+    socket.on('disconnect', function (socket) {
         console.log("user disconnected");
-	});
+    });
 
 });
 
@@ -188,6 +374,6 @@ io.on('connection', function(socket){
 qpDB.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 
-http.listen(port, function(){
-	console.log('listening on *:' + port);
+http.listen(port, function () {
+    console.log('listening on *:' + port);
 });

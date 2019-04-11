@@ -1,4 +1,5 @@
-import React,{Component} from 'react'
+import React,{Component} from 'react';
+import {socket} from "../../Router";
 
 class Timer extends Component {
 
@@ -7,7 +8,7 @@ class Timer extends Component {
         const stage = new c.Stage("canvasDisplay");
 
         // Set timer.
-        let time = 20;
+        let time = this.props.time;
         let timeLeftColour = "blue";
         let timeOverColour = "red";
 
@@ -86,7 +87,10 @@ class Timer extends Component {
 
             // When timer is complete...
             if (time === 0)
+            {
                 clearInterval(timer);
+                //socket.emit('roundOver');
+            }
 
         }, 1000);
 

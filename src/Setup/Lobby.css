@@ -1,24 +1,34 @@
+.lobby{
+    background: rgb(240,147,251);
+    background: radial-gradient(circle, rgba(240,147,251,1) 0%, rgba(245,87,227,1) 100%);
+
+    min-width: 100vw;
+    min-height: 100vh;
+}
+
 h1 {
     font-family: "Amatic SC";
     font-size: 3em;
-    line-height: 2px;
+    /*line-height: 2px;*/
     text-align: center;
+    margin: 0;
 }
 
-label {
+.lobby label {
+    text-align: left;
     font-family: "Amatic SC";
     font-size: 2em;
     font-weight: bold;
 }
 
-input {
+.lobby input {
     font-family: "Amatic SC";
     font-size: 2em;
-    line-height: 70px;
+    line-height: 55px;
     border: none;
 }
 
-.textBox {
+.lobby .textBox {
     padding-left: 20px;
     padding-right: 20px;
     border: 2px solid black;
@@ -31,16 +41,35 @@ input {
     margin: auto;
     width: 50%;
     height: 100%;
+
 }
 
-.slider {
+.lobby #split-container{
+    padding: 10px;
+    display: table;
+    width: 80%;
+    margin: auto;
+}
+
+.lobby #split-container #left {
+    display: table-cell;
+    min-width: 50%;
+}
+
+.lobby #split-container #right {
+    display: table-cell;
+    min-width: 50%;
+}
+
+.lobby .slider {
     -webkit-appearance: none;
-    width: 100%;
+    width: 90%;
     height: 33px;
     background: #DCDCDC;
+    margin-top: 20px;
 }
 
-input[type=range]::-webkit-slider-thumb {
+.lobby input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     height: 70px;
     width: 30px;
@@ -51,6 +80,8 @@ input[type=range]::-webkit-slider-thumb {
 #button {
     display: block;
     margin: 0 auto;
-    min-width: 250px;
-    max-width: 15%;
+    min-width: 200px;
+    max-width: 30%;
+    min-height: 200px;
+    max-height: 30%;
 }

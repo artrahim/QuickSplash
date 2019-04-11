@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {socket, authenticate} from '../Router';
 
 import {Redirect} from 'react-router-dom'
+import {FormError} from "./FormError";
 
 class LoginForm extends Component {
     constructor(props) {
@@ -21,7 +22,6 @@ class LoginForm extends Component {
         this.setUsername = this.setUsername.bind(this);
         this.setPassword = this.setPassword.bind(this);
         this.login = this.login.bind(this);
-
     }
 
     login() {
@@ -32,6 +32,7 @@ class LoginForm extends Component {
 
     }
 
+
     loginSubmitHandler(event) {
 
         event.preventDefault();
@@ -40,9 +41,7 @@ class LoginForm extends Component {
         if (this.state.username === "A" && this.state.password === "a")
             this.login();
 
-
-        var self = this;
-
+        let self = this;
 
         let loginInfo = JSON.stringify(this.state);
         console.log(loginInfo);
@@ -50,16 +49,15 @@ class LoginForm extends Component {
 
         // listen for response
         socket.on('login-success', function (msg) {
-
             // re-route them to home page
-           self.login();
-
-
+            self.login();
         });
 
         socket.on('login-fail', function () {
 
-            self.render();
+            console.log("Incorrect user or pass");
+
+            self.setState({wrongAuth: true})
 
         });
 
@@ -79,7 +77,6 @@ class LoginForm extends Component {
         let {from} = this.props.location.state || {from: {pathname: "/"}};
         let {isLoggedIn} = this.state;
 
-
         if (isLoggedIn)
             return <Redirect to={from}/>;
 
@@ -89,7 +86,11 @@ class LoginForm extends Component {
 
                 <div className="header">
 
-                    {/*<div className="error">Username or password is invalid.</div>*/}
+                    <div className="error">
+
+                        {this.state.wrongAuth ? "Username or password is invalid." : "" }
+
+                    </div>
                     Login
 
                 </div>

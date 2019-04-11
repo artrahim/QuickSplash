@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import {socket} from '../Router';
 import $ from 'jquery';
 
+import Timer from './Utilities/Timer';
 import Logo from "../Game/Utilities/Logo";
+import ButtonSplash from "./Utilities/ButtonSplash";
 
 class Waiting extends Component {
 
     componentDidMount(){
 
-        const nickname = this.props.nickname;
+        const lobbyCode = this.props.lobbyCode;
 
         $('#button').click(function(){
-            socket.emit('startGame', nickname);
+            socket.emit('startGame', lobbyCode);
         });
 
     }
@@ -20,10 +22,11 @@ class Waiting extends Component {
         let button = null;
         let text = null;
         const isCreator = this.props.isCreator;
-        const isStarted = this.props.isStarted;
-        if (!isStarted){
+        const hasStarted = this.props.hasStarted;
+        if (!hasStarted){
             if (isCreator){
-                button = <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
+                // button = <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
+                button = <div id = "button"><ButtonSplash imagesource={require('../Assets/images/blueSplash.png')} text={"Start"}/></div>
             }
             text = "THE GAME TO START"
         }
@@ -32,7 +35,7 @@ class Waiting extends Component {
         }
 
         return (
-            <div>
+            <div className="game">
                 <title>Create a lobby</title>
                 <Logo/>
                 <br></br>

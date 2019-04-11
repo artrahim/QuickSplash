@@ -1,10 +1,10 @@
-#round-title {
+.game #round-title {
     display: block;
     margin-top: 30vh;
 
 }
 
-h2 {
+.game h2 {
     font-family: "Amatic SC";
     font-size: 3em;
     text-align: center;
@@ -14,14 +14,14 @@ h2 {
     -webkit-text-stroke-color: black;*/
 }
 
-body{
-    margin: 0;
-    top: 0;
-    background-image: url("../Assets/images/magentaBG.png");
-    height: 100vh;
-    width: 100vw;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+.game {
+    background: rgb(34,193,195);
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(212,252,121,1) 100%);
 
+    min-width: 100vw;
+    min-height: 100vh;
+}
+
+.game Timer{
+    flex: 1;
 }

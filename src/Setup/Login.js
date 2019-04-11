@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
+import Button from 'react-bootstrap/Button';
 
 import './login.css'
+import Logo from "./CreateLobby";
+import {Link} from "react-router-dom";
 
 
 class Login extends Component {
@@ -46,8 +49,10 @@ class Login extends Component {
 
             <div className="rootContainer">
 
+                <Link to="/">
+                    <Button className="back-button" variant="outline-primary">← Back</Button>
+                </Link>
                 <div className="wrapper">
-
                     <div className="pageSelectorContainer">
 
                         <div className={"pageSelector " + (this.state.page === 0 ? "currentlySelected" : "")}

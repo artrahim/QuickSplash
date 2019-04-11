@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {socket} from '../Router';
 
-import Logo from "../Game/Utilities/Logo";
 import Waiting from "./Waiting";
 import RoundTransitions from "./RoundTransitions";
 import Prompt from "./Prompt";
@@ -17,8 +16,12 @@ class Game extends Component {
             stage: 0,
             hasStarted: false,
             round: 0,
+            timePerRound: 0,
             question1: "",
             question2: "",
+            beingVotedOn: "",
+            answer1: "",
+            answer2: "",
         };
 
     }
@@ -38,35 +41,41 @@ class Game extends Component {
             }));
         });
 
-        socket.on('prompt1', (aQuestion) => {
+        socket.on('prompt1', (first, second, time) => {
             this.setState(state => ({
-              question1: aQuestion,
-              stage: 2,
+                timePerRound: time,
+                question1: first,
+                question2: second,
+                stage: 2,
             }));
+            console.log("1st Question:\t", this.state.question1);
+            console.log("2nd Question:\t", this.state.question2);
         });
 
-        socket.on('prompt2', (aQuestion) => {
+        socket.on('prompt2', () => {
             this.setState(state => ({
-              question2: aQuestion,
-              stage: 3
+                stage: 3
             }));
         });
 
         socket.on('waiting2', () => {
             this.setState(state => ({
-              stage: 4
+                stage: 4
             }));
         });
 
-        socket.on('vote', () => {
+        socket.on('vote', (question, a1, a2) => {
             this.setState(state => ({
-              stage: 5
+                beingVotedOn: question,
+                answer1: a1,
+                answer2: a2,
+                stage: 5
             }));
         });
 
         socket.on('result', () => {
             this.setState(state => ({
-              stage: 6
+                stage: 6
             }));
         });
 
@@ -76,24 +85,28 @@ class Game extends Component {
         //render correct stage based on game state
         //states are represented by numbers (0 to 6)
         let component = null;
+        let lobbyCode = this.props.location.state.lobbyCode;
         switch (this.state.stage){
             case 0:
-                component = <Waiting nickname={this.props.location.state.nickname} isCreator={this.props.location.state.isCreator} hasStarted={false}/>;
+                component = <Waiting lobbyCode={lobbyCode} isCreator={this.props.location.state.isCreator} hasStarted={false}/>;
                 break;
             case 1:
-                component = <RoundTransitions handleTransition = {() => this.handleClick()}/>;
+                //component = <RoundTransitions handleTransition = {() => this.handleClick()}/>;
+                component = <RoundTransitions/>;
                 break;
             case 2:
-                component = <Prompt/>;
+                //component = <Prompt handleTransition = {() => this.handleClick()}/>;
+                component = <Prompt code={lobbyCode} time={this.state.timePerRound} question={this.state.question1}/>;
                 break;
             case 3:
-                component = <Prompt/>;
+                //component = <Prompt handleTransition = {() => this.handleClick()}/>;
+                component = <Prompt code={lobbyCode} time={this.state.timePerRound} question={this.state.question2}/>;
                 break;
             case 4:
                 component = <Waiting isCreator={this.state.isCreator} hasStarted={true}/>;
                 break;
             case 5:
-                component = <Voting/>;
+                component = <Voting question={this.state.beingVotedOn} answer1={this.state.answer1} answer2={this.state.answer2} lobbyCode={lobbyCode}/>;
                 break;
             case 6:
                 component = <Resultmain/>;
@@ -103,7 +116,7 @@ class Game extends Component {
         }
 
         return (
-            <div>
+            <div className="game">
                 {component}
             </div>
         );
