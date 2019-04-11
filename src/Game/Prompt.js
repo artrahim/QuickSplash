@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {socket} from '../Router';
 
 import Logo from "../Game/Utilities/Logo";
@@ -23,16 +23,20 @@ class Prompt extends Component {
         // !!!
         // clearTimeout(this.id);
     }
+
     render() {
 
         return (
-            <div>
-                <Logo/>
-                <Timer time={this.props.time}/>
+            <div id="prompt">
+                <div className="center-back">
+                    <Timer time={this.props.time}/>
+                    <Logo/>
+                    <div className="empty"/>
+                </div>
                 <Question question={this.props.question}/>
                 <br/>
                 <br/>
-                <Response/>
+                <Response question={this.props.question} code={this.props.code}/>
             </div>
         );
 

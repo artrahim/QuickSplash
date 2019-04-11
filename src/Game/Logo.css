@@ -27,7 +27,7 @@
     flex-direction: row;
 }
 
-.empty{
+.center-back .empty{
     flex: 1;
     max-width: 10vw;
 }
