@@ -4,6 +4,7 @@ import $ from 'jquery';
 
 import Timer from './Utilities/Timer';
 import Logo from "../Game/Utilities/Logo";
+import ButtonSplash from "./Utilities/ButtonSplash";
 
 class Waiting extends Component {
 
@@ -24,7 +25,8 @@ class Waiting extends Component {
         const hasStarted = this.props.hasStarted;
         if (!hasStarted){
             if (isCreator){
-                button = <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
+                // button = <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
+                button = <div id = "button"><ButtonSplash imagesource={require('../Assets/images/blueSplash.png')} text={"Start"}/></div>
             }
             text = "THE GAME TO START"
         }
@@ -33,7 +35,7 @@ class Waiting extends Component {
         }
 
         return (
-            <div>
+            <div className="game">
                 <title>Create a lobby</title>
                 <Logo/>
                 <br></br>

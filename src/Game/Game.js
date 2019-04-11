@@ -110,7 +110,7 @@ class Game extends Component {
         }
 
         return (
-            <div>
+            <div className="game">
                 {component}
             </div>
         );
