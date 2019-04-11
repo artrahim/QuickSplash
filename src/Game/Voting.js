@@ -36,12 +36,12 @@ class Voting extends Component {
                     <Logo/>
                     <div className="empty"/>
                 </div>
-                <Question question={"What is the worst place to be naked?"}/>
+                <Question question={this.props.question}/>
                 <br/>
                 <br/>
                 <div id='AnswerBox'>
-                    <Answer id={1} text={"sample1"} voteHandler={this.voteHandler}/>
-                    <Answer id={2} text={"sample2"} voteHandler={this.voteHandler}/>
+                    <Answer id={1} text={this.props.answer1} voteHandler={this.voteHandler}/>
+                    <Answer id={2} text={this.props.answer2} voteHandler={this.voteHandler}/>
                 </div>
             </div>
         );
