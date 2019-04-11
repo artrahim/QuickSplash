@@ -77,7 +77,7 @@ class CreateLobby extends Component {
                             <div id="left">
                                 <label htmlFor="timePerRound">TIME PER ROUND: </label>
                                 <input defaultValue="20 SECONDS" type="text" id="timePerRound" readOnly/>
-                                <input type="range" min={20} max={80} defaultValue={20} className="slider"
+                                <input type="range" min={2} max={80} defaultValue={2} className="slider"
                                        id="slider1"/>
                                 <br/><br/>
                                 <label htmlFor="numRounds">NUMBER OF ROUNDS: </label>

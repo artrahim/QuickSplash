@@ -100,7 +100,7 @@ class Game extends Component {
                 component = <Waiting isCreator={this.state.isCreator} hasStarted={true}/>;
                 break;
             case 5:
-                component = <Voting/>;
+                component = <Voting lobbyCode={this.props.location.state.lobbyCode}/>;
                 break;
             case 6:
                 component = <Resultmain/>;

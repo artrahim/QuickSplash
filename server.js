@@ -202,7 +202,6 @@ io.on('connection', function (socket) {
             // emit socket event to set the question
             console.log(questionList);
             init(room, questionList);
-
         });
 
     });
@@ -215,6 +214,10 @@ io.on('connection', function (socket) {
     // send a waiting screen
     socket.on('roundOver', function () {
         socket.emit('waiting2');
+    });
+
+    socket.on('vote', function(code, id) {
+        console.log("Voted for " + id);
     });
 
     function init(room, questionList) {

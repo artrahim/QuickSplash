@@ -36,7 +36,6 @@ class Waiting extends Component {
             <div>
                 <title>Create a lobby</title>
                 <Logo/>
-                <Timer/>
                 <br></br>
                 <h1>WAITING FOR {text}...</h1>
                 {button}

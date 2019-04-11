@@ -2,6 +2,10 @@ import React, {Component} from 'react'
 
 class ImageTextBox extends Component {
 
+    constructor (props) {
+        super();
+    }
+
     render() {
         return(
             <div className="answer">
@@ -11,7 +15,7 @@ class ImageTextBox extends Component {
 
         );
     }
-    
+
 }
 
 export default ImageTextBox;
