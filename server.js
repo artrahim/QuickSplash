@@ -20,19 +20,8 @@ let db = 'mongodb+srv://A:ABCd1234!@quicksplash-db-dmuwu.mongodb.net/test?retryW
 mongoose.connect(db, {useNewUrlParser: true});
 let qpDB = mongoose.connection;
 
-// creating a Account Schema and Model
-let Schema = mongoose.Schema;
-let AccountSchema = new Schema(
-    {
-        fname: {type: String},
-        lname: {type: String},
-        email: {type: String},
-        username: {type: String},
-        password: {type: String}
-    }
-);
-
-let Account = mongoose.model("Account", AccountSchema);
+// getting a PlayerInfo Schema and Model
+let PlayerInfo = require('./PlayerInfoModel');
 
 io.on('connection', function (socket) {
 
@@ -46,11 +35,11 @@ io.on('connection', function (socket) {
 
         // console.log(logObj);
 
-        // query db for Account
+        // query db for PlayerInfo
         let auth = false;
 
         // find all athletes who play tennis, selecting the 'name' and 'age' fields
-        Account.findOne({'username': username}, 'password', function (err, account) {
+        PlayerInfo.findOne({'username': username}, 'password', function (err, account) {
             if (err) {
                 console.log("<<<<Hakuna Matata>>>>");
                 // emit Login Failed
@@ -58,7 +47,6 @@ io.on('connection', function (socket) {
             }
 
             console.log(account);
-
 
             if (account !== null && password === account.password)
                 socket.emit('login-success');
@@ -81,7 +69,7 @@ io.on('connection', function (socket) {
 
         // do input sanitization
 
-        Account.findOne({'username': username}, username, function (err, account) {
+        PlayerInfo.findOne({'username': username}, username, function (err, account) {
             if (err) {
                 console.log("ERROR PLZ LEAVE.")
                 return handleError(err);
@@ -89,15 +77,18 @@ io.on('connection', function (socket) {
 
             console.log(account);
 
-            // New Account -
+            // New PlayerInfo -
             if (account === null) {
                 // create and add new account to db
-                let newAccount = new Account({
+                let newAccount = new PlayerInfo({
                     fname: fname,
                     lname: lname,
                     email: email,
                     username: username,
-                    password: password
+                    password: password,
+                    tWins : 0,
+                    tPoints: 0,
+                    tGamePlayed: 0
                 });
 
                 newAccount.save(function (err) {
@@ -187,7 +178,6 @@ io.on('connection', function (socket) {
 
     //actions to be taken when a game starts.
     //TODO: MAKE THE GAME LOOP HERE!
-
     socket.on('startGame', function(code){
 
         //uses the code passed from the player to determine the correct lobby
@@ -211,32 +201,29 @@ io.on('connection', function (socket) {
             console.log("-----------------------LOADED-------------------!");
             // emit socket event to set the question
             console.log(questionList);
-            gameLoop(room, questionList);
+            init(room, questionList);
 
         });
 
     });
 
-    //TODO: MAKE THE GAME LOOP HERE!
-    function gameLoop(room, questionList) {
+    // send a prompt2 when a response recieved
+    socket.on('response', function () {
+        socket.emit('prompt2');
+    });
+
+    // send a waiting screen
+    socket.on('roundOver', function () {
+        socket.emit('waiting2');
+    });
+
+    function init(room, questionList) {
         var currentRound = 0;
         //while (currentRound < room.rules.numRounds){
             io.to(room.name).emit('roundTransition');
             setTimeout(function(){
                 sendQuestions(room, questionList);
             }, 3000);
-
-            // send a prompt2 when a response recieved
-            socket.on('response',function () {
-                io.to(room.name).emit('prompt2');
-            });
-
-            // send a round transition
-            socket.on('roundOver', function () {
-                io.to(room.name).emit('roundTransition');
-            });
-
-
         //}
     }
 
@@ -248,19 +235,31 @@ io.on('connection', function (socket) {
             players[i].emit('prompt1', questionList[index], questionList[index++]);
         }
         */
-       for (let player in players){
+        let timePerRound = room.rules.timePerRound;
+        for (let player in players){
            let playerSocket = io.sockets.connected[player];
            let question1 = questionList[index++];
-           if (index === players.length - 1){
+           var numPlayers = Object.keys(players).length;
+           if (index === numPlayers){
                index = 0;
            }
            let question2 = questionList[index];
-           let timePerRound = room.rules.timePerRound;
 
            console.log('1st Question: ' + question1 + '\n' + '2nd Question: ' + question2);
 
            playerSocket.emit('prompt1', question1, question2, timePerRound);
+
        }
+
+       var timeUntilVote = timePerRound+1 * 1000;
+       setTimeout(function(){
+           voting(room);
+       }, 25000);
+
+    }
+
+    function voting(room){
+        io.to(room.name).emit('vote');
     }
 
     //actions to be taken when a user disconnects

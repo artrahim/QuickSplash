@@ -13,6 +13,12 @@
                 crossorigin
         />
 
+
+        <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+
+        <script type="text/javascript" src="CSSPlugin.js" async></script>
+
+
         <script>var Alert = ReactBootstrap.Alert;</script>
 
         <meta charset="utf-8" />
@@ -50,10 +56,12 @@
 
                     if(event.src == "Music.ogg"){
                         let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,loop: -1})
-                        createjs.Sound.play(event.src, props);
+                        // createjs.Sound.play(event.src, props);
                     }
                 }
             }
         </script>
+
+
     </body>
 </html>

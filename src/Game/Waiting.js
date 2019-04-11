@@ -20,8 +20,8 @@ class Waiting extends Component {
         let button = null;
         let text = null;
         const isCreator = this.props.isCreator;
-        const isStarted = this.props.isStarted;
-        if (!isStarted){
+        const hasStarted = this.props.hasStarted;
+        if (!hasStarted){
             if (isCreator){
                 button = <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
             }

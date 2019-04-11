@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import {Link, NavLink, Redirect} from 'react-router-dom';
 import {socket} from '../Router';
 import $ from 'jquery';
 
 import Logo from '../Game/Utilities/Logo'
 import './Lobby.css';
-import Button from "./CreateLobby";
+import ButtonSplash from "../Game/Utilities/ButtonSplash";
 
 class JoinLobby extends Component {
 
@@ -43,7 +43,7 @@ class JoinLobby extends Component {
         switch (this.state.started){
             case false:
                 component =
-                <div>
+                <div className = "lobby">
                     <Logo/>
 
                     <title>Join a lobby</title>
@@ -53,13 +53,16 @@ class JoinLobby extends Component {
                     <br/>
                     <div id="container">
                         <label htmlFor="joinCode">ENTER A JOIN CODE: </label>
+                        <br/>
                         <input defaultValue="" type="text" className="textBox" id="joinCode"/>
                         <br/><br/>
                         <label htmlFor="nickname">WHAT SHOULD WE CALL YOU?: </label>
                         <input defaultValue="" type="text" className="textBox" id="nickname"/>
                     </div>
                     <br/>
-                    <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
+                    <div id="button">
+                        <ButtonSplash imagesource = { require('../Assets/images/blueSplash.png')} text={"Join"}/>
+                    </div>
                 </div>
                 break;
             case true:
