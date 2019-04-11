@@ -35,7 +35,7 @@ class Login extends Component {
         let displayComponent = null;
         switch (this.state.page) {
             case 0:
-                displayComponent = <LoginForm/>;
+                displayComponent = <LoginForm location={this.props.location}/>;
                 break;
             case 1:
                 displayComponent = <SignUpForm/>;
