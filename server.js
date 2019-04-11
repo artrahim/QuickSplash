@@ -38,6 +38,7 @@ io.on('connection', function (socket) {
         // query db for PlayerInfo
         let auth = false;
 
+
         // find all athletes who play tennis, selecting the 'name' and 'age' fields
         PlayerInfo.findOne({'username': username}, 'password', function (err, account) {
             if (err) {

@@ -2,7 +2,18 @@ import React, {Component} from "react";
 import {NavLink, HashRouter} from "react-router-dom";
 import ButtonSplash from "../Game/Utilities/ButtonSplash";
 
+import posed from 'react-pose';
+
+// import Test from './Test'
+
+import {tween, easing, styler} from 'popmotion';
+
+
 import './Home.css';
+
+const Swipeable = posed.div({
+    draggable: "x"
+});
 
 class Home extends Component {
 
@@ -15,31 +26,19 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        // let c = window.createjs;
-        //
-        // const w = window.innerWidth, h = window.innerHeight;
-        // const logo = document.getElementById("navbarImage");
-        // // const logo = document.getElementsByClassName("textImage");
-        //
-        // // logo.style.left = w*0.1+"px";
-        // // logo.style.top = h*0.1+"px";
-        //
-        // c.Tween.get(logo, {loop: true})
-        //     .to({x: w}, 3000, c.Ease.getPowInOut(4))
-        //     .to({alpha: 0, y: 175}, 500, c.Ease.getPowInOut(2))
-        //     .to({alpha: 0, y: 225}, 100)
-        //     .to({alpha: 1, y: 200}, 500, c.Ease.getPowInOut(2))
-        //     .to({x: 0}, 800, c.Ease.getPowInOut(2))
-        //     .to({rotate: 180}, 2000)
-        //     .call(() => {
-        //         console.log("done");
-        //     });
-        //
-        // // c.Ticker.timingMode = c.Ticker.RAF;
 
+        const logo = document.querySelector('.starImage');
+        const logoStyler = styler(logo);
+
+        tween({
+            to: 300,
+            duration: 300,
+            ease: easing.linear
+        }).start(logoStyler.set('x'));
     }
 
     render() {
+
         return (
             <div id="home">
                 <HashRouter>
@@ -47,7 +46,7 @@ class Home extends Component {
                         <div id="navbarImage">
                             <img className="starImage" src={require('../Assets/images/homePage.png')} alt="button">
                             </img>
-                            <img className="logo" src={require('../Assets/images/logo.png')}></img>
+                            <img className="logo" src={require('../Assets/images/logo.png')} alt="button"/>
                             <div className="textImage">Speak Your Mind!</div>
                         </div>
                         <div id="navbarButton">
@@ -75,6 +74,7 @@ class Home extends Component {
             </div>
 
         )
+
     }
 
 }
