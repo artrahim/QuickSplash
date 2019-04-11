@@ -1,5 +1,5 @@
 
-.error {
+.rootContainer .error {
     /*position: relative;*/
     /*position: center;*/
     margin: 0 auto;
@@ -14,14 +14,14 @@
     align-items: center;
 }
 
-.error p{
+.rootContainer .error p{
     font-size: 25px;
     font-weight: bold;
     /*color: red;*/
 }
 
 
-.complete p {
+.rootContainer .complete p {
     font-size: 30px;
     font-weight: bold;
     color: white;
@@ -40,7 +40,7 @@
     /*background-image: url("bgn.png");*/
     background-image: linear-gradient(to left top, #1b75d8, #0099f0, #00b7e2, #00ceb4, #00e077, #75e65d, #aeea45, #e1ec34, #e8ee40, #eff04b, #f5f255, #fbf45f);}
 
-.wrapper {
+.rootContainer .wrapper {
     /*margin-top: 150px;*/
     width: 100%;
     height: 95%;
@@ -51,7 +51,7 @@
     color: #fff;
 }
 
-.pageSelectorContainer {
+.rootContainer .pageSelectorContainer {
     display: flex;
     min-width: 21em;
     height: 35px;
@@ -64,7 +64,7 @@
     /*background-color: red;*/
 }
 
-.pageSelector {
+.rootContainer .pageSelector {
     flex: 1;
     text-align: center;
     height: 100%;
@@ -77,13 +77,13 @@
     /*background-color: gold;*/
 }
 
-.currentlySelected {
+.rootContainer .currentlySelected {
     transition: 0.5s ease-out;
     background: #2ECC71;
     color: white;
 }
 
-.formContainer {
+.rootContainer .formContainer {
     display: flex;
     flex-direction: column;
     min-width: 21em;
@@ -94,7 +94,7 @@
     background-color: #191919;
 }
 
-.header {
+.rootContainer .header {
     text-align: center;
     padding: 5px;
     margin-bottom: 17px;
@@ -105,17 +105,17 @@
     /*background-color: purple;*/
 }
 
-.fieldContainer {
+.rootContainer .fieldContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.signUpFieldContainer {
+.rootContainer .signUpFieldContainer {
     height: 90%;
 }
 
-.inputContainer {
+.rootContainer .inputContainer {
     display: flex;
     flex-direction: column;
     margin-top: 5px;
@@ -126,11 +126,11 @@
     /*background-color: orange;*/
 }
 
-.inputContainer::before {
+.rootContainer .inputContainer::before {
 
 }
 
-.inputBox {
+.rootContainer .inputBox {
     height: 75px;
     width: 400px;
     border: 2px solid #70a1ff;
@@ -141,32 +141,32 @@
     background-color: #fff;
 }
 
-.inputBox:hover {
+.rootContainer .inputBox:hover {
     border: 1px solid #70a1ff;
 }
 
-.inputBox:focus {
+.rootContainer .inputBox:focus {
     border: 1px solid #6565e7;
     box-shadow: 0 0 20px rgba(15, 15, 15, 0.2);
 }
 
-.inputBox::placeholder {
+.rootContainer .inputBox::placeholder {
     font-size: 30px;
     color: black;
 }
 
 /* for sign Up page*/
-.signUpFieldContainer .inputBox {
+.rootContainer .signUpFieldContainer .inputBox {
     height: 40px;
     font-size: 25px;
     margin-bottom: 0px;
 }
 
-.signUpContainer .header {
+.rootContainer .signUpContainer .header {
     margin: 0px;
 }
 
-.submitButton {
+.rootContainer .submitButton {
     color: #fff;
     padding: 15px 30px;
     font-size: 20px;
@@ -178,17 +178,15 @@
     border-bottom: 4px solid #27AE60;
 }
 
-.submitButton:hover {
+.rootContainer .submitButton:hover {
     background-color: rgb(19, 170, 82);
 }
 
-.submitButton:focus {
+.rootContainer .submitButton:focus {
 
 }
 
 .back-button{
     margin: 10px 10px 0;
     flex: 1;
-    /*display: flex;*/
-    /*justify-content: space-between;*/
 }

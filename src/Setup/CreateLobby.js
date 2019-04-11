@@ -67,7 +67,7 @@ class CreateLobby extends Component {
                                 <Button className="back-button" variant="outline-primary">← Back</Button>
                             </Link>
                             <Logo/>
-                            <div className="empty"></div>
+                            <div className="empty"/>
                         </div>
                         <title>Create a lobby</title>
                         <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -77,7 +77,7 @@ class CreateLobby extends Component {
                             <div id="left">
                                 <label htmlFor="timePerRound">TIME PER ROUND: </label>
                                 <input defaultValue="20 SECONDS" type="text" id="timePerRound" readOnly/>
-                                <input type="range" min={20} max={80} defaultValue={20} className="slider"
+                                <input type="range" min={2} max={80} defaultValue={2} className="slider"
                                        id="slider1"/>
                                 <br/><br/>
                                 <label htmlFor="numRounds">NUMBER OF ROUNDS: </label>

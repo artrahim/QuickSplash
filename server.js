@@ -128,7 +128,8 @@ io.on('connection', function (socket) {
             name: "room" + currentRoom,
             code: generatedCode,
             rules: ruleSet,
-            players: []
+            players: [],
+            questions: []
         }
 
         //add the lobby to the list of lobbies
@@ -180,6 +181,7 @@ io.on('connection', function (socket) {
     //TODO: MAKE THE GAME LOOP HERE!
     socket.on('startGame', function(code){
 
+        /*
         //uses the code passed from the player to determine the correct lobby
         var room = {};
         for (var i=0; i < rooms.length; i++){
@@ -187,6 +189,9 @@ io.on('connection', function (socket) {
                 room = rooms[i];
             }
         }
+        */
+
+        var room = findLobby(code);
 
         // get random question here
         let questionList = ["DD"];
@@ -202,19 +207,25 @@ io.on('connection', function (socket) {
             // emit socket event to set the question
             console.log(questionList);
             init(room, questionList);
-
         });
 
     });
 
     // send a prompt2 when a response recieved
-    socket.on('response', function () {
+    socket.on('response', function (answer, code) {
+        var room = findLobby(code);
+        //find the question in the lobby's list of questions
+        //assign answer to said question
         socket.emit('prompt2');
     });
 
     // send a waiting screen
-    socket.on('roundOver', function () {
+    socket.on('roundOver', function (code) {
         socket.emit('waiting2');
+    });
+
+    socket.on('vote', function(code, id) {
+        console.log("Voted for " + id);
     });
 
     function init(room, questionList) {
@@ -239,27 +250,61 @@ io.on('connection', function (socket) {
         for (let player in players){
            let playerSocket = io.sockets.connected[player];
            let question1 = questionList[index++];
+           var question = {
+               text: question1,
+               answers: []
+           }
+           var answer = {
+               name: "",
+               text: "",
+               votes: 0
+           }
+           question.answers.push(answer);
+           room.questions.push(question);
            var numPlayers = Object.keys(players).length;
            if (index === numPlayers){
                index = 0;
            }
            let question2 = questionList[index];
-
-           console.log('1st Question: ' + question1 + '\n' + '2nd Question: ' + question2);
+           var question = {
+               text: question1,
+               answers: []
+           }
+           var answer = {
+               name: "",
+               text: "",
+               votes: 0
+           }
+           question.answers.push(answer);
+           room.questions.push(question);
+           console.log(room.questions);
+           //console.log('1st Question: ' + question1 + '\n' + '2nd Question: ' + question2);
 
            playerSocket.emit('prompt1', question1, question2, timePerRound);
 
+
        }
 
-       var timeUntilVote = timePerRound+1 * 1000;
+       var timeUntilVote = ((parseInt(timePerRound, 10) + 2) * 1000);
        setTimeout(function(){
            voting(room);
-       }, 25000);
+       }, timeUntilVote);
 
     }
 
     function voting(room){
         io.to(room.name).emit('vote');
+    }
+
+    function findLobby(code){
+        //uses the code passed from the player to determine the correct lobby
+        var room = {};
+        for (var i=0; i < rooms.length; i++){
+            if (rooms[i].code.localeCompare(code) == 0){
+                room = rooms[i];
+            }
+        }
+        return room;
     }
 
     //actions to be taken when a user disconnects
