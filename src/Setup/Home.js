@@ -6,7 +6,7 @@ import posed from 'react-pose';
 
 // import Test from './Test'
 
-import {tween, easing, styler} from 'popmotion';
+import {tween, easing, styler, composite, physics} from 'popmotion';
 
 
 import './Home.css';
@@ -27,14 +27,31 @@ class Home extends Component {
 
     componentDidMount() {
 
-        const logo = document.querySelector('.starImage');
+        const logo = document.querySelector('#navbarImage');
         const logoStyler = styler(logo);
 
-        tween({
-            to: 300,
-            duration: 300,
-            ease: easing.linear
-        }).start(logoStyler.set('x'));
+        // tween({
+        //     to: 300,
+        //     duration: 300,
+        //     ease: easing.easeOut
+        // }).start(logoStyler.set('x'));
+
+        const polarToCartesian = ({ angle, radius }) => ({
+            x: radius * Math.cos(angle),
+            y: radius * Math.sin(angle)
+        });
+
+        composite({
+            angle: physics({ velocity: 5 }),
+            radius: tween({
+                from: 1200,
+                to: 0,
+                yoyo: 0,
+                ease: easing.easeInOut,
+                duration: 2000
+            })
+        }).pipe(polarToCartesian)
+            .start(logoStyler.set);
     }
 
     render() {
