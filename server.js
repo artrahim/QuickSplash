@@ -251,10 +251,12 @@ io.on('connection', function (socket) {
 
        }
 
-       var timeUntilVote = timePerRound+1 * 1000;
+       console.log(timePerRound);
+       var timeUntilVote = ((parseInt(timePerRound, 10) + 2) * 1000);
+       console.log(timeUntilVote);
        setTimeout(function(){
            voting(room);
-       }, 25000);
+       }, timeUntilVote);
 
     }
 
