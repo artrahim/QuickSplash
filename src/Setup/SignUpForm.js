@@ -3,6 +3,7 @@ import {socket} from '../Router';
 
 import {FormError} from './FormError';
 
+const createjs = window.createjs;
 
 class SignUpForm extends Component {
     constructor(props) {
@@ -34,6 +35,7 @@ class SignUpForm extends Component {
         this.setLastName = this.setLastName.bind(this);
         this.setEmail = this.setEmail.bind(this);
         this.checkField = this.checkField.bind(this);
+        this.playTick = this.playTick.bind(this);
     }
 
     checkAllFields(){
@@ -124,7 +126,7 @@ class SignUpForm extends Component {
             socket.emit("signUp", loginInfo);
 
         socket.on('signUp-success', function () {
-
+            createjs.Sound.play("splash");
             self.setState({
                 formErrors: "",
                 usernameValid: true,
@@ -136,6 +138,7 @@ class SignUpForm extends Component {
 
 
         socket.on("signUp-fail", function () {
+            createjs.Sound.play("buzwrong");
             let fieldErrors = self.state.formError;
             fieldErrors.username = ' is already taken.';
 
@@ -148,33 +151,42 @@ class SignUpForm extends Component {
     }
 
     setUsername(event) {
+        this.playTick();
         this.setState({username: event.target.value}, ()=>{
             this.checkField("username", this.state.username)
         })
     }
 
     setPassword(event) {
+        this.playTick();
         this.setState({password: event.target.value}, () => {
             this.checkField("password", this.state.password);
         })
     }
 
     setEmail(event) {
+        this.playTick();
         this.setState({email: event.target.value}, () => {
             this.checkField("email", this.state.email);
         })
     }
 
     setFirstName(event) {
+        this.playTick();
         this.setState({fname: event.target.value}, () => {
             this.checkField("fname", this.state.fname);
         })
     }
 
     setLastName(event) {
+        this.playTick();
         this.setState({lname: event.target.value}, () => {
             this.checkField("lname", this.state.lname);
         })
+    }
+
+    playTick() {
+        createjs.Sound.play("tick");
     }
 
     render() {

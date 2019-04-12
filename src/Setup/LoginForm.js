@@ -4,6 +4,8 @@ import {socket, authenticate} from '../Router';
 import {Redirect} from 'react-router-dom'
 import {FormError} from "./FormError";
 
+const createjs = window.createjs;
+
 class LoginForm extends Component {
     constructor(props) {
         super(props);
@@ -22,6 +24,7 @@ class LoginForm extends Component {
         this.setUsername = this.setUsername.bind(this);
         this.setPassword = this.setPassword.bind(this);
         this.login = this.login.bind(this);
+        this.playTick = this.playTick.bind(this);
     }
 
     login() {
@@ -50,11 +53,12 @@ class LoginForm extends Component {
         // listen for response
         socket.on('login-success', function (msg) {
             // re-route them to home page
+            createjs.Sound.play("splash");
             self.login();
         });
 
         socket.on('login-fail', function () {
-
+            createjs.Sound.play("buzwrong");
             console.log("Incorrect user or pass");
 
             self.setState({wrongAuth: true})
@@ -64,12 +68,19 @@ class LoginForm extends Component {
     }
 
     setUsername(event) {
+        this.playTick();
         this.setState({username: event.target.value})
     }
 
     setPassword(event) {
+        this.playTick();
         this.setState({password: event.target.value})
     }
+
+    playTick() {
+        createjs.Sound.play("tick");
+    }
+
 
     render() {
 
@@ -110,7 +121,7 @@ class LoginForm extends Component {
                     </div>
 
 
-                    <button className="submitButton" type="button" onClick={this.loginSubmitHandler}>Login</button>
+                    <button className="submitButton" type="button"  onClick={this.loginSubmitHandler}>Login</button>
 
                 </div>
 
