@@ -8,38 +8,44 @@ class ButtonSplash extends Component {
     constructor(props) {
         super(props);
 
-        this.scaleUpAnimation = this.scaleUpAnimation.bind(this);
-        this.scaleDownAnimation = this.scaleDownAnimation.bind(this);
         this.playTick = this.playTick.bind(this);
-        this.hover = this.hover.bind(this);
 
     }
 
-    hover() {
-        this.scaleUpAnimation();
-        this.playTick();
-
-    }
-
-    scaleUpAnimation() {
-        const button = document.querySelector('.container');
-        const buttonStyler = styler(button);
-        tween({
-            to: 1.5,
-            duration: 300,
-            ease: easing.easeOut
-        }).start(buttonStyler.set('scale'));
-    }
-
-    scaleDownAnimation() {
-        const button = document.querySelector('.container');
-        const buttonStyler = styler(button);
-        tween({
-            to: 1,
-            duration: 300,
-            ease: easing.easeOut
-        }).start(buttonStyler.set('scale'));
-    }
+    // hover() {
+    //     this.scaleUpAnimation();
+    //     this.playTick();
+    //
+    // }
+    //
+    // scaleUpAnimation() {
+    //     const button = document.querySelector('.container');
+    //     const buttonStyler = styler(button);
+    //
+    //     if (this.timeoutOnMouseOver) {
+    //         clearTimeout(this.timeoutOnMouseOver);
+    //     }
+    //     this.timeoutOnMouseOver = setTimeout(() => {
+    //         tween({
+    //             to: 1.5,
+    //             duration: 300,
+    //             ease: easing.easeOut
+    //         }).start(buttonStyler.set('scale'));
+    //
+    //         this.timeoutOnMouseOver = false;
+    //     }, 300);
+    //
+    // }
+    //
+    // scaleDownAnimation() {
+    //     const button = document.querySelector('.container');
+    //     const buttonStyler = styler(button);
+    //     tween({
+    //         to: 1,
+    //         duration: 300,
+    //         ease: easing.easeOut
+    //     }).start(buttonStyler.set('scale'));
+    // }
 
     playTick() {
         const createjs = window.createjs;
@@ -53,7 +59,7 @@ class ButtonSplash extends Component {
     render() {
         return (
             <div className="container" >
-                <img className="button" src={this.props.imagesource} alt="button" onMouseOver={this.hover} onMouseLeave={this.scaleDownAnimation}>
+                <img className="button" src={this.props.imagesource} alt="button" onMouseOver={this.playTick}>
                 </img>
                 <div className="textButton" > {this.props.text} </div>
             </div>

@@ -44,6 +44,10 @@ html, body {
     width: 50%;
 }
 
+.container:hover {
+    transform: scale(1.5);
+}
+
 .textButton {
     position:absolute;
     font-size: 1.5vw;
@@ -90,20 +94,20 @@ html, body {
 }
 
 @media all and (max-width: 600px) {
-    #navbarContainer{
+    #home #navbarContainer{
         flex-direction: column;
     }
 
-    #navbarImage, #nabvarButton {
+    #home #navbarImage, #nabvarButton {
         order: 0;
 
     }
 
-    .container-flex {
+    #home .container-flex {
         display:flex;
     }
 
-    .button {
+    #home .button {
         width:80%;
     }
 }

@@ -30,12 +30,6 @@ class Home extends Component {
         const logo = document.querySelector('#navbarImage');
         const logoStyler = styler(logo);
 
-        // tween({
-        //     to: 300,
-        //     duration: 300,
-        //     ease: easing.easeOut
-        // }).start(logoStyler.set('x'));
-
         const polarToCartesian = ({ angle, radius }) => ({
             x: radius * Math.cos(angle),
             y: radius * Math.sin(angle)
