@@ -9,9 +9,9 @@ import Resultmain from "./results/resultmain";
 
 class Game extends Component {
 
-    constructor() {
+    constructor(props) {
 
-        super();
+        super(props);
         this.state = {
             stage: 0,
             hasStarted: false,
@@ -86,9 +86,10 @@ class Game extends Component {
         //states are represented by numbers (0 to 6)
         let component = null;
         let lobbyCode = this.props.location.state.lobbyCode;
+        let isCreator = this.props.location.state.isCreator;
         switch (this.state.stage){
             case 0:
-                component = <Waiting lobbyCode={lobbyCode} isCreator={this.props.location.state.isCreator} hasStarted={false}/>;
+                component = <Waiting lobbyCode={lobbyCode} isCreator={isCreator} hasStarted={false}/>;
                 break;
             case 1:
                 //component = <RoundTransitions handleTransition = {() => this.handleClick()}/>;
@@ -112,7 +113,7 @@ class Game extends Component {
                 component = <Resultmain/>;
                 break;
             default:
-                component = <Waiting isCreator={true} hasStarted={false}/>;
+                component = <Waiting lobbyCode={lobbyCode} isCreator={isCreator} hasStarted={false}/>;
         }
 
         return (
