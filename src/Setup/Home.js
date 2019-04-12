@@ -6,7 +6,7 @@ import posed from 'react-pose';
 
 // import Test from './Test'
 
-import {tween, easing, styler, physics, keyframes} from 'popmotion';
+import {tween, easing, styler, composite, physics} from 'popmotion';
 
 
 import './Home.css';
@@ -23,6 +23,8 @@ class Home extends Component {
             username: "",
             auth: false
         };
+
+        this.playSplash = this.playSplash.bind(this);
     }
 
     componentDidMount() {
@@ -30,37 +32,26 @@ class Home extends Component {
         const logo = document.querySelector('#navbarImage');
         const logoStyler = styler(logo);
 
-        // keyframes({
-        //     values: [
-        //         {x: 0, y: 0, rotateY: 0, background: '#9B65DE'},
-        //         {x: 300, y: 0, rotateY: 180, rotateX: 0, background: '#14D790'},
-        //         {x: 300, y: 200, rotateY: 180, rotateX: 180, background: '#FF1C68'},
-        //         {x: 0, y: 200, rotateY: 0, rotateX: 180, background: '#198FE3'},
-        //         {x: 0, y: 0, rotateY: 0, rotateX: 0, background: '#9B65DE'}
-        //     ],
-        //     duration: 3000,
-        //     easings: [easing.easeInOut, easing.easeInOut, easing.easeInOut, easing.easeInOut],
-        //     loop: Infinity,
-        //     //times: [0, 0.2, 0.5, 0.6, 1]
-        // }).start(logoStyler.set);
+        const polarToCartesian = ({ angle, radius }) => ({
+            x: radius * Math.cos(angle),
+            y: radius * Math.sin(angle)
+        });
 
-        //
-        // tween({
-        //     to: {x: 300, rotate: 180},
-        //     duration: 1000,
-        //     ease: easing.linear,
-        //     flip: Infinity,
-        //     // elapsed: 500,
-        //     // loop: 5,
-        //     // yoyo: 5
-        // }).start(logoStyler.set("x"));
+        composite({
+            angle: physics({ velocity: 5 }),
+            radius: tween({
+                from: 1200,
+                to: 0,
+                yoyo: 0,
+                ease: easing.easeInOut,
+                duration: 2000
+            })
+        }).pipe(polarToCartesian)
+            .start(logoStyler.set);
+    }
 
-        // tween({
-        //     from: 100,
-        //     to: 300,
-        //     duration: 300,
-        //     ease: easing.linear
-        // }).start(logoStyler.set('x'));
+    playSplash() {
+        window.createjs.Sound.play("splash");
     }
 
     render() {
@@ -77,19 +68,19 @@ class Home extends Component {
                         </div>
                         <div id="navbarButton">
                             <div className="container-flex">
-                                <NavLink className="loginButton" to="/login">
+                                <NavLink className="loginButton" to="/login" onClick={this.playSplash}>
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
                                                   text={"Login"}/>
                                 </NavLink>
-                                <NavLink className="createLobbyButton" to="/createLobby">
+                                <NavLink className="createLobbyButton" to="/createLobby"  onClick={this.playSplash}>
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
                                                   text={"Create a Lobby"}/>
                                 </NavLink>
-                                <NavLink className="joinLobbyButton" to="/joinLobby">
+                                <NavLink className="joinLobbyButton" to="/joinLobby" onClick={this.playSplash}>
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
                                                   text={"Join a Lobby"}/>
                                 </NavLink>
-                                <NavLink className="howToPlayButton" to="/howToPlay">
+                                <NavLink className="howToPlayButton" to="/howToPlay" onClick={this.playSplash}>
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
                                                   text={"How To Play"}/>
                                 </NavLink>

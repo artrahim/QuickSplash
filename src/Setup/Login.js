@@ -7,7 +7,6 @@ import './login.css'
 import Logo from "./CreateLobby";
 import {Link} from "react-router-dom";
 
-
 class Login extends Component {
 
     constructor() {
@@ -19,18 +18,25 @@ class Login extends Component {
 
         this.loginClick = this.loginClick.bind(this);
         this.signUpClick = this.signUpClick.bind(this);
+        this.playTick = this.playTick.bind(this);
     }
 
     loginClick() {
+        this.playTick();
         this.setState(state => ({
             page: 0
         }));
     }
 
     signUpClick() {
+        this.playTick();
         this.setState(state => ({
             page: 1
         }));
+    }
+
+    playTick() {
+        window.createjs.Sound.play("tick");
     }
 
     render() {
@@ -50,7 +56,7 @@ class Login extends Component {
             <div className="rootContainer">
 
                 <Link to="/">
-                    <Button className="back-button" variant="outline-primary">← Back</Button>
+                    <Button className="back-button" variant="outline-primary" onMouseOver={this.playTick}>← Back</Button>
                 </Link>
                 <div className="wrapper">
                     <div className="pageSelectorContainer">

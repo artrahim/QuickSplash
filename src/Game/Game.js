@@ -9,9 +9,9 @@ import Resultmain from "./results/resultmain";
 
 class Game extends Component {
 
-    constructor() {
+    constructor(props) {
 
-        super();
+        super(props);
         this.state = {
             player: '',
             stage: 0,
@@ -114,7 +114,7 @@ class Game extends Component {
                 component = <Resultmain/>;
                 break;
             default:
-                component = <Waiting isCreator={true} hasStarted={false}/>;
+                component = <Waiting lobbyCode={lobbyCode} isCreator={isCreator} hasStarted={false}/>;
         }
 
         return (
