@@ -44,6 +44,10 @@ export const AllPlayers = ({allPlayers: players}) =>
                 let y = 500;
 
                 switch (i+1) {
+                    case 1:
+                        x = 100;
+                        y = 200;
+                        break;
                     case 2:
                         x = 1300;
                         y = 300;
