@@ -5,7 +5,6 @@ import $ from 'jquery';
 import Timer from './Utilities/Timer';
 import Logo from "../Game/Utilities/Logo";
 import ButtonSplash from "./Utilities/ButtonSplash";
-
 import {AllPlayers} from "../Setup/AllPlayers";
 
 class Waiting extends Component {
@@ -14,39 +13,11 @@ class Waiting extends Component {
         super(props);
 
         this.state = {
-            allPlayers: props.players,
-            splash: ''
+            allPlayers: [],
+            splash: props.color,
+            player: props.player,
         };
-
     }
-
-    // static assingColour() {
-    //     let rn = Math.floor(Math.random() * Math.floor(5));  // will generate a rannd num from 0 to 4
-    //     let path = '';
-    //
-    //     switch (rn) {
-    //
-    //         case 0:
-    //             path = 'blueSplash';
-    //             break;
-    //         case 1:
-    //             path = 'brownSplash';
-    //             break;
-    //         case 2:
-    //             path = 'greenSplash';
-    //             break;
-    //         case 3:
-    //             path = 'orangeSplash';
-    //             break;
-    //         case 4:
-    //             path = 'redSplash';
-    //             break;
-    //         default:
-    //             path = 'blueSplash';
-    //
-    //     }
-    //     return path;
-    // }
 
     componentDidMount() {
 
@@ -56,9 +27,15 @@ class Waiting extends Component {
             socket.emit('startGame', lobbyCode);
         });
 
-        socket.on('addPlayers', (players, colour) => {
-            console.log("collor = " + colour)
-            this.setState({allPlayers: players, splash: colour})
+        socket.on('addPlayers', (players) => {
+
+            let index = players.indexOf(this.state.player[0]);
+
+            players.splice(index, 1);
+
+            this.setState({
+                allPlayers: players,
+            })
         })
     }
 
@@ -85,9 +62,7 @@ class Waiting extends Component {
                 <br/>
                 <h1>WAITING FOR {text}...</h1>
                 {button}
-
-                <AllPlayers allPlayers={this.state.allPlayers} splashColour={this.state.splash}/>
-
+                <AllPlayers allPlayers={this.state.allPlayers}/>
             </div>
         );
     }

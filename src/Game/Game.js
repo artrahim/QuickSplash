@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {socket} from '../Router';
-
 import Waiting from "./Waiting";
 import RoundTransitions from "./RoundTransitions";
 import Prompt from "./Prompt";
 import Voting from "./Voting";
 import Resultmain from "./results/resultmain";
+import PlayerSplash from "../Setup/PlayerSplash";
 
 class Game extends Component {
 
@@ -90,7 +90,7 @@ class Game extends Component {
         switch (this.state.stage){
             case 0:
                 component = <Waiting lobbyCode={lobbyCode} isCreator={this.props.location.state.isCreator} hasStarted={false} player={this.props.location.state.player}
-               players={this.props.location.state.players}/>;
+               color={this.props.location.state.color}/>;
                 break;
             case 1:
                 //component = <RoundTransitions handleTransition = {() => this.handleClick()}/>;
@@ -120,6 +120,8 @@ class Game extends Component {
         return (
             <div className="game">
                 {component}
+
+                <PlayerSplash imagesource={require("../Assets/images/" + this.props.location.state.color + ".png")} text={this.props.location.state.player} x={100} y={200}/>
             </div>
         );
 

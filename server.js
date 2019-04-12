@@ -164,18 +164,12 @@ io.on('connection', function (socket) {
                     errorMessage = "Your nickname is not unique. Please change it and try again";
                 } else {
                     joined = true;
-
-                    let colour = assingColour();
-                    // socket.color = colour;
-
-                    console.log("colour = " + colour)
-
-
                     rooms[i].players.push(nickname);
                     socket.join(rooms[i].name);
+                    socket.color = getColour()
                     console.log("room players = " + rooms[i].players);
-                    socket.emit('waiting', joinCode, rooms[i].players);
-                    io.sockets.emit('addPlayers', rooms[i].players, colour);
+                    socket.emit('waiting', joinCode, getColour());
+                    io.to(room[i].name).emit('addPlayers', rooms[i].players);
                     //debugging/logging statements
                     console.log("***************");
                     console.log(nickname + " joined " + rooms[i].name);
@@ -315,7 +309,7 @@ io.on('connection', function (socket) {
 
     }
 
-    function assingColour()
+    function getColour()
     {
         let rn = Math.floor(Math.random() * Math.floor(5));  // will generate a rannd num from 0 to 4
         let colour = '';

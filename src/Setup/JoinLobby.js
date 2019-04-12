@@ -16,17 +16,17 @@ class JoinLobby extends Component {
         this.state = {
             started: false,
             lobbyCode: 0,
-            player: "",
+            player: [],
             px: 300,
             py: 500,
-            allPlayers: []
+            colour: ''
         };
 
         this.setNickname = this.setNickname.bind(this);
     }
 
     setNickname(event) {
-        this.setState({player: event.target.value})
+        this.setState({player: [event.target.value]})
     }
 
 
@@ -39,13 +39,13 @@ class JoinLobby extends Component {
             alert(errorMessage);
         });
 
-        socket.on('waiting', (joinCode, players) => {
+        socket.on('waiting', (joinCode, color) => {
 
             this.setState(state => ({
-                started: true,
-                lobbyCode: joinCode,
-                allPlayers: players
-            })
+                    started: true,
+                    lobbyCode: joinCode,
+                    colour: color
+                })
             );
 
         });
@@ -92,7 +92,7 @@ class JoinLobby extends Component {
                         pathname: '/game',
                         state: {
                             isCreator: this.props.location.state ? this.props.location.state.isCreator : false,
-                            lobbyCode: this.state.lobbyCode, player: this.state.player, players: this.state.allPlayers
+                            lobbyCode: this.state.lobbyCode, player: this.state.player, color: this.state.colour
                         }
                     }}/>;
                 break;
