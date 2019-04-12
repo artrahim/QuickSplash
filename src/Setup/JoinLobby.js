@@ -8,6 +8,8 @@ import Logo from '../Game/Utilities/Logo'
 import './Lobby.css';
 import ButtonSplash from "../Game/Utilities/ButtonSplash";
 
+const createjs = window.createjs;
+
 class JoinLobby extends Component {
 
     constructor(props) {
@@ -18,6 +20,7 @@ class JoinLobby extends Component {
             lobbyCode: 0
         }
 
+        this.playTick = this.playTick.bind(this);
     }
 
     componentDidMount() {
@@ -26,16 +29,22 @@ class JoinLobby extends Component {
         });
 
         socket.on('failedToJoin', function (errorMessage) {
+            createjs.Sound.play("buzwrong");
             alert(errorMessage);
         });
 
         socket.on('waiting', (joinCode) => {
+            createjs.Sound.play("splash");
             this.setState(state => ({
                 started: true,
                 lobbyCode: joinCode
             }));
         });
 
+    }
+
+    playTick() {
+        createjs.Sound.play("tick");
     }
 
     render() {
@@ -47,7 +56,7 @@ class JoinLobby extends Component {
                     <div className="lobby">
                         <div className="center-back">
                             <Link to="/">
-                                <Button className="back-button" variant="outline-primary">← Back</Button>
+                                <Button className="back-button" variant="outline-primary" onMouseOver={this.playTick}>← Back</Button>
                             </Link>
                             <Logo/>
                             <div className="empty"/>
@@ -60,10 +69,10 @@ class JoinLobby extends Component {
                         <div id="container">
                             <label htmlFor="joinCode">ENTER A JOIN CODE: </label>
                             <br/>
-                            <input defaultValue="" type="text" className="textBox" id="joinCode"/>
+                            <input defaultValue="" type="text" className="textBox" id="joinCode" onKeyDown={this.playTick}/>
                             <br/><br/>
                             <label htmlFor="nickname">WHAT SHOULD WE CALL YOU?: </label>
-                            <input defaultValue="" type="text" className="textBox" id="nickname"/>
+                            <input defaultValue="" type="text" className="textBox" id="nickname" onKeyDown={this.playTick}/>
                         </div>
                         <br/>
                         <div id="button">

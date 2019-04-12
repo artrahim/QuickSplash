@@ -61,7 +61,7 @@ class ButtonSplash extends Component {
     render() {
         return (
             <div className="container" >
-                <img className="button" onClick={this.playSplash} src={this.props.imagesource} alt="button" >
+                <img className="button" src={this.props.imagesource} alt="button" >
                 </img>
                 <div className="textButton" onClick={this.playSplash} onMouseOver={this.playTick}> {this.props.text} </div>
             </div>
