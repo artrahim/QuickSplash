@@ -3,13 +3,18 @@ import '../../Setup/Home.css';
 
 import {tween, easing, styler, composite, spring} from 'popmotion';
 
+const createjs = window.createjs;
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY})
+
+
 class ButtonSplash extends Component {
 
     constructor(props) {
         super(props);
 
         this.playTick = this.playTick.bind(this);
-
+        this.playSplash = this.playSplash.bind(this);
+        
     }
 
     // hover() {
@@ -48,20 +53,19 @@ class ButtonSplash extends Component {
     // }
 
     playTick() {
-        const createjs = window.createjs;
+        createjs.Sound.play("tick",props);
+    }
 
-        // let tick = "tick";
-        // createjs.Sound.registerSound("Tick.ogg", tick);
-        let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY})
-        createjs.Sound.play("tick", props);
+   playSplash() {
+        createjs.Sound.play("splash",props);
     }
 
     render() {
         return (
             <div className="container" >
-                <img className="button" src={this.props.imagesource} alt="button" onMouseOver={this.playTick}>
+                <img className="button" onClick={this.playSplash} src={this.props.imagesource} alt="button" >
                 </img>
-                <div className="textButton" > {this.props.text} </div>
+                <div className="textButton" onClick={this.playSplash} onMouseOver={this.playTick}> {this.props.text} </div>
             </div>
         )
     }
