@@ -125,7 +125,7 @@ class Game extends Component {
         return (
             <div className="game">
                 {component}
-                <PlayerSplash imagesource={require("../Assets/images/" + this.props.location.state.colour + ".png")} text={nickname} x={100} y={200}/>
+                {/*<PlayerSplash imagesource={require("../Assets/images/" + this.props.location.state.colour + ".png")} text={nickname} x={100} y={200}/>*/}
             </div>
         );
 

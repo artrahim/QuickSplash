@@ -30,14 +30,14 @@ class Waiting extends Component {
 
         socket.on('addPlayers', (players) => {
 
-            let thisPlayer = this.props.nickname;
-            let index = 0
-            for (let i=0; i<players.length; i++){
-                if (players[i].nickname === thisPlayer){
-                    index = i;
-                }
-            };
-            players.splice(index, 1);
+            // let thisPlayer = this.props.nickname;
+            // let index = 0
+            // for (let i=0; i<players.length; i++){
+            //     if (players[i].nickname === thisPlayer){
+            //         index = i;
+            //     }
+            // };
+            // players.splice(index, 1);
 
             this.setState({
                 allPlayers: players,
