@@ -93,9 +93,6 @@ class Game extends Component {
         let lobbyCode = this.props.location.state.lobbyCode;
         let isCreator = this.props.location.state.isCreator;
         switch (this.state.stage){
-            case 0:
-                component = <Waiting lobbyCode={lobbyCode} isCreator={isCreator} hasStarted={false}/>;
-                break;
             case 1:
                 //component = <RoundTransitions handleTransition = {() => this.handleClick()}/>;
                 component = <RoundTransitions/>;
