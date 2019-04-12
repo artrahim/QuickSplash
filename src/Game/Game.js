@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link, Redirect} from 'react-router-dom';
 import {socket} from '../Router';
 
 import Waiting from "./Waiting";
@@ -7,6 +8,7 @@ import Prompt from "./Prompt";
 import Voting from "./Voting";
 import Resultmain from "./results/resultmain";
 import PlayerSplash from "../Setup/PlayerSplash";
+import $ from "jquery";
 
 class Game extends Component {
 
@@ -114,6 +116,8 @@ class Game extends Component {
             case 6:
                 component = <Resultmain first={this.state.first} second={this.state.second} third={this.state.third}/>;
                 break;
+            case 7:
+                component =  <Redirect to={{pathname: '/'}}/>;
             default:
                 component = <Waiting nickname={nickname} lobbyCode={lobbyCode} isCreator={isCreator} hasStarted={false}/>;
         }

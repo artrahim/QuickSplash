@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link, NavLink, Redirect} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {socket} from '../Router';
 import $ from 'jquery';
 import Button from 'react-bootstrap/Button';
