@@ -36,6 +36,21 @@ class SignUpForm extends Component {
         this.checkField = this.checkField.bind(this);
     }
 
+    checkAllFields(){
+
+        let object = this.state.formError;
+
+        for (let property in object) {
+            if (object.hasOwnProperty(property)) {
+
+                console.log("Property = " + property);
+
+                // this.checkField(property, this.state.);
+            }
+        }
+    }
+
+
     checkField(fieldName, value) {
 
         let fieldErrors = this.state.formError;
@@ -98,6 +113,8 @@ class SignUpForm extends Component {
     signUpSubmitHandler(event) {
 
         event.preventDefault();
+
+        this.checkAllFields();
 
         let self = this;
 
