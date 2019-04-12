@@ -35,31 +35,6 @@
     <body onload="loadBackgroundMusic();">
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root"></div>
-
-        <script>
-            let music = "music";
-            let tick = "tick";
-
-            function loadBackgroundMusic(){
-                // if initializeDefaultPlugins returns false, we cannot play sound in this browser
-			    if (!createjs.Sound.initializeDefaultPlugins()) { return; };
-
-                createjs.Sound.registerSound("Tick.ogg", tick);
-                createjs.Sound.registerSound("Music.ogg", music);
-
-                createjs.Sound.addEventListener("fileload", handleFileLoad);
-
-                function handleFileLoad(event){
-                    console.log("Preloaded:", event.id, event.src);
-
-                    if(event.src == "Music.ogg"){
-                        let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,loop: -1})
-                        // createjs.Sound.play(event.src, props);
-                    }
-                }
-            }
-        </script>
-
-
+        <script src="sound.js"></script>
     </body>
 </html>
