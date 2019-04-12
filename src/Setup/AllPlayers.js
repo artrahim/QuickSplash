@@ -37,6 +37,9 @@ export const AllPlayers = ({allPlayers: players}) =>
             // Go through the list of players and generate some random x and y pos and display each player.
             players.map((n, i) => {
 
+                let nickname = n.nickname;
+                let colour = n.colour;
+
                 let x = 1400;
                 let y = 500;
 
@@ -72,7 +75,7 @@ export const AllPlayers = ({allPlayers: players}) =>
                 }
 
                 return (
-                    <PlayerSplash imagesource={require("../Assets/images/" + getColour() + ".png")} text={n} x={x} y={y}/>
+                    <PlayerSplash imagesource={require("../Assets/images/" + colour + ".png")} text={nickname} x={x} y={y}/>
                 )
             })
         }

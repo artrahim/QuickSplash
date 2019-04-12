@@ -31,9 +31,9 @@ class Resultmain extends Component {
                 Face1={simley}
                 Face2={scared}
                 Face3={scared}
-                Username1="Supahotfire"
-                Username2="Tony Stark"
-                Username3="DjKhaled"/>
+                Username1={this.props.first}
+                Username2={this.props.second}
+                Username3={this.props.third}/>
             </div>
         );
     }

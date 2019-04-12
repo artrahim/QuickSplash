@@ -30,9 +30,9 @@ class Response extends Component {
         await this.setState({count: (this.state.count + 1) % 2});
         // send the server a msg saying
         if(this.state.count == 1) {
-            socket.emit("response", $('#response').val(), this.props.question, this.props.code);
+            socket.emit("response", this.props.nickname, $('#response').val(), this.props.question, this.props.code);
         } else {
-            socket.emit("roundOver", $('#response').val(), this.props.question, this.props.code);
+            socket.emit("roundOver", this.props.nickname, $('#response').val(), this.props.question, this.props.code);
         }
         $('#response').val('');
 

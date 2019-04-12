@@ -3,14 +3,13 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-
 const dbUtil = require('./dbUtils');
-
 const port = process.env.PORT || 5000;
-app.use(express.static(path.join(__dirname, '/public')));
+//app.use(express.static(path.join(__dirname, '/public')));
 
 var rooms = [];
 var codes = [];
+var usernames = [];
 var currentRoom = -1;
 
 let mongoose = require('mongoose');
@@ -37,7 +36,6 @@ io.on('connection', function (socket) {
 
         // query db for PlayerInfo
         let auth = false;
-
 
         // find all athletes who play tennis, selecting the 'name' and 'age' fields
         PlayerInfo.findOne({'username': username}, 'password', function (err, account) {
@@ -129,6 +127,7 @@ io.on('connection', function (socket) {
             name: "room" + currentRoom,
             code: generatedCode,
             rules: ruleSet,
+            currentRound: 0,
             players: [],
             questions: []
         }
@@ -148,55 +147,72 @@ io.on('connection', function (socket) {
 
     });
 
-
-
     //actions to be taken when a user joins a lobby
-    socket.on('joinLobby', function (joinCode, nickname) {
+    socket.on('joinLobby', function (joinCode, nickname, username) {
 
         var errorMessage = "Please check your join code and try again";
         //compare the join code entered by the user to the join codes of all
         //the lobbies on the server
         //if a match is found, add user to correct lobby
-        var joined = false;
+        var correctCode = false;
+        var uniqueName = true;
+        var room = {};
         for (var i = 0; i < rooms.length; i++) {
-            if (joinCode.localeCompare(rooms[i].code) == 0) {
-                if (rooms[i].players.includes(nickname)) {
+            if (joinCode === rooms[i].code) {
+                correctCode = true;
+                room = rooms[i];
+            }
+        }
+        if (correctCode) {
+            for (var j = 0; j < room.players.length; j++) {
+                if (room.players[j].nickname === nickname) {
                     errorMessage = "Your nickname is not unique. Please change it and try again";
-                } else {
-                    joined = true;
-                    rooms[i].players.push(nickname);
-                    socket.join(rooms[i].name);
-                    socket.color = getColour()
-                    console.log("room players = " + rooms[i].players);
-                    socket.emit('waiting', joinCode, getColour());
-                    io.to(room[i].name).emit('addPlayers', rooms[i].players);
-                    //debugging/logging statements
-                    console.log("***************");
-                    console.log(nickname + " joined " + rooms[i].name);
+                    uniqueName = false;
                 }
             }
         }
-        //send error message if the user failes to join
-        if (!joined) {
+        if (uniqueName && correctCode){
+            let temp1 = {
+                username: username,
+                nickname: nickname,
+            };
+            usernames.push(temp1);
+            let temp2 = {
+                nickname: nickname,
+                score: 0,
+                colour: getColour()
+            };
+            room.players.push(temp2);
+            socket.join(room.name);
+            //console.log("room players = " + rooms[i].players);
+            socket.emit('waiting', joinCode, temp2.colour);
+            io.to(room.name).emit('addPlayers', room.players);
+            //debugging/logging statements
+            console.log("***************");
+            console.log(nickname + " joined " + room.name);
+        }
+        //send error message if the user fails to join
+        else {
             socket.emit('failedToJoin', errorMessage);
         }
 
     });
 
     //actions to be taken when a game starts.
-    //TODO: MAKE THE GAME LOOP HERE!
     socket.on('startGame', function(code){
 
         var room = findLobby(code);
+        loadQuestions(room)
 
+    });
+
+    function loadQuestions(room){
         // get random question here
         let questionList = ["DD"];
 
         //retrieve all the required questions
         //For N players, N questions are needed per round
         //So total number of questions needed = N * number of rounds
-
-        // TO:DO change back to n players n question
         dbUtil.getRandomQuestion(room.players.length * room.rules.numRounds).then((retQuestion)=> {
             questionList = retQuestion;
             console.log("-----------------------LOADED-------------------!");
@@ -204,109 +220,172 @@ io.on('connection', function (socket) {
             console.log(questionList);
             init(room, questionList);
         });
+    }
 
-    });
+    function init(room, questionList) {
+        room.currentRound++;
+        io.to(room.name).emit('roundTransition');
+        setTimeout(function(){
+            sendQuestions(room, questionList);
+        }, 3000);
+    }
+
+    function sendQuestions(room, questionList){
+        room.questions = [];
+        let players = io.sockets.adapter.rooms[room.name].sockets;
+        let index = 0;
+        let timePerRound = room.rules.timePerRound;
+        for (let player in players){
+            let playerSocket = io.sockets.connected[player];
+            let question1 = questionList[index++];
+            var question = {
+                text: question1,
+                answers: []
+            };
+            room.questions.push(question);
+            var numPlayers = Object.keys(players).length;
+            if (index === numPlayers){
+                index = 0;
+            }
+            let question2 = questionList[index];
+            console.log(room.questions);
+            //console.log('1st Question: ' + question1 + '\n' + '2nd Question: ' + question2);
+
+            playerSocket.emit('prompt1', question1, question2, timePerRound);
+
+        }
+
+        var timeUntilVote = ((parseInt(timePerRound, 10) + 1) * 1000);
+        setTimeout(function(){
+            voting(room);
+        }, timeUntilVote);
+
+    }
 
     // send a prompt2 when a response recieved
-    socket.on('response', function (answer, question, code) {
+    socket.on('response', function (player, answer, question, code) {
         var room = findLobby(code);
         //find the question in the lobby's list of questions
         //assign answer to said question
         for (var i=0; i<room.questions.length; i++){
             if (room.questions[i].text === question){
                 var temp = {
-                    nickname: "",
+                    nickname: player,
                     text: answer,
                     votes: 0
-                }
+                };
                 room.questions[i].answers.push(temp);
-                console.log(room.questions);
             }
         }
         socket.emit('prompt2');
     });
 
     // send a waiting screen
-    socket.on('roundOver', function (answer, question, code) {
+    socket.on('roundOver', function (player, answer, question, code) {
         var room = findLobby(code);
         //find the question in the lobby's list of questions
         //assign answer to said question
         for (var i=0; i<room.questions.length; i++){
             if (room.questions[i].text === question){
                 var temp = {
-                    nickname: "",
+                    nickname: player,
                     text: answer,
                     votes: 0
                 };
                 room.questions[i].answers.push(temp);
-                console.log(room.questions);
             }
         }
         socket.emit('waiting2');
     });
 
+    function voting(room){
+        var offset = 0;
+        for (var i=0; i<room.questions.length; i++){
+            var prompt = room.questions[i].text;
+            var answer1 = room.questions[i].answers[0].text;
+            var answer2 = room.questions[i].answers[1].text;
+            var isLast = false;
+            if (i === room.questions.length-1){
+                isLast = true;
+            }
+            sendVote(room, prompt, answer1, answer2, offset, isLast);
+            offset += 5000
+        }
+    }
+
+    function sendVote(room, prompt, answer1, answer2, offset, isLast){
+        let timeToVote = room.questions.length * 5;
+        setTimeout(function(){
+            console.log(prompt);
+            io.to(room.name).emit('vote', prompt, timeToVote, answer1, answer2);
+            io.to(room.name).emit('reset');
+        }, offset);
+        if (isLast){
+            setTimeout(function(){
+                results(room);
+            }, (offset+5000));
+        }
+    }
+
     socket.on('vote', function(code, question, answer) {
         var room = findLobby(code);
-        for (var i=0; i<room.questions.length; i++){
-            if (room.questions[i].text === question){
+        for (var i=0; i<room.questions.length; i++) {
+            if (room.questions[i].text === question) {
                 let answers = room.questions[i].answers;
-                for (var i=0; i<answers.length; i++){
-                    if (answers[i].text === answer){
-                        answers[i].votes++;
+                for (var j = 0; j < answers.length; j++) {
+                    if (answers[j].text === answer) {
+                        answers[j].votes++;
+                        let player = answers[j].nickname;
+                        for (var k = 0; k < room.players.length; k++) {
+                            if (room.players[k].nickname === player) {
+                                room.players[k].score += 100;
+                            }
+                        }
                     }
                 }
             }
         }
+    });
+
+    function results(room){
         for (var i=0; i<room.questions.length; i++) {
             console.log(room.questions[i].answers);
         }
-    });
-
-    function init(room, questionList) {
-        var currentRound = 0;
-        //while (currentRound < room.rules.numRounds){
-            io.to(room.name).emit('roundTransition');
-            setTimeout(function(){
-                sendQuestions(room, questionList);
-            }, 3000);
-        //}
+        for (var i=0; i<room.players.length; i++){
+            console.log(room.players[i]);
+        }
+        room.players.sort(function(a, b) {
+            return b.score - a.score;
+        });
+        io.to(room.name).emit('result', room.players[0].nickname, room.players[1].nickname, "test");
+        let numRounds = parseInt(room.rules.numRounds, 10);
+        let currentRound = room.currentRound;
+        console.log(currentRound);
+        console.log(numRounds);
+        if (currentRound < numRounds) {
+            setTimeout(function () {
+                nextRound(room);
+            }, 5000);
+        }
     }
 
-    function sendQuestions(room, questionList){
-        let players = io.sockets.adapter.rooms[room.name].sockets;
-        let index = 0;
-        /*
-        for (var i=0; i<players.length; i++){
-            players[i].emit('prompt1', questionList[index], questionList[index++]);
+    function nextRound(room){
+        loadQuestions(room)
+    }
+
+    function endGame(room){
+
+    }
+
+    function findLobby(code){
+        //uses the code passed from the player to determine the correct lobby
+        var room = {};
+        for (var i=0; i < rooms.length; i++){
+            if (rooms[i].code.localeCompare(code) === 0){
+                room = rooms[i];
+            }
         }
-        */
-        let timePerRound = room.rules.timePerRound;
-        for (let player in players){
-           let playerSocket = io.sockets.connected[player];
-           let question1 = questionList[index++];
-           var question = {
-               text: question1,
-               answers: []
-           };
-           room.questions.push(question);
-           var numPlayers = Object.keys(players).length;
-           if (index === numPlayers){
-               index = 0;
-           }
-           let question2 = questionList[index];
-           console.log(room.questions);
-           //console.log('1st Question: ' + question1 + '\n' + '2nd Question: ' + question2);
-
-           playerSocket.emit('prompt1', question1, question2, timePerRound);
-
-
-       }
-
-       var timeUntilVote = ((parseInt(timePerRound, 10) + 2) * 1000);
-       setTimeout(function(){
-           voting(room);
-       }, timeUntilVote);
-
+        return room;
     }
 
     function getColour()
@@ -332,51 +411,18 @@ io.on('connection', function (socket) {
                 colour = 'redSplash';
                 break;
             default:
-                 colour = 'blueSplash';
+                colour = 'blueSplash';
 
         }
         return colour;
-    }
-
-
-    function voting(room){
-        var offset = 0;
-        for (var i=0; i<room.questions.length; i++){
-            console.log(i);
-            var prompt = room.questions[i].text;
-            var answer1 = room.questions[i].answers[0].text;
-            console.log(answer1);
-            var answer2 = room.questions[i].answers[1].text;
-            console.log(answer2);
-            sendVote(room, prompt, answer1, answer2, offset);
-            console.log("timeout set" + offset.toString(10))
-            offset += 5000
-        }
-    }
-
-    function sendVote(room, prompt, answer1, answer2, offset){
-        setTimeout(function(){
-            console.log(prompt);
-            io.to(room.name).emit('vote', prompt, answer1, answer2);
-            io.to(room.name).emit('reset');
-        }, offset);
-    }
-
-    function findLobby(code){
-        //uses the code passed from the player to determine the correct lobby
-        var room = {};
-        for (var i=0; i < rooms.length; i++){
-            if (rooms[i].code.localeCompare(code) === 0){
-                room = rooms[i];
-            }
-        }
-        return room;
     }
 
     //actions to be taken when a user disconnects
     socket.on('disconnect', function (socket) {
         console.log("user disconnected");
     });
+
+
 
 });
 
