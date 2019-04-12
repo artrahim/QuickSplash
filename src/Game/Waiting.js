@@ -5,8 +5,20 @@ import $ from 'jquery';
 import Timer from './Utilities/Timer';
 import Logo from "../Game/Utilities/Logo";
 import ButtonSplash from "./Utilities/ButtonSplash";
+import {AllPlayers} from "../Setup/AllPlayers";
 
 class Waiting extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            allPlayers: [],
+            //splash: props.color,
+            //player: props.player,
+        };
+    }
+
 
     componentDidMount(){
 
@@ -15,6 +27,23 @@ class Waiting extends Component {
         $('#button').click(function(){
             socket.emit('startGame', lobbyCode);
         });
+
+        socket.on('addPlayers', (players) => {
+
+            let thisPlayer = this.props.nickname;
+            let index = 0
+            for (let i=0; i<players.length; i++){
+                if (players[i].nickname === thisPlayer){
+                    index = i;
+                }
+            };
+            players.splice(index, 1);
+
+            this.setState({
+                allPlayers: players,
+            })
+        })
+
 
     }
 
@@ -41,6 +70,7 @@ class Waiting extends Component {
                 <br></br>
                 <h1>WAITING FOR {text}...</h1>
                 {button}
+                <AllPlayers allPlayers={this.state.allPlayers}/>
             </div>
         );
     }

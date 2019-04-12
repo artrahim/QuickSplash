@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import {socket, authenticate} from '../Router';
 
+import Cookies from 'universal-cookie';
+
 import {Redirect} from 'react-router-dom'
 import {FormError} from "./FormError";
 
+
+const cookies = new Cookies();
 class LoginForm extends Component {
     constructor(props) {
         super(props);
@@ -45,6 +49,9 @@ class LoginForm extends Component {
 
         let loginInfo = JSON.stringify(this.state);
         console.log(loginInfo);
+        // creating cookies
+        let temp = JSON.stringify(this.state.username);
+        cookies.set('username', temp, { path: '/' });
         socket.emit("login", loginInfo);
 
         // listen for response
@@ -64,11 +71,12 @@ class LoginForm extends Component {
     }
 
     setUsername(event) {
-        this.setState({username: event.target.value})
+        this.setState({username: event.target.value});
+
     }
 
     setPassword(event) {
-        this.setState({password: event.target.value})
+        this.setState({password: event.target.value});
     }
 
     render() {
