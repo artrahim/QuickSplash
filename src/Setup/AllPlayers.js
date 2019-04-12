@@ -1,35 +1,6 @@
 import React from 'react';
 import PlayerSplash from "./PlayerSplash";
 
-function getColour() {
-    let rn = Math.floor(Math.random() * Math.floor(5));  // will generate a rannd num from 0 to 4
-    let colour = '';
-
-    switch (rn) {
-
-        case 0:
-            colour = 'blueSplash';
-            break;
-        case 1:
-            colour = 'brownSplash';
-            break;
-        case 2:
-            colour = 'greenSplash';
-            break;
-        case 3:
-            colour = 'orangeSplash';
-            break;
-        case 4:
-            colour = 'redSplash';
-            break;
-        default:
-            colour = 'blueSplash';
-
-    }
-    return colour;
-}
-
-
 export const AllPlayers = ({allPlayers: players}) =>
 
     <div className=''>
