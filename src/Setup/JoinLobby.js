@@ -15,10 +15,20 @@ class JoinLobby extends Component {
         super();
         this.state = {
             started: false,
-            lobbyCode: 0
-        }
+            lobbyCode: 0,
+            player: "",
+            px: 300,
+            py: 500,
+            allPlayers: []
+        };
 
+        this.setNickname = this.setNickname.bind(this);
     }
+
+    setNickname(event) {
+        this.setState({player: event.target.value})
+    }
+
 
     componentDidMount() {
         $('#button').click(function () {
@@ -29,11 +39,15 @@ class JoinLobby extends Component {
             alert(errorMessage);
         });
 
-        socket.on('waiting', (joinCode) => {
+        socket.on('waiting', (joinCode, players) => {
+
             this.setState(state => ({
                 started: true,
-                lobbyCode: joinCode
-            }));
+                lobbyCode: joinCode,
+                allPlayers: players
+            })
+            );
+
         });
 
     }
@@ -63,7 +77,8 @@ class JoinLobby extends Component {
                             <input defaultValue="" type="text" className="textBox" id="joinCode"/>
                             <br/><br/>
                             <label htmlFor="nickname">WHAT SHOULD WE CALL YOU?: </label>
-                            <input defaultValue="" type="text" className="textBox" id="nickname"/>
+                            <input defaultValue="" type="text" className="textBox" id="nickname"
+                                   onChange={this.setNickname}/>
                         </div>
                         <br/>
                         <div id="button">
@@ -77,7 +92,7 @@ class JoinLobby extends Component {
                         pathname: '/game',
                         state: {
                             isCreator: this.props.location.state ? this.props.location.state.isCreator : false,
-                            lobbyCode: this.state.lobbyCode
+                            lobbyCode: this.state.lobbyCode, player: this.state.player, players: this.state.allPlayers
                         }
                     }}/>;
                 break;

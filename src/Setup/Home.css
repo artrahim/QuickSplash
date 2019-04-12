@@ -3,6 +3,19 @@ html, body {
     margin: 0;
 }
 
+.player{
+    width: 150px;
+    height: 150px;
+
+}
+
+.playerName{
+    color: black;
+    text-align: center;
+    font-size: 23px;
+    font-weight: bold;
+    /*background-color : pink;*/
+}
 
 #home #navbarContainer {
     width: 100vw;

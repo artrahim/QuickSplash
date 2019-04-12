@@ -148,6 +148,8 @@ io.on('connection', function (socket) {
 
     });
 
+
+
     //actions to be taken when a user joins a lobby
     socket.on('joinLobby', function (joinCode, nickname) {
 
@@ -162,9 +164,18 @@ io.on('connection', function (socket) {
                     errorMessage = "Your nickname is not unique. Please change it and try again";
                 } else {
                     joined = true;
+
+                    let colour = assingColour();
+                    // socket.color = colour;
+
+                    console.log("colour = " + colour)
+
+
                     rooms[i].players.push(nickname);
                     socket.join(rooms[i].name);
-                    socket.emit('waiting', joinCode);
+                    console.log("room players = " + rooms[i].players);
+                    socket.emit('waiting', joinCode, rooms[i].players);
+                    io.sockets.emit('addPlayers', rooms[i].players, colour);
                     //debugging/logging statements
                     console.log("***************");
                     console.log(nickname + " joined " + rooms[i].name);
@@ -326,6 +337,36 @@ io.on('connection', function (socket) {
        }, timeUntilVote);
 
     }
+
+    function assingColour()
+    {
+        let rn = Math.floor(Math.random() * Math.floor(5));  // will generate a rannd num from 0 to 4
+        let colour = '';
+
+        switch (rn) {
+
+            case 0:
+                colour = 'blueSplash';
+                break;
+            case 1:
+                colour = 'brownSplash';
+                break;
+            case 2:
+                colour = 'greenSplash';
+                break;
+            case 3:
+                colour = 'orangeSplash';
+                break;
+            case 4:
+                colour = 'redSplash';
+                break;
+            default:
+                 colour = 'blueSplash';
+
+        }
+        return colour;
+    }
+
 
     function voting(room){
         var offset = 0;

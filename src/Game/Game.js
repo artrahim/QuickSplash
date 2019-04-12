@@ -13,6 +13,7 @@ class Game extends Component {
 
         super();
         this.state = {
+            player: '',
             stage: 0,
             hasStarted: false,
             round: 0,
@@ -27,11 +28,11 @@ class Game extends Component {
     }
 
     componentDidMount(){
-        socket.on('waiting1', () => {
-            this.setState(state => ({
-              stage: 0
-            }));
-        });
+        // socket.on('waiting1', () => {
+        //     this.setState(state => ({
+        //       stage: 0
+        //     }));
+        // });
 
         socket.on('roundTransition', () => {
             this.setState(state => ({
@@ -88,7 +89,8 @@ class Game extends Component {
         let lobbyCode = this.props.location.state.lobbyCode;
         switch (this.state.stage){
             case 0:
-                component = <Waiting lobbyCode={lobbyCode} isCreator={this.props.location.state.isCreator} hasStarted={false}/>;
+                component = <Waiting lobbyCode={lobbyCode} isCreator={this.props.location.state.isCreator} hasStarted={false} player={this.props.location.state.player}
+               players={this.props.location.state.players}/>;
                 break;
             case 1:
                 //component = <RoundTransitions handleTransition = {() => this.handleClick()}/>;
