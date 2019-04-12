@@ -114,7 +114,7 @@ class Game extends Component {
                 component = <Resultmain/>;
                 break;
             default:
-                component = <Waiting lobbyCode={lobbyCode} isCreator={isCreator} hasStarted={false}/>;
+                component = <Waiting lobbyCode={lobbyCode} isCreator={this.props.location.state.isCreator} hasStarted={false}/>;
         }
 
         return (
