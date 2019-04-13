@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import OtherPlayer from './OtherPlayer'
 import silver from '../../Assets/images/silver.png';
 import bronze from '../../Assets/images/bronze.png';
 
@@ -45,14 +44,15 @@ class Others extends Component {
             <div id="Others">
                 <div className="row">
                     <div className="column">
-                        <img id="otherPlayer" src={"../Game/Assets/images/" + getGif(this.props.splash2.colour) + ".gif"} alt="colorSplash"/>
-                        {/*<img id="otherface" src={this.props.otherFace} alt="avatar"/>*/}
+                        <img id="otherPlayer"
+                             src={require("../../Assets/images/" + getGif(this.props.splash2.colour) + ".gif")}
+                             alt="colorSplash"/>
                         <img id="othermedals" src={silver} alt="medal"/>
                         <p id="otherusername">{this.props.splash2.nickname}</p>
                     </div>
                     <div className="column">
                         <img id="otherPlayer"
-                             src={"../Game/Assets/images/" + getGif(this.props.splash3.colour) + ".gif"}
+                             src={require("../../Assets/images/" + getGif(this.props.splash3.colour) + ".gif")}
                              alt="colorSplash"/>
                         <img id="othermedals" src={bronze} alt="medal"/>
                         <p id="otherusername">{this.props.splash3.nickname}</p>
