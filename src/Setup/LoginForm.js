@@ -13,8 +13,6 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);
 
-        console.log("location = " + props.location.state);
-
         this.state = {
             username: "",
             password: "",
@@ -41,9 +39,9 @@ class LoginForm extends Component {
 
         event.preventDefault();
 
-        // For Testing without server.
-        if (this.state.username === "A" && this.state.password === "a")
-            this.login();
+        // // For Testing without server.
+        // if (this.state.username === "A" && this.state.password === "a")
+        //     this.login();
 
         let self = this;
 
