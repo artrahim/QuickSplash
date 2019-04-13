@@ -49,10 +49,12 @@ class Waiting extends Component {
     render() {
         let button = null;
         let text = null;
+        let code = null;
         let isCreator = this.props.isCreator;
         let hasStarted = this.props.hasStarted;
         let lobbyCode = localStorage.getItem('lobbyCode');
         if (!hasStarted) {
+            code = <h1>CODE: {lobbyCode}</h1>;
             if (isCreator) {
                 // button = <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
                 button = <div id="button"><ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
@@ -67,7 +69,7 @@ class Waiting extends Component {
             <div className="game">
                 <title>Create a lobby</title>
                 <Logo/>
-                <h1>CODE: {lobbyCode}</h1>
+                {code}
                 <h1>WAITING FOR {text}...</h1>
                 {button}
                 <AllPlayers allPlayers={this.state.allPlayers}/>

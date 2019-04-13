@@ -270,14 +270,14 @@ io.on('connection', function (socket) {
 
         }
 
-        var timeUntilVote = ((parseInt(timePerRound, 10)) * 1000);
+        var timeUntilVote = ((parseInt(timePerRound, 10) + 2) * 1000);
         setTimeout(function(){
             voting(room);
         }, timeUntilVote);
 
     }
 
-    // send a prompt2 when a response recieved
+    // send a prompt2 when a response received
     socket.on('response', function (player, answer, question, code) {
         var room = findLobby(code);
         //find the question in the lobby's list of questions
@@ -296,13 +296,13 @@ io.on('connection', function (socket) {
     });
 
     // send a waiting screen
-    socket.on('roundOver', function (player, answer, question, code) {
-        var room = findLobby(code);
+    socket.on('response2', function (player, answer, question, code) {
+        let room = findLobby(code);
         //find the question in the lobby's list of questions
         //assign answer to said question
-        for (var i=0; i<room.questions.length; i++){
+        for (let i=0; i<room.questions.length; i++){
             if (room.questions[i].text === question){
-                var temp = {
+                let temp = {
                     nickname: player,
                     text: answer,
                     votes: 0
@@ -314,15 +314,15 @@ io.on('connection', function (socket) {
     });
 
     function voting(room){
-        var offset = 0;
+        let offset = 0;
         let answer1;
         let answer2;
         let player1;
         let player2;
-        for (var i=0; i<room.questions.length; i++){
-            var prompt = room.questions[i].text;
+        for (let i=0; i<room.questions.length; i++){
+            let prompt = room.questions[i].text;
             if (room.questions[i].answers[0] == null) {
-                var temp = {
+                let temp = {
                     nickname: "",
                     text:  "-",
                     votes: 0
@@ -333,7 +333,7 @@ io.on('connection', function (socket) {
                 answer1 = room.questions[i].answers[0].text;
             }
             if (room.questions[i].answers[1] == null) {
-                var temp = {
+                let temp = {
                     nickname: "",
                     text:  "-",
                     votes: 0
@@ -345,7 +345,7 @@ io.on('connection', function (socket) {
             }
             player1 = room.questions[i].answers[0].nickname;
             player2 = room.questions[i].answers[1].nickname;
-            var isLast = false;
+            let isLast = false;
             if (i === room.questions.length-1){
                 isLast = true;
             }
