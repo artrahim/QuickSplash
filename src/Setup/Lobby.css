@@ -1,7 +1,7 @@
 .lobby{
     background: rgb(240,147,251);
     background: radial-gradient(circle, rgba(240,147,251,1) 0%, rgba(245,87,227,1) 100%);
-
+    width:100%;
     min-width: 100vw;
     min-height: 100vh;
 }
@@ -41,7 +41,6 @@ h1 {
     margin: auto;
     width: 50%;
     height: 100%;
-
 }
 
 .lobby #split-container{
@@ -86,56 +85,122 @@ h1 {
     max-height: 30%;
 }
 
-@media all and (max-width: 600px) {
-	    .lobby {
-	        width: 100%;
-	        min-height: 100vh;
-	
-	    }
-	
-	    .lobby #split-container{
-	        padding: 10px;
-	        display: table;
-	        width: 70%;
-	        margin: auto;
-	    }
-	
-	
-	    .lobby label {
-	        text-align: left;
-	        font-family: "Amatic SC";
-	        font-size: 1em;
-	        font-weight: bold;
-	
-	    }
-	
-	    .lobby input {
-	        font-family: "Amatic SC";
-	        font-size: 1em;
-	        line-height: 55px;
-	        border: none;
-	        width: 90%;
-	
-	    }
-	
-	    .lobby .slider {
-	        -webkit-appearance: none;
-	        width: 80%;
-	        height: 33px;
-	        background: #DCDCDC;
-	        margin-top: 20px;
-	    }
-	
-	
-	    .lobby input[type=range]::-webkit-slider-thumb {
-	        -webkit-appearance: none;
-	        height: 50px;
-	        width: 30px;
-	        background: #111111;
-	        cursor: pointer;
-	    }
-	
-	    .back-button {
-	
-	    }
+
+@media all and (max-width: 575px) {
+    .lobby {
+        width: 100%;
+        min-height: 100vh;
+
+    }
+
+    #container {
+        min-height: 47vh;
+    }
+    .lobby #split-container{
+        display: table;
+        width: 70%;
+        min-height: 50vh;
+    }
+
+
+    .lobby label {
+        text-align: left;
+        font-family: "Amatic SC";
+        font-size: 1em;
+        font-weight: bold;
+
+    }
+
+    .lobby input {
+        font-family: "Amatic SC";
+        font-size: 1em;
+        line-height: 55px;
+        border: none;
+        width: 90%;
+
+    }
+
+    .lobby .slider {
+        -webkit-appearance: none;
+        width: 80%;
+        height: 33px;
+        background: #DCDCDC;
+        margin-top: 20px;
+    }
+
+
+    .lobby input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 50px;
+        width: 30px;
+        background: #111111;
+        cursor: pointer;
+    }
+    
+}
+
+
+@media all and (max-width: 375px) {
+
+    h1 {
+        font-family: "Amatic SC";
+        font-size: 1em;
+
+    }
+
+    .lobby {
+        width: 100%;
+        min-height: 100vh;
+
+    }
+
+    #container{
+        min-height: 40vh;
+    }
+
+
+    .lobby #split-container{
+        padding: 10px;
+        display: table;
+        width: 70%;
+        margin: auto;
+        min-height: 40vh;
+    }
+
+
+    .lobby label {
+        text-align: left;
+        font-family: "Amatic SC";
+        font-size: 1em;
+        font-weight: bold;
+
+    }
+
+    .lobby input {
+        font-family: "Amatic SC";
+        font-size: 1em;
+        line-height: 30px;
+        border: none;
+        width: 90%;
+
+    }
+
+    .lobby .slider {
+        -webkit-appearance: none;
+        width: 80%;
+        height: 33px;
+        background: #DCDCDC;
+        margin-top: 20px;
+    }
+
+
+    .lobby input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 50px;
+        width: 30px;
+        background: #111111;
+        cursor: pointer;
+    }
+    
+
 }
