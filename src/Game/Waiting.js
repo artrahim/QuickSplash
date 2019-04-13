@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
+import Cookies from "universal-cookie";
 import {socket} from '../Router';
 import $ from 'jquery';
 
-import Timer from './Utilities/Timer';
 import Logo from "../Game/Utilities/Logo";
 import ButtonSplash from "./Utilities/ButtonSplash";
 import {AllPlayers} from "../Setup/AllPlayers";
@@ -13,6 +13,8 @@ import Test from '../Setup/Test'
 
 import {tween, easing, styler, composite, physics} from 'popmotion';
 import PlayerSplash from "../Setup/PlayerSplash";
+
+const cookies = new Cookies();
 
 class Waiting extends Component {
 
@@ -26,17 +28,21 @@ class Waiting extends Component {
 
     componentDidMount() {
 
-        const lobbyCode = this.props.lobbyCode;
+        //const lobbyCode = this.props.lobbyCode;
+        const lobbyCode = localStorage.getItem('lobbyCode');
 
         $('#button').click(function () {
             socket.emit('startGame', lobbyCode);
         });
 
         socket.on('addPlayers', (players) => {
-
             this.setState({
                 allPlayers: players
             })
+        });
+
+        socket.on('failedToStart', (errorMessage) => {
+            alert(errorMessage);
         })
     }
 

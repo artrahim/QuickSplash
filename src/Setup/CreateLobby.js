@@ -16,7 +16,7 @@ class CreateLobby extends Component {
         super();
         this.state = {
             lobbyCreated: false,
-            loobyCode : null
+            lobbyCode : null
         }
 
     }
@@ -46,19 +46,25 @@ class CreateLobby extends Component {
             socket.emit('createLobby', rules);
         });
 
-        let debug = 0;
         socket.on('joinAsCreator', (code) => {
             this.setState(state => ({
                 lobbyCreated: true,
-                loobbyCode: code
+                lobbyCode: code
             }));
-            // alert("The lobby code is: " + code + " " + debug);
-            debug++;
+            let a = [];
+            if (localStorage.getItem('codes') === null){
+                a = [];
+            }
+            else{
+                a = JSON.parse(localStorage.getItem('codes'));
+            }
+            a.push(code);
+            localStorage.setItem('codes', JSON.stringify(a))
         });
     }
 
     componentWillUnmount() {
-        alert("The lobby code is: " + this.state.loobbyCode );
+        alert("The lobby code is: " + this.state.lobbyCode );
     }
 
     render() {
@@ -109,8 +115,7 @@ class CreateLobby extends Component {
             case true:
                 component =
                     <Redirect to={{
-                        pathname: '/joinLobby',
-                        state: {isCreator: true}
+                        pathname: '/joinLobby'
                     }}/>
                 break;
             default:

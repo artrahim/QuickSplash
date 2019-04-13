@@ -30,7 +30,7 @@ class JoinLobby extends Component {
         let tname = '';
         $('#button').click(function () {
             let uname = cookies.get('username').username;
-            socket.emit('joinLobby', $("#joinCode").val(), $("#nickname").val(),uname);
+            socket.emit('joinLobby', $("#joinCode").val(), $("#nickname").val(), uname);
             // set the cookies with nickname
             let temp ={
                 username: uname,
@@ -41,28 +41,21 @@ class JoinLobby extends Component {
             let expTime = 15 * 60;
             console.log("Cookies info in login form:", temp);
             cookies.set('username', temp, { path: '/' , maxAge:expTime});
+            localStorage.setItem("lobbyCode", $("#joinCode").val());
         });
 
         socket.on('failedToJoin', function (errorMessage) {
             alert(errorMessage);
         });
 
-        socket.on('waiting', (joinCode, aColour) => {
+        socket.on('waiting', (aColour) => {
             this.setState(state => ({
                 started: true,
-                lobbyCode: joinCode,
-                colour: aColour
             }));
+            localStorage.setItem("colour", aColour);
         });
 
     }
-
-    // changeState(tname) {
-    //     this.setState(state => ({
-    //         nickname: tname
-    //     }));
-    //
-    // }
 
     render() {
 
@@ -101,12 +94,6 @@ class JoinLobby extends Component {
                 component =
                     <Redirect to={{
                         pathname: '/game',
-                        state: {
-                            nickname: $("#nickname").val(),
-                            isCreator: this.props.location.state ? this.props.location.state.isCreator : false,
-                            lobbyCode: this.state.lobbyCode,
-                            colour: this.state.colour,
-                        }
                     }}/>;
                 break;
             default:

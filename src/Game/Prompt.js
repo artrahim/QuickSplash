@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import {socket} from '../Router';
 
 import Logo from "../Game/Utilities/Logo";
-
 import Timer from './Utilities/Timer';
 import Question from './Question';
 import Response from './Response';
@@ -36,7 +34,7 @@ class Prompt extends Component {
                 <Question question={this.props.question}/>
                 <br/>
                 <br/>
-                <Response nickname={this.props.nickname} question={this.props.question} code={this.props.code}/>
+                <Response question={this.props.question}/>
             </div>
         );
 
