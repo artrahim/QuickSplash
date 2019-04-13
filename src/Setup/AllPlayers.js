@@ -11,46 +11,50 @@ export const AllPlayers = ({allPlayers: players}) =>
                 let nickname = n.nickname;
                 let colour = n.colour;
 
+                let windowWidth = window.innerWidth;
+
+                console.log("width = " + windowWidth);
+
                 let x = 1400;
                 let y = 500;
 
                 switch (i+1) {
                     case 1:
-                        x = 100;
-                        y = 200;
+                        x = 0.08;
+                        y = 0.3;
                         break;
                     case 2:
-                        x = 1300;
-                        y = 300;
+                        x = 0.8;
+                        y = 0.28;
                         break;
                     case 3:
-                        x = 200;
-                        y = 700;
+                        x = 0.15;
+                        y = 0.7;
                         break;
                     case 4:
-                        x = 700;
-                        y = 600;
+                        x = 0.6;
+                        y = 0.3;
                         break;
                     case 5:
-                        x = 1500;
-                        y = 700;
+                        x = 0.4;
+                        y = 0.7;
                         break;
                     case 6:
-                        x = 1000;
-                        y = 500;
+                        x = 0.5;
+                        y = 0.5;
                         break;
                     case 7:
-                        x = 450;
-                        y = 400;
+                        x = 0.75;
+                        y = 0.7;
                         break;
                     case 8:
-                        x = 1100;
-                        y = 700;
+                        x = 0.3;
+                        y = 0.3;
                         break;
                 }
 
                 return (
-                    <PlayerSplash imagesource={require("../Assets/images/" + colour + ".png")} text={nickname} x={x} y={y}/>
+                    <PlayerSplash imagesource={require("../Assets/images/" + colour + ".png")} text={nickname} x={x*window.innerWidth} y={y*window.innerHeight}/>
                 )
             })
         }

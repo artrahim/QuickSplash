@@ -9,6 +9,8 @@ import Voting from "./Voting";
 import Resultmain from "./results/resultmain";
 import PlayerSplash from "../Setup/PlayerSplash";
 
+import './Game.css';
+
 class Game extends Component {
 
     constructor(props) {
@@ -134,7 +136,6 @@ class Game extends Component {
         return (
             <div className="game">
                 {component}
-                {/*<PlayerSplash imagesource={require("../Assets/images/" + this.props.location.state.colour + ".png")} text={nickname} x={100} y={200}/>*/}
             </div>
         );
 
