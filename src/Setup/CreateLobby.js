@@ -15,44 +15,50 @@ class CreateLobby extends Component {
 
         super();
         this.state = {
-            lobbyCreated: false
+            lobbyCreated: false,
+            loobyCode : null
         }
 
     }
 
     componentDidMount() {
 
-        $(function () {
-            var rules = {
+        let rules = {
+            timePerRound: $("#slider1").val(),
+            numRounds: $("#slider2").val(),
+            lobbySize: $("#slider3").val(),
+            afkTimeout: $("#slider4").val()
+        };
+        $(".slider").on("input", function () {
+            $("#timePerRound").val($("#slider1").val() + " SECONDS");
+            $("#numRounds").val($("#slider2").val() + " ROUND(S)");
+            $("#lobbySize").val($("#slider3").val() + " PLAYERS");
+            $("#afkTimeout").val($("#slider4").val() + " MINUTE(S)");
+            rules = {
                 timePerRound: $("#slider1").val(),
                 numRounds: $("#slider2").val(),
                 lobbySize: $("#slider3").val(),
                 afkTimeout: $("#slider4").val()
-            };
-            $(".slider").on("input", function () {
-                $("#timePerRound").val($("#slider1").val() + " SECONDS");
-                $("#numRounds").val($("#slider2").val() + " ROUND(S)");
-                $("#lobbySize").val($("#slider3").val() + " PLAYERS");
-                $("#afkTimeout").val($("#slider4").val() + " MINUTE(S)");
-                rules = {
-                    timePerRound: $("#slider1").val(),
-                    numRounds: $("#slider2").val(),
-                    lobbySize: $("#slider3").val(),
-                    afkTimeout: $("#slider4").val()
-                }
-            });
-            $('#button').click(function () {
-                socket.emit('createLobby', rules);
-            });
+            }
+        });
+        $('#button').click(function (e) {
+            e.preventDefault();
+            socket.emit('createLobby', rules);
         });
 
+        let debug = 0;
         socket.on('joinAsCreator', (code) => {
             this.setState(state => ({
-                lobbyCreated: true
+                lobbyCreated: true,
+                loobbyCode: code
             }));
-            alert("The lobby code is: " + code);
+            // alert("The lobby code is: " + code + " " + debug);
+            debug++;
         });
+    }
 
+    componentWillUnmount() {
+        alert("The lobby code is: " + this.state.loobbyCode );
     }
 
     render() {
