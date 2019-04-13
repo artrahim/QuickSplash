@@ -8,11 +8,11 @@ class Logo extends Component {
     render() {
         return (
             <div id="logo-div">
-            <span className="center">
-                <Link to="/">
-                    <img id="logo" src={logo} alt="Logo"/>
-                </Link>
-             </span>
+                <div className="center">
+                    <Link to="/">
+                        <img id="logo" src={logo} alt="Logo"/>
+                    </Link>
+                </div>
             </div>
         );
     }

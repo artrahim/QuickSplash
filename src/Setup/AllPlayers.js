@@ -1,6 +1,8 @@
 import React from 'react';
 import PlayerSplash from "./PlayerSplash";
 
+import Test from './Test'
+
 export const AllPlayers = ({allPlayers: players}) =>
 
     <div className=''>
@@ -18,7 +20,7 @@ export const AllPlayers = ({allPlayers: players}) =>
                 let x = 1400;
                 let y = 500;
 
-                switch (i+1) {
+                switch (i + 1) {
                     case 1:
                         x = 0.08;
                         y = 0.3;
@@ -54,7 +56,9 @@ export const AllPlayers = ({allPlayers: players}) =>
                 }
 
                 return (
-                    <PlayerSplash imagesource={require("../Assets/images/" + colour + ".png")} text={nickname} x={x*window.innerWidth} y={y*window.innerHeight}/>
+                    <PlayerSplash imagesource={require("../Assets/images/" + colour + ".png")} text={nickname}
+                                  x={x * window.innerWidth} y={y * window.innerHeight}/>
+
                 )
             })
         }

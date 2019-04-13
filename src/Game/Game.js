@@ -8,7 +8,7 @@ import Waiting from "./Waiting";
 import RoundTransitions from "./RoundTransitions";
 import Prompt from "./Prompt";
 import Voting from "./Voting";
-import Resultmain from "./results/resultmain";
+import ResultMain from "./results/ResultMain";
 
 import './Game.css';
 
@@ -31,9 +31,7 @@ class Game extends Component {
             canVote: true,
             answer1: "",
             answer2: "",
-            first: "",
-            second: "",
-            third: ""
+            players: []
         };
 
     }
@@ -87,11 +85,14 @@ class Game extends Component {
             }));
         });
 
-        socket.on('result', (p1, p2, p3) => {
+        socket.on('result', (winners) => {
+
+            console.log("<<<<>>>>>")
+
+            console.log(winners);
+
             this.setState(state => ({
-                first: p1,
-                second: p2,
-                third: p3,
+                players: winners,
                 stage: 6
             }));
         });
@@ -149,7 +150,7 @@ class Game extends Component {
                 component = <Voting time={this.state.timeToVote} question={this.state.beingVotedOn} answer1={this.state.answer1} answer2={this.state.answer2} canVote={this.state.canVote}/>;
                 break;
             case 6:
-                component = <Resultmain first={this.state.first} second={this.state.second} third={this.state.third}/>;
+                component = <ResultMain top={this.state.players}/>;
                 break;
             case 7:
                 component =  <Redirect to={{
