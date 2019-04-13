@@ -92,7 +92,6 @@ h1 {
     .lobby {
         width: 100%;
         min-height: 100vh;
-
     }
 
     #container {
@@ -215,11 +214,10 @@ h1 {
 
     .lobby #split-container{
         padding: 0;
-        display: flex;
+        display: table;
         width: 80%;
         margin: auto;
         min-height: 43vh;
-        border: 1px solid red;
         flex-direction: column;
     }
 
@@ -231,7 +229,7 @@ h1 {
 
     .lobby input {
         font-size: 0.8em;
-        line-height: 30px;
+        line-height: 20px;
     }
 
     .lobby .slider {
