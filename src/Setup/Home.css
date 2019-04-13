@@ -70,6 +70,7 @@ html, body {
     min-width: 150px;
 }
 
+/*taken from https://stackoverflow.com/questions/3186688/drop-shadow-for-png-image-in-css*/
 .container:hover {
     -webkit-filter: drop-shadow(5px 5px 5px #555);
     filter: drop-shadow(5px 5px 5px #555);
