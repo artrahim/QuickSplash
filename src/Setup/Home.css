@@ -71,7 +71,8 @@ html, body {
 }
 
 .container:hover {
-    transform: scale(1.5);
+    -webkit-filter: drop-shadow(5px 5px 5px #555);
+    filter: drop-shadow(5px 5px 5px #555);
 }
 
 .textButton {

@@ -60,12 +60,14 @@ class LoginForm extends Component {
             // re-route them to home page
             createjs.Sound.play("splash");
             self.login();
+            /*
             let temp ={
                 username: this.state.username,
                 auth: true
             };
             temp = JSON.stringify(temp);
             cookies.set('username', temp, { path: '/' });
+             */
         });
 
         socket.on('login-fail', function () {
