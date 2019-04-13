@@ -61,7 +61,7 @@ class LoginForm extends Component {
             createjs.Sound.play("splash");
             self.login();
             let temp ={
-                username: this.state.username,
+                // username: this.state.username,
                 auth: true
             };
             temp = JSON.stringify(temp);
