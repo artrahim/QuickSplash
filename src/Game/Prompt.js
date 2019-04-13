@@ -28,7 +28,7 @@ class Prompt extends Component {
         return (
             <div id="prompt">
                 <div className="center-back">
-                    <Timer hasAnswered={this.props.done} stage={"answering"} question={this.props.question} time={this.props.time}/>
+                    <Timer stage={"answering"} question={this.props.question} done={this.props.done} time={this.props.time}/>
                     <Logo/>
                     <div className="empty"/>
                 </div>
