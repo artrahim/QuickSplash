@@ -61,7 +61,7 @@ class JoinLobby extends Component {
 
         let component = null;
         let lobbyCode;
-        if (this.props.location.state === null){
+        if (this.props.location.state === undefined){
             lobbyCode = "";
         }
         else {
