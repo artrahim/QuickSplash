@@ -42,7 +42,7 @@ html, body {
     display: flex;
     flex: 1 6 35%;
     order: 2;
-    
+
 }
 
 .container {
@@ -67,7 +67,7 @@ html, body {
     align-items: center;
     height: 23vh;
     width: auto;
-    min-width: 150px; 
+    min-width: 150px;
 }
 
 .container:hover {
@@ -162,27 +162,52 @@ html, body {
     }
 
     .container {
-        height: 30vh;
         max-width: 50vw;
         margin: none;
         padding: 0;
+        height: 30%;
+        min-width: 150px;
     }
 
     .button {
-        margin: none;   
+        margin: none;
         display: inline-block;
         position: relative;
-        height: 100%;
+        width: 70%;
     }
 
     .textImage{
         font-size: 19px  !important;
     }
+
+    .container:hover {
+        transform: scale(1.2);
+    }
 }
 
-@media all and (max-width: 300px) {
+@media all and (max-width: 320px) {
     .textImage{
         min-width: 100px;
         top: 20%;
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 15%;
+        min-width: 100px;
+    }
+
+    .button {
+        margin: none;
+        display: inline-block;
+        position: relative;
+        width: 50%;
+        height: 30%;
+    }
+
+    .container:hover {
+        transform: scale(1.2);
     }
 }
