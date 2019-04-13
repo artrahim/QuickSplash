@@ -3,6 +3,7 @@ import {Link, Redirect} from 'react-router-dom';
 import Cookies from "universal-cookie";
 import {socket} from '../Router';
 
+import Logo from "../Game/Utilities/Logo";
 import Waiting from "./Waiting";
 import RoundTransitions from "./RoundTransitions";
 import Prompt from "./Prompt";
@@ -129,7 +130,7 @@ class Game extends Component {
         switch (this.state.stage){
             case 1:
                 //component = <RoundTransitions handleTransition = {() => this.handleClick()}/>;
-                component = <RoundTransitions/>;
+                component = <RoundTransitions round={this.state.round}/>;
                 break;
             case 2:
                 //component = <Prompt handleTransition = {() => this.handleClick()}/>;

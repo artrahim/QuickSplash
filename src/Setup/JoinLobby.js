@@ -60,6 +60,13 @@ class JoinLobby extends Component {
     render() {
 
         let component = null;
+        let lobbyCode;
+        if (this.props.location.state === null){
+            lobbyCode = "";
+        }
+        else {
+            lobbyCode = this.props.location.state.lobbyCode;
+        }
         switch (this.state.started) {
             case false:
                 component =
@@ -79,7 +86,7 @@ class JoinLobby extends Component {
                         <div id="container">
                             <label htmlFor="joinCode">ENTER A JOIN CODE: </label>
                             <br/>
-                            <input defaultValue="" type="text" className="textBox" id="joinCode"/>
+                            <input defaultValue={lobbyCode} type="text" className="textBox" id="joinCode"/>
                             <br/><br/>
                             <label htmlFor="nickname">WHAT SHOULD WE CALL YOU?: </label>
                             <input defaultValue="" type="text" className="textBox" id="nickname"/>

@@ -15,7 +15,7 @@ class RoundTransitions extends Component {
         return (
             <div>
                 <Logo/>
-                <h1 className= "round-title">Round 1</h1>
+                <h1 className= "round-title">Round {this.props.round}</h1>
                 <h2>Answer two questions with your most clever response!</h2>
             </div>
 
