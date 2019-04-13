@@ -9,6 +9,8 @@ import Voting from "./Voting";
 import Resultmain from "./results/resultmain";
 import PlayerSplash from "../Setup/PlayerSplash";
 
+import './Game.css';
+
 class Game extends Component {
 
     constructor(props) {
