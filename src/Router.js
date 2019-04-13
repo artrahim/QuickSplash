@@ -5,9 +5,11 @@ import {
     Redirect,
 } from "react-router-dom";
 
+import {AnimatedRoute} from 'react-router-transition';
+
+
 import socketIOClient from "socket.io-client";
 import Cookies from 'universal-cookie';
-
 
 import Home from "./Setup/Home";
 import CreateLobby from "./Setup/CreateLobby";
@@ -16,6 +18,8 @@ import Game from "./Game/Game";
 import Login from "./Setup/Login";
 import Logout from "./Setup/Logout";
 import Instructions from "./Setup/Instructions";
+
+import '../src/Setup/Home.css'
 
 var socket;
 const cookies = new Cookies();
@@ -41,6 +45,7 @@ function PrivateRoute({component: Component, ...rest}) {
     );
 }
 
+
 const authenticate = {
     isAuthenticated: false,
     authenticate(callback) {
@@ -52,7 +57,6 @@ const authenticate = {
         setTimeout(callback, 100);
     }
 };
-
 
 class Router extends Component {
 
@@ -66,31 +70,62 @@ class Router extends Component {
 
         // get the cookie and check for auth
         let cookieInfo = cookies.get('username');
-        if (cookieInfo != null ) {
+        if (cookieInfo != null) {
             console.log(cookieInfo);
-            if (cookieInfo.auth)
-            {
+            if (cookieInfo.auth) {
                 authenticate.authenticate();
             }
-        }else {
+        } else {
             console.log(cookieInfo);
         }
 
     }
 
     render() {
+
+
         return (
             <div>
-                <div className="content">
+                <div className="">
                     <HashRouter>
+
                         <Route exact path="/" component={Home}/>
+
+                        {/*<AnimatedRoute*/}
+                        {/*    className='route-transition'*/}
+                        {/*    path="/login"*/}
+                        {/*    runOnMount={false}*/}
+                        {/*    component={Login}*/}
+                        {/*    atEnter={{opacity: 0}}*/}
+                        {/*    atLeave={{opacity: 0}}*/}
+                        {/*    atActive={{opacity: 1}}*/}
+                        {/*    mapStyles={(styles) => ({*/}
+                        {/*        opacity: styles.opacity,*/}
+                        {/*    })}*/}
+                        {/*/>*/}
+
+
                         <Route path="/login" component={Login}/>
                         <Route path="/logout" component={Logout}/>
-                        <Route path="/howToPlay" component={Instructions}/>
+
+
+                        <AnimatedRoute
+                            className='r'
+                            path="/howToPlay"
+                            component={Instructions}
+                            atEnter={{offset: -100}}
+                            atLeave={{offset: -100}}
+                            atActive={{offset: 0}}
+                            mapStyles={(styles) => ({
+                                transform: `translateX(${styles.offset}%)`,
+                            })}
+                        />
+                        {/*<Route path="/howToPlay" component={Instructions}/>*/}
 
                         <PrivateRoute path="/joinLobby" component={JoinLobby}/>
                         <PrivateRoute path="/game" component={Game}/>
                         <PrivateRoute path="/createLobby" component={CreateLobby}/>
+
 
                     </HashRouter>
                 </div>
@@ -98,5 +133,6 @@ class Router extends Component {
         );
     }
 }
+
 
 export {Router, socket, authenticate};

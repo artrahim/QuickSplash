@@ -1,11 +1,18 @@
 import React,{Component} from 'react';
+import Cookies from "universal-cookie";
 import {socket} from "../../Router";
+
+const cookies = new Cookies();
 
 class Timer extends Component {
 
     componentDidMount(){
         let c = window.createjs;
         const stage = new c.Stage("canvasDisplay");
+
+        let point = this.props.stage;
+        let question = this.props.question;
+        let done = this.props.done;
 
         // Set timer.
         let time = this.props.time;
@@ -89,7 +96,15 @@ class Timer extends Component {
             if (time === 0)
             {
                 clearInterval(timer);
-                //socket.emit('roundOver');
+                if (point === "answering"){
+                    let lobbyCode = localStorage.getItem('lobbyCode');
+                    let player = cookies.get('username').nickname;
+                    if (!done){
+                        socket.emit('response', player, "-", question, lobbyCode);
+                    }
+                    socket.emit('response2', player, "-", question, lobbyCode);
+                }
+
             }
 
         }, 1000);

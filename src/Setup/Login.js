@@ -55,9 +55,11 @@ class Login extends Component {
 
             <div className="rootContainer">
 
+                <div className="buttonheader">
                 <Link to="/">
                     <Button className="back-button" variant="outline-primary" onMouseOver={this.playTick}>← Back</Button>
                 </Link>
+                </div>
                 <div className="wrapper">
                     <div className="pageSelectorContainer">
 

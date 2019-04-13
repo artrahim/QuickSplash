@@ -7,8 +7,8 @@ import {Redirect} from 'react-router-dom'
 import {FormError} from "./FormError";
 
 const createjs = window.createjs;
-
 const cookies = new Cookies();
+
 class LoginForm extends Component {
     constructor(props) {
         super(props);

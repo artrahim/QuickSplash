@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
+import Cookies from "universal-cookie";
 import {socket} from '../Router';
 import $ from 'jquery';
 
-import Timer from './Utilities/Timer';
 import Logo from "../Game/Utilities/Logo";
 import ButtonSplash from "./Utilities/ButtonSplash";
 import {AllPlayers} from "../Setup/AllPlayers";
@@ -13,6 +13,8 @@ import Test from '../Setup/Test'
 
 import {tween, easing, styler, composite, physics} from 'popmotion';
 import PlayerSplash from "../Setup/PlayerSplash";
+
+const cookies = new Cookies();
 
 class Waiting extends Component {
 
@@ -26,26 +28,33 @@ class Waiting extends Component {
 
     componentDidMount() {
 
-        const lobbyCode = this.props.lobbyCode;
+        //const lobbyCode = this.props.lobbyCode;
+        const lobbyCode = localStorage.getItem('lobbyCode');
 
         $('#button').click(function () {
             socket.emit('startGame', lobbyCode);
         });
 
         socket.on('addPlayers', (players) => {
-
             this.setState({
                 allPlayers: players
             })
+        });
+
+        socket.on('failedToStart', (errorMessage) => {
+            alert(errorMessage);
         })
     }
 
     render() {
         let button = null;
         let text = null;
-        const isCreator = this.props.isCreator;
-        const hasStarted = this.props.hasStarted;
+        let code = null;
+        let isCreator = this.props.isCreator;
+        let hasStarted = this.props.hasStarted;
+        let lobbyCode = localStorage.getItem('lobbyCode');
         if (!hasStarted) {
+            code = <h1>CODE: {lobbyCode}</h1>;
             if (isCreator) {
                 // button = <img id="button" src={ require('../Assets/images/blueSplash.png') } alt="button" />
                 button = <div id="button"><ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
@@ -59,8 +68,8 @@ class Waiting extends Component {
         return (
             <div className="game">
                 <title>Create a lobby</title>
-                <div id="logolink"><Logo/></div>
-                <br/>
+                <Logo/>
+                {code}
                 <h1>WAITING FOR {text}...</h1>
                 {button}
                 <AllPlayers allPlayers={this.state.allPlayers}/>

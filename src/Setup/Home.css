@@ -5,8 +5,16 @@ html, body {
     min-width: 300px;
 }
 
+
+.route-transition {
+    position: absolute;
+}
+
+
+
 .content{
     min-width: 300px;
+    background-color: magenta;
 }
 
 .player{

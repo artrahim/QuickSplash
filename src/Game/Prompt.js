@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
-import {socket} from '../Router';
 
 import Logo from "../Game/Utilities/Logo";
-
 import Timer from './Utilities/Timer';
 import Question from './Question';
 import Response from './Response';
 
 class Prompt extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -29,14 +28,14 @@ class Prompt extends Component {
         return (
             <div id="prompt">
                 <div className="center-back">
-                    <Timer time={this.props.time}/>
+                    <Timer hasAnswered={this.props.done} stage={"answering"} question={this.props.question} time={this.props.time}/>
                     <Logo/>
                     <div className="empty"/>
                 </div>
                 <Question question={this.props.question}/>
                 <br/>
                 <br/>
-                <Response nickname={this.props.nickname} question={this.props.question} code={this.props.code}/>
+                <Response question={this.props.question}/>
             </div>
         );
 

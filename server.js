@@ -130,7 +130,8 @@ io.on('connection', function (socket) {
             rules: ruleSet,
             currentRound: 0,
             players: [],
-            questions: []
+            questions: [],
+            isStarted: false
         };
 
         //add the lobby to the list of lobbies
@@ -151,43 +152,52 @@ io.on('connection', function (socket) {
     //actions to be taken when a user joins a lobby
     socket.on('joinLobby', function (joinCode, nickname, username) {
 
-        var errorMessage = "Please check your join code and try again";
+        let errorMessage = "Please check your join code and try again";
         //compare the join code entered by the user to the join codes of all
         //the lobbies on the server
         //if a match is found, add user to correct lobby
-        var correctCode = false;
-        var uniqueName = true;
-        var room = {};
-        for (var i = 0; i < rooms.length; i++) {
+        let correctCode = false;
+        let uniqueName = true;
+        let hasSpace = false;
+        let room = {};
+        for (let i = 0; i < rooms.length; i++) {
             if (joinCode === rooms[i].code) {
                 correctCode = true;
                 room = rooms[i];
+                let lobbySize = room.rules.lobbySize;
+                if (room.players.length < lobbySize){
+                    hasSpace = true; 
+                }
+                else{
+                    errorMessage = "The lobby you tried to join is already full";
+                }
             }
         }
         if (correctCode) {
-            for (var j = 0; j < room.players.length; j++) {
+            for (let j = 0; j < room.players.length; j++) {
                 if (room.players[j].nickname === nickname) {
                     errorMessage = "Your nickname is not unique. Please change it and try again";
                     uniqueName = false;
                 }
             }
         }
-        if (uniqueName && correctCode){
+        if (uniqueName && correctCode && hasSpace){
             let temp1 = {
                 username: username,
                 nickname: nickname,
+                playerSocketId: socket.id
             };
             usernames.push(temp1);
             let temp2 = {
                 nickname: nickname,
                 score: 0,
-                colour: getColour()
+                colour: getColour(),
+                playerSocketId: socket.id
             };
             room.players.push(temp2);
             socket.join(room.name);
-            //console.log("room players = " + rooms[i].players);
             console.log('new colour = ' + temp2.colour);
-            socket.emit('waiting', joinCode, temp2.colour);
+            socket.emit('waiting', temp2.colour);
             io.to(room.name).emit('addPlayers', room.players);
             //debugging/logging statements
             console.log("***************");
@@ -204,7 +214,16 @@ io.on('connection', function (socket) {
     socket.on('startGame', function(code){
 
         var room = findLobby(code);
-        loadQuestions(room)
+        if (room.players.length >= 3) {
+            loadQuestions(room);
+            // set the game started bool to true
+            room.isStarted = true;
+        }
+        else{
+            let errorMessage = "You need at least 3 players to start the game";
+            socket.emit('failedToStart', errorMessage);
+        }
+
 
     });
 
@@ -257,14 +276,14 @@ io.on('connection', function (socket) {
 
         }
 
-        var timeUntilVote = ((parseInt(timePerRound, 10)) * 1000);
+        var timeUntilVote = ((parseInt(timePerRound, 10) + 2) * 1000);
         setTimeout(function(){
             voting(room);
         }, timeUntilVote);
 
     }
 
-    // send a prompt2 when a response recieved
+    // send a prompt2 when a response received
     socket.on('response', function (player, answer, question, code) {
         var room = findLobby(code);
         //find the question in the lobby's list of questions
@@ -283,13 +302,13 @@ io.on('connection', function (socket) {
     });
 
     // send a waiting screen
-    socket.on('roundOver', function (player, answer, question, code) {
-        var room = findLobby(code);
+    socket.on('response2', function (player, answer, question, code) {
+        let room = findLobby(code);
         //find the question in the lobby's list of questions
         //assign answer to said question
-        for (var i=0; i<room.questions.length; i++){
+        for (let i=0; i<room.questions.length; i++){
             if (room.questions[i].text === question){
-                var temp = {
+                let temp = {
                     nickname: player,
                     text: answer,
                     votes: 0
@@ -301,13 +320,15 @@ io.on('connection', function (socket) {
     });
 
     function voting(room){
-        var offset = 0;
+        let offset = 0;
         let answer1;
         let answer2;
-        for (var i=0; i<room.questions.length; i++){
-            var prompt = room.questions[i].text;
+        let player1;
+        let player2;
+        for (let i=0; i<room.questions.length; i++){
+            let prompt = room.questions[i].text;
             if (room.questions[i].answers[0] == null) {
-                var temp = {
+                let temp = {
                     nickname: "",
                     text:  "-",
                     votes: 0
@@ -318,7 +339,7 @@ io.on('connection', function (socket) {
                 answer1 = room.questions[i].answers[0].text;
             }
             if (room.questions[i].answers[1] == null) {
-                var temp = {
+                let temp = {
                     nickname: "",
                     text:  "-",
                     votes: 0
@@ -328,20 +349,22 @@ io.on('connection', function (socket) {
             else{
                 answer2 = room.questions[i].answers[1].text;
             }
-            var isLast = false;
+            player1 = room.questions[i].answers[0].nickname;
+            player2 = room.questions[i].answers[1].nickname;
+            let isLast = false;
             if (i === room.questions.length-1){
                 isLast = true;
             }
-            sendVote(room, prompt, answer1, answer2, offset, isLast);
+            sendVote(room, prompt, answer1, answer2, player1, player2, offset, isLast);
             offset += 5000
         }
     }
 
-    function sendVote(room, prompt, answer1, answer2, offset, isLast){
+    function sendVote(room, prompt, answer1, answer2, player1, player2, offset, isLast){
         let timeToVote = room.questions.length * 5;
         setTimeout(function(){
             console.log(prompt);
-            io.to(room.name).emit('vote', prompt, timeToVote, answer1, answer2);
+            io.to(room.name).emit('vote', prompt, timeToVote, answer1, answer2, player1, player2);
             io.to(room.name).emit('reset');
         }, offset);
         if (isLast){
@@ -381,7 +404,7 @@ io.on('connection', function (socket) {
         room.players.sort(function(a, b) {
             return b.score - a.score;
         });
-        io.to(room.name).emit('result', room.players[0].nickname, room.players[1].nickname, "test");
+        io.to(room.name).emit('result', room.players);
         let numRounds = parseInt(room.rules.numRounds, 10);
         let currentRound = room.currentRound;
         console.log(currentRound);
@@ -415,6 +438,9 @@ io.on('connection', function (socket) {
             }
         }
         io.to(room.name).emit('endGame');
+        let index = rooms.indexOf(room);
+        rooms.splice(index, 1);
+        console.log(rooms);
     }
 
     function findLobby(code){
@@ -428,6 +454,22 @@ io.on('connection', function (socket) {
         return room;
     }
 
+    // finds the players lobby and returns the index of the room if the player hasn't jioned a r
+    // if the player hasn't joined returns -1
+    function findPlayerLobby(socketId) {
+        let roomId = -1;
+        console.log(rooms.length);
+        for (let i=0; i < rooms.length; i++) {
+            for (let j=0; j < rooms[i].players.length; j++){
+                console.log('Players socketID' + rooms[i].players[j].playerSocketId +"The socket ID" + socketId);
+                if(rooms[i].players[j].playerSocketId === socketId) {
+                    roomId = i;
+                }
+            }
+        }
+        return roomId;
+    }
+
     function getUsername(nickname){
         let username = "";
         for (let i=0; i<usernames.length; i++){
@@ -438,8 +480,7 @@ io.on('connection', function (socket) {
         return username;
     }
 
-    function getColour()
-    {
+    function getColour() {
         let rn = Math.floor(Math.random() * Math.floor(8));  // will generate a random num from 0 to 7
         let colour = '';
 
@@ -477,8 +518,36 @@ io.on('connection', function (socket) {
     }
 
     //actions to be taken when a user disconnects
-    socket.on('disconnect', function (socket) {
-        console.log("user disconnected");
+    socket.on('disconnect', function () {
+        console.log("user disconnected with the following socket id: " + socket.id);
+        // find out which player discounted
+        let roomIndex = findPlayerLobby(socket.id);
+        if (roomIndex != -1) {
+            // remove this player form this room
+            for( let i = 0; i < rooms[roomIndex].players.length; i++) {
+                if ( rooms[roomIndex].players[i].playerSocketId === socket.id) {
+                    rooms[roomIndex].players.splice(i, 1);
+                }
+            }
+            // remove this player from username
+            for (let i =0; i < usernames.length; i++) {
+                if(usernames[i].playerSocketId === socket.id) {
+                    usernames.splice(i,1);
+                }
+            }
+
+            // check the number of players in this room
+            if(rooms[roomIndex].players.length < 3)
+            {
+                // kill this room
+                for( let i = 0; i < rooms[roomIndex].players.length; i++) {
+                    io.sockets.connected[rooms[roomIndex].players[i].playerSocketId].disconnect();
+                }
+            }
+        }
+
+        console.log(io.sockets.connected)
+
     });
 
 
@@ -492,3 +561,5 @@ qpDB.on('error', console.error.bind(console, 'MongoDB connection error:'));
 http.listen(port, function () {
     console.log('listening on *:' + port);
 });
+
+
