@@ -1,6 +1,6 @@
 .game #round-title {
     display: block;
-    margin-top: 30vh;
+    margin-top: 0;
 
 }
 
@@ -25,3 +25,17 @@
 .game Timer{
     flex: 1;
 }
+
+.game input {
+    font-family: "Amatic SC";
+    font-size: 2em;
+    line-height: 55px;
+    border: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 2px solid black;
+    width: 100%;
+    display: block;
+    margin: auto;
+}
+
