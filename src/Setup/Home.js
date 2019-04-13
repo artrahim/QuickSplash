@@ -4,7 +4,8 @@ import ButtonSplash from "../Game/Utilities/ButtonSplash";
 
 import posed from 'react-pose';
 
-// import Test from './Test'
+import {authenticate} from '../Router';
+
 
 import {tween, easing, styler, composite, physics} from 'popmotion';
 
@@ -68,9 +69,9 @@ class Home extends Component {
                         </div>
                         <div id="navbarButton">
                             <div className="container-flex">
-                                <NavLink className="loginButton" to="/login" onClick={this.playSplash}>
+                                <NavLink className="loginButton" to={authenticate.isAuthenticated ? "/logout" : '/login'} onClick={this.playSplash}>
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
-                                                  text={"Login"}/>
+                                                  text={authenticate.isAuthenticated ? "Logout" : "Login"}/>
                                 </NavLink>
                                 <NavLink className="createLobbyButton" to="/createLobby"  onClick={this.playSplash}>
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}

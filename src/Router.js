@@ -14,6 +14,8 @@ import CreateLobby from "./Setup/CreateLobby";
 import JoinLobby from "./Setup/JoinLobby";
 import Game from "./Game/Game";
 import Login from "./Setup/Login";
+import Logout from "./Setup/Logout";
+import Instructions from "./Setup/Instructions";
 
 var socket;
 const cookies = new Cookies();
@@ -83,6 +85,8 @@ class Router extends Component {
                     <HashRouter>
                         <Route exact path="/" component={Home}/>
                         <Route path="/login" component={Login}/>
+                        <Route path="/logout" component={Logout}/>
+                        <Route path="/howToPlay" component={Instructions}/>
 
                         <PrivateRoute path="/joinLobby" component={JoinLobby}/>
                         <PrivateRoute path="/game" component={Game}/>
