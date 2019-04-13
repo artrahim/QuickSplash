@@ -12,6 +12,7 @@ import posed from 'react-pose';
 import Test from '../Setup/Test'
 
 import {tween, easing, styler, composite, physics} from 'popmotion';
+import PlayerSplash from "../Setup/PlayerSplash";
 
 class Waiting extends Component {
 

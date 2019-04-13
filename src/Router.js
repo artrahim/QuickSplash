@@ -6,6 +6,8 @@ import {
 } from "react-router-dom";
 
 import socketIOClient from "socket.io-client";
+import Cookies from 'universal-cookie';
+
 
 import Home from "./Setup/Home";
 import CreateLobby from "./Setup/CreateLobby";
@@ -14,6 +16,8 @@ import Game from "./Game/Game";
 import Login from "./Setup/Login";
 
 var socket;
+const cookies = new Cookies();
+
 
 function PrivateRoute({component: Component, ...rest}) {
     return (
@@ -54,6 +58,22 @@ class Router extends Component {
         super();
         this.state = {endpoint: "http://localhost:5000/"};
         socket = socketIOClient(this.state.endpoint);
+    }
+
+    componentWillMount() {
+
+        // get the cookie and check for auth
+        let cookieInfo = cookies.get('username');
+        if (cookieInfo != null ) {
+            console.log(cookieInfo);
+            if (cookieInfo.auth)
+            {
+                authenticate.authenticate();
+            }
+        }else {
+            console.log(cookieInfo);
+        }
+
     }
 
     render() {

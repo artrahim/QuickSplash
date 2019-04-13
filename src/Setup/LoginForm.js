@@ -37,7 +37,6 @@ class LoginForm extends Component {
 
     }
 
-
     loginSubmitHandler(event) {
 
         event.preventDefault();
@@ -60,14 +59,14 @@ class LoginForm extends Component {
             // re-route them to home page
             createjs.Sound.play("splash");
             self.login();
-            /*
             let temp ={
-                username: this.state.username,
+                username: self.state.username,
                 auth: true
             };
             temp = JSON.stringify(temp);
-            cookies.set('username', temp, { path: '/' });
-             */
+            let expTime = 15 * 60;
+            console.log("Cookies info in login form:", temp);
+            cookies.set('username', temp, { path: '/' , maxAge:expTime});
         });
 
         socket.on('login-fail', function () {

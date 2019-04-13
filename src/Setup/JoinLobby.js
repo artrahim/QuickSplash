@@ -24,30 +24,23 @@ class JoinLobby extends Component {
             colour: "",
         };
 
-        //this.changeState = this.changeState.bind(this);
-
     }
-
-    // changeState(temp)
-    // {
-    //     this.setState(state => ({
-    //         nickname: temp
-    //     }));
-    // }
 
     componentDidMount() {
         let tname = '';
         $('#button').click(function () {
-            // tname = $("#nickname").val();
-            // this.changeState(tname);
-
-            let uname = cookies.get('username');
-
+            let uname = cookies.get('username').username;
             socket.emit('joinLobby', $("#joinCode").val(), $("#nickname").val(),uname);
-            // this.setState({
-            //     nickname:  $("#nickname").val()
-            // });
-
+            // set the cookies with nickname
+            let temp ={
+                username: uname,
+                auth: true,
+                nickname: $("#nickname").val()
+            };
+            temp = JSON.stringify(temp);
+            let expTime = 15 * 60;
+            console.log("Cookies info in login form:", temp);
+            cookies.set('username', temp, { path: '/' , maxAge:expTime});
         });
 
         socket.on('failedToJoin', function (errorMessage) {
