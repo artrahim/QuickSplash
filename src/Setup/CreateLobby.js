@@ -75,21 +75,21 @@ class CreateLobby extends Component {
                         <h1>CREATE A LOBBY</h1>
                         <div id="split-container">
                             <div id="left">
-                                <label htmlFor="timePerRound">TIME PER ROUND: </label>
+                                <label htmlFor="timePerRound">TIME PER ROUND:</label>
                                 <input defaultValue="20 SECONDS" type="text" id="timePerRound" readOnly/>
                                 <input type="range" min={20} max={80} defaultValue={20} className="slider"
                                        id="slider1"/>
                                 <br/><br/>
-                                <label htmlFor="numRounds">NUMBER OF ROUNDS: </label>
+                                <label htmlFor="numRounds">NUMBER OF ROUNDS:  </label>
                                 <input defaultValue="1 ROUND(S)" type="text" id="numRounds" readOnly/>
                                 <input type="range" min={1} max={10} defaultValue={1} className="slider" id="slider2"/>
                             </div>
                             <div id="right">
-                                <label htmlFor="lobbySize">LOBBY SIZE: </label>
+                                <label htmlFor="lobbySize">LOBBY SIZE:  </label>
                                 <input defaultValue="3 PLAYERS" type="text" id="lobbySize" readOnly/>
                                 <input type="range" min={3} max={8} defaultValue={3} className="slider" id="slider3"/>
                                 <br/><br/>
-                                <label htmlFor="afkTimeout">AFK TIMEOUT: </label>
+                                <label htmlFor="afkTimeout">AFK TIMEOUT:  </label>
                                 <input defaultValue="1 MINUTE(S)" type="text" id="afkTimeout" readOnly/>
                                 <input type="range" min={1} max={5} defaultValue={1} className="slider" id="slider4"/>
                             </div>

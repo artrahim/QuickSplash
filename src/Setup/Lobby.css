@@ -26,6 +26,7 @@ h1 {
     font-size: 2em;
     line-height: 55px;
     border: none;
+    background: none;
 }
 
 .lobby .textBox {
