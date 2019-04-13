@@ -1,20 +1,25 @@
+body{
+    /* min-width: 350px;
+    min-height: 670px; */
+    overflow-y: auto;
+}
 
-.rootContainer .error {
-    /*position: relative;*/
-    /*position: center;*/
+
+.error {
     margin: 0 auto;
     margin-right: 20px;
     padding-left: 20px;
-    /*border: solid 1px darkred;*/
-    width: 400px;
-    height: auto;
+    width: 100%;
+    /* height: 100px; */
     border-radius: .2em;
     background: linear-gradient(lightcoral, firebrick);
     justify-content: center;
     align-items: center;
+    max-height: 100px;
+    overflow-y: auto;
 }
 
-.rootContainer .error p{
+.error p{
     font-size: 25px;
     font-weight: bold;
     /*color: red;*/
@@ -46,15 +51,17 @@
     /*background-image: url("bgn.png");*/
     background-image: linear-gradient(to left top, #1b75d8, #0099f0, #00b7e2, #00ceb4, #00e077, #75e65d, #aeea45, #e1ec34, #e8ee40, #eff04b, #f5f255, #fbf45f);}
 
-.rootContainer .wrapper {
-    /*margin-top: 150px;*/
+.wrapper {
+    /* margin-top: 150px; */
     width: 100%;
-    height: 95%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    color: #fff;
+    color: #fff; 
+    top: 38px;
+    overflow-y: scroll;
 }
 
 .rootContainer .pageSelectorContainer {
@@ -89,7 +96,7 @@
     color: white;
 }
 
-.rootContainer .formContainer {
+.formContainer {
     display: flex;
     flex-direction: column;
     min-width: 21em;
@@ -100,14 +107,14 @@
     background-color: #191919;
 }
 
-.rootContainer .header {
+.header {
     text-align: center;
     padding: 5px;
     margin-bottom: 17px;
     font-size: 40px;
     font-weight: 100;
     border-bottom: 2px solid #70a1ff;
-
+	width: 100%;
     /*background-color: purple;*/
 }
 
@@ -136,9 +143,9 @@
 
 }
 
-.rootContainer .inputBox {
+.inputBox {
     height: 75px;
-    width: 400px;
+    width: 95%;
     border: 2px solid #70a1ff;
     font-size: 35px;
     font-weight: bold;
@@ -188,11 +195,24 @@
     background-color: rgb(19, 170, 82);
 }
 
-.rootContainer .submitButton:focus {
-
+.buttonheader{
+    height: 38px;
 }
 
 .back-button{
     margin: 10px 10px 0;
     flex: 1;
+}
+
+
+@media all and (max-width: 500px) {
+    .formContainer {
+        width: 95%;
+    }
+}
+
+@media all and (max-height: 700px) {    
+    .signUpContainer{
+        overflow-y: scroll;
+    }
 }
