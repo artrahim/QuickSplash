@@ -12,7 +12,6 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);
 
-        console.log("<<<KILL ME>>>");
         console.log("location = " + props.location.state);
 
         this.state = {
@@ -58,6 +57,12 @@ class LoginForm extends Component {
         socket.on('login-success', function (msg) {
             // re-route them to home page
             self.login();
+            let temp ={
+                username: this.state.username,
+                auth: true
+            };
+            temp = JSON.stringify(temp);
+            cookies.set('username', temp, { path: '/' });
         });
 
         socket.on('login-fail', function () {

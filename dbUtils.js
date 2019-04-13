@@ -82,7 +82,7 @@ function updateGamePlayed(username) {
         console.log(stats);
         stats.tGamePlayed = stats.tGamePlayed + 1;
         stats.save(function () {
-            console.log('Updated the Wins to ', stats.tGamePlayed);
+            console.log('Updated the number of games played to ', stats.tGamePlayed);
         });
     });
 }

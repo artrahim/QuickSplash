@@ -8,7 +8,6 @@ import Prompt from "./Prompt";
 import Voting from "./Voting";
 import Resultmain from "./results/resultmain";
 import PlayerSplash from "../Setup/PlayerSplash";
-import $ from "jquery";
 
 class Game extends Component {
 
@@ -84,6 +83,13 @@ class Game extends Component {
                 stage: 6
             }));
         });
+        socket.on('endGame', () => {
+            alert("Game is over");
+            this.setState(state => ({
+                stage: 7
+            }));
+        });
+
 
     }
 
@@ -117,7 +123,10 @@ class Game extends Component {
                 component = <Resultmain first={this.state.first} second={this.state.second} third={this.state.third}/>;
                 break;
             case 7:
-                component =  <Redirect to={{pathname: '/'}}/>;
+                component =  <Redirect to={{
+                    pathname: '/'
+                }}/>;
+                break;
             default:
                 component = <Waiting nickname={nickname} lobbyCode={lobbyCode} isCreator={isCreator} hasStarted={false}/>;
         }
