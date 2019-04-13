@@ -15,41 +15,6 @@ class ButtonSplash extends Component {
 
     }
 
-    // hover() {
-    //     this.scaleUpAnimation();
-    //     this.playTick();
-    //
-    // }
-    //
-    // scaleUpAnimation() {
-    //     const button = document.querySelector('.container');
-    //     const buttonStyler = styler(button);
-    //
-    //     if (this.timeoutOnMouseOver) {
-    //         clearTimeout(this.timeoutOnMouseOver);
-    //     }
-    //     this.timeoutOnMouseOver = setTimeout(() => {
-    //         tween({
-    //             to: 1.5,
-    //             duration: 300,
-    //             ease: easing.easeOut
-    //         }).start(buttonStyler.set('scale'));
-    //
-    //         this.timeoutOnMouseOver = false;
-    //     }, 300);
-    //
-    // }
-    //
-    // scaleDownAnimation() {
-    //     const button = document.querySelector('.container');
-    //     const buttonStyler = styler(button);
-    //     tween({
-    //         to: 1,
-    //         duration: 300,
-    //         ease: easing.easeOut
-    //     }).start(buttonStyler.set('scale'));
-    // }
-
     playTick() {
         createjs.Sound.play("tick");
     }
