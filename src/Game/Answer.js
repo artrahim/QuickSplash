@@ -1,8 +1,10 @@
 import React,{Component} from 'react'
-import answer from '../Assets/images/answer.jpg';
-import ImageTextBox from './ImageTextBox';
+import Cookies from "universal-cookie";
 import {socket} from "../Router";
-import $ from "jquery";
+
+import answer from '../Assets/images/answer.jpg';
+
+const cookies = new Cookies();
 
 class Answer extends Component {
 
@@ -20,7 +22,7 @@ class Answer extends Component {
      */
 
     vote() {
-        let lobbyCode = this.props.lobbyCode;
+        let lobbyCode = localStorage.getItem('lobbyCode');
         let question = this.props.question;
         let answer = this.props.answer;
 
@@ -36,9 +38,6 @@ class Answer extends Component {
 
 
     render() {
-        // return(
-        //     <ImageTextBox imgsrc={answer} text={this.props.text} />
-        // );
         return(
             <div className="answer" onClick={this.vote}>
                 <img src={answer} className="image" alt="answer" />

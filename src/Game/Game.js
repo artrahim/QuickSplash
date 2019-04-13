@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link, Redirect} from 'react-router-dom';
+import Cookies from "universal-cookie";
 import {socket} from '../Router';
 
 import Waiting from "./Waiting";
@@ -7,9 +8,10 @@ import RoundTransitions from "./RoundTransitions";
 import Prompt from "./Prompt";
 import Voting from "./Voting";
 import Resultmain from "./results/resultmain";
-import PlayerSplash from "../Setup/PlayerSplash";
 
 import './Game.css';
+
+const cookies = new Cookies();
 
 class Game extends Component {
 
@@ -99,9 +101,18 @@ class Game extends Component {
         //render correct stage based on game state
         //states are represented by numbers (0 to 6)
         let component = null;
-        let nickname = this.props.location.state.nickname;
-        let lobbyCode = this.props.location.state.lobbyCode;
-        let isCreator = this.props.location.state.isCreator;
+        let thisLobby = localStorage.getItem('lobbyCode');
+        let a = [];
+        if (localStorage.getItem('codes') === null){
+            a = [];
+        }
+        else{
+            a = JSON.parse(localStorage.getItem('codes'));
+        }
+        let isCreator = false;
+        if (a.includes(thisLobby)){
+            isCreator = true;
+        }
         switch (this.state.stage){
             case 1:
                 //component = <RoundTransitions handleTransition = {() => this.handleClick()}/>;
@@ -109,17 +120,17 @@ class Game extends Component {
                 break;
             case 2:
                 //component = <Prompt handleTransition = {() => this.handleClick()}/>;
-                component = <Prompt nickname={nickname} code={lobbyCode} time={this.state.timePerRound} question={this.state.question1}/>;
+                component = <Prompt time={this.state.timePerRound} question={this.state.question1}/>;
                 break;
             case 3:
                 //component = <Prompt handleTransition = {() => this.handleClick()}/>;
-                component = <Prompt nickname={nickname} code={lobbyCode} time={this.state.timePerRound} question={this.state.question2}/>;
+                component = <Prompt time={this.state.timePerRound} question={this.state.question2}/>;
                 break;
             case 4:
-                component = <Waiting isCreator={this.state.isCreator} hasStarted={true}/>;
+                component = <Waiting isCreator={isCreator} hasStarted={true}/>;
                 break;
             case 5:
-                component = <Voting time={this.state.timeToVote} question={this.state.beingVotedOn} answer1={this.state.answer1} answer2={this.state.answer2} lobbyCode={lobbyCode}/>;
+                component = <Voting time={this.state.timeToVote} question={this.state.beingVotedOn} answer1={this.state.answer1} answer2={this.state.answer2} />;
                 break;
             case 6:
                 component = <Resultmain first={this.state.first} second={this.state.second} third={this.state.third}/>;
@@ -130,7 +141,7 @@ class Game extends Component {
                 }}/>;
                 break;
             default:
-                component = <Waiting nickname={nickname} lobbyCode={lobbyCode} isCreator={isCreator} hasStarted={false}/>;
+                component = <Waiting isCreator={isCreator} hasStarted={false}/>;
         }
 
         return (

@@ -185,9 +185,8 @@ io.on('connection', function (socket) {
             };
             room.players.push(temp2);
             socket.join(room.name);
-            //console.log("room players = " + rooms[i].players);
             console.log('new colour = ' + temp2.colour);
-            socket.emit('waiting', joinCode, temp2.colour);
+            socket.emit('waiting', temp2.colour);
             io.to(room.name).emit('addPlayers', room.players);
             //debugging/logging statements
             console.log("***************");
