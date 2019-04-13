@@ -3,6 +3,7 @@ import {Link, Redirect} from 'react-router-dom';
 import Cookies from "universal-cookie";
 import {socket} from '../Router';
 
+import Logo from "../Game/Utilities/Logo";
 import Waiting from "./Waiting";
 import RoundTransitions from "./RoundTransitions";
 import Prompt from "./Prompt";
@@ -40,10 +41,12 @@ class Game extends Component {
     componentDidMount(){
 
         socket.on('roundTransition', () => {
+            let currentRound = this.state.round;
+            currentRound++;
             this.setState(state => ({
-              hasStarted: true,
-              round: this.round+=1,
-              stage: 1
+                hasStarted: true,
+                round: currentRound,
+                stage: 1
             }));
         });
 
@@ -129,15 +132,15 @@ class Game extends Component {
         switch (this.state.stage){
             case 1:
                 //component = <RoundTransitions handleTransition = {() => this.handleClick()}/>;
-                component = <RoundTransitions/>;
+                component = <RoundTransitions round={this.state.round}/>;
                 break;
             case 2:
                 //component = <Prompt handleTransition = {() => this.handleClick()}/>;
-                component = <Prompt time={this.state.timePerRound} question={this.state.question1}/>;
+                component = <Prompt done={false} time={this.state.timePerRound} question={this.state.question1}/>;
                 break;
             case 3:
                 //component = <Prompt handleTransition = {() => this.handleClick()}/>;
-                component = <Prompt time={this.state.timePerRound} question={this.state.question2}/>;
+                component = <Prompt done={true} time={this.state.timePerRound} question={this.state.question2}/>;
                 break;
             case 4:
                 component = <Waiting isCreator={isCreator} hasStarted={true}/>;

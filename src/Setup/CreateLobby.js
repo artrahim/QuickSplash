@@ -51,6 +51,7 @@ class CreateLobby extends Component {
                 lobbyCreated: true,
                 lobbyCode: code
             }));
+            localStorage.setItem('lobbyCreated', true);
             let a = [];
             if (localStorage.getItem('codes') === null){
                 a = [];
@@ -63,9 +64,11 @@ class CreateLobby extends Component {
         });
     }
 
+    /*
     componentWillUnmount() {
         alert("The lobby code is: " + this.state.lobbyCode );
     }
+     */
 
     render() {
 
@@ -115,8 +118,9 @@ class CreateLobby extends Component {
             case true:
                 component =
                     <Redirect to={{
-                        pathname: '/joinLobby'
-                    }}/>
+                        pathname: '/joinLobby',
+                        state: { lobbyCode: this.state.lobbyCode}
+                    }}/>;
                 break;
             default:
                 break;

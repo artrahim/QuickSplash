@@ -6,6 +6,7 @@ import Question from './Question';
 import Response from './Response';
 
 class Prompt extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -27,7 +28,7 @@ class Prompt extends Component {
         return (
             <div id="prompt">
                 <div className="center-back">
-                    <Timer time={this.props.time}/>
+                    <Timer hasAnswered={this.props.done} stage={"answering"} question={this.props.question} time={this.props.time}/>
                     <Logo/>
                     <div className="empty"/>
                 </div>
