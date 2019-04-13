@@ -17,13 +17,13 @@ h1 {
 .lobby label {
     text-align: left;
     font-family: "Amatic SC";
-    font-size: 2em;
+    font-size: 1.6em;
     font-weight: bold;
 }
 
 .lobby input {
     font-family: "Amatic SC";
-    font-size: 2em;
+    font-size: 1.6em;
     line-height: 55px;
     border: none;
     background: none;
@@ -41,19 +41,21 @@ h1 {
 #container {
     margin: auto;
     width: 50%;
-    height: 100%;
+    min-height: 43vh;
 }
 
 .lobby #split-container{
     padding: 10px;
     display: table;
-    width: 80%;
+    width: 75%;
     margin: auto;
+    min-height: 47vh;
 }
 
 .lobby #split-container #left {
     display: table-cell;
     min-width: 50%;
+
 }
 
 .lobby #split-container #right {
@@ -86,6 +88,58 @@ h1 {
     max-height: 30%;
 }
 
+@media all and (max-width: 750px) {
+    .lobby {
+        width: 100%;
+        min-height: 100vh;
+    }
+
+    #container {
+        min-height: 43vh;
+    }
+    .lobby #split-container{
+        width: 80%;
+        min-height: 47vh;
+    }
+
+
+    .lobby label {
+        text-align: left;
+        font-family: "Amatic SC";
+        font-size: 1.3em;
+        font-weight: bold;
+
+    }
+
+    .lobby input {
+        font-family: "Amatic SC";
+        font-size: 1.3em;
+        line-height: 55px;
+        border: none;
+
+    }
+
+    .lobby .slider {
+        -webkit-appearance: none;
+        width: 80%;
+        height: 33px;
+        background: #DCDCDC;
+        margin-top: 20px;
+    }
+
+
+    .lobby input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 50px;
+        width: 30px;
+        background: #111111;
+        cursor: pointer;
+    }
+
+
+
+}
+
 
 @media all and (max-width: 575px) {
     .lobby {
@@ -99,25 +153,26 @@ h1 {
     }
     .lobby #split-container{
         display: table;
-        width: 70%;
+        width: 90%;
         min-height: 50vh;
+        margin: auto;
+
     }
 
 
     .lobby label {
         text-align: left;
         font-family: "Amatic SC";
-        font-size: 1em;
+        font-size: 1.1em;
         font-weight: bold;
 
     }
 
     .lobby input {
         font-family: "Amatic SC";
-        font-size: 1em;
+        font-size: 1.1em;
         line-height: 55px;
         border: none;
-        width: 90%;
 
     }
 
@@ -140,13 +195,10 @@ h1 {
 
 }
 
-
-@media all and (max-width: 375px) {
+@media all and (max-width: 415px) {
 
     h1 {
-        font-family: "Amatic SC";
         font-size: 1em;
-
     }
 
     .lobby {
@@ -156,52 +208,90 @@ h1 {
     }
 
     #container{
-        min-height: 40vh;
+        min-height: 49vh;
     }
 
 
     .lobby #split-container{
-        padding: 10px;
+        padding: 0;
         display: table;
-        width: 70%;
+        width: 80%;
         margin: auto;
-        min-height: 40vh;
+        min-height: 43vh;
+        flex-direction: column;
     }
 
 
     .lobby label {
         text-align: left;
-        font-family: "Amatic SC";
-        font-size: 1em;
-        font-weight: bold;
-
+        font-size: 0.8em;
     }
 
     .lobby input {
-        font-family: "Amatic SC";
-        font-size: 1em;
-        line-height: 30px;
-        border: none;
-        width: 90%;
-
+        font-size: 0.8em;
+        line-height: 20px;
     }
 
     .lobby .slider {
-        -webkit-appearance: none;
         width: 80%;
         height: 33px;
-        background: #DCDCDC;
         margin-top: 20px;
     }
 
 
     .lobby input[type=range]::-webkit-slider-thumb {
-        -webkit-appearance: none;
         height: 50px;
         width: 30px;
-        background: #111111;
-        cursor: pointer;
     }
-    
+
+}
+
+@media all and (max-width: 375px) {
+
+    h1 {
+        font-size: 1em;
+    }
+
+    .lobby {
+        width: 100%;
+        min-height: 100vh;
+
+    }
+
+    #container{
+        min-height: 39vh;
+    }
+
+
+    .lobby #split-container{
+        display: table;
+        padding: 10px;
+        width: 90%;
+        margin: 0 auto;
+        min-height: 43vh;
+    }
+
+
+    .lobby label {
+        text-align: left;
+        font-size: 0.7em;
+    }
+
+    .lobby input {
+        font-size: 0.7em;
+        line-height: 30px;
+    }
+
+    .lobby .slider {
+        width: 80%;
+        height: 33px;
+        margin-top: 20px;
+    }
+
+
+    .lobby input[type=range]::-webkit-slider-thumb {
+        height: 50px;
+        width: 30px;
+    }
 
 }

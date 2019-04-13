@@ -1,23 +1,9 @@
-#logo-div #logo {
-    flex: 1;
-    margin: 10px auto;
-    min-width: 500px;
-    max-width: 30%;
-    justify-content: center;
-    align-content: center;
-}
-
-#logo-div a {
-    margin: 0;
-    padding: 0;
-    max-width: 500px;
-}
-
-.center-back{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+#logo-div {
+    display:flex;
     flex-direction: row;
+    width: 100%;
+
+
 }
 
 #logo-div .center{
@@ -25,20 +11,133 @@
     align-items: center;
     justify-content: center;
     flex-direction: row;
+    width: 100%;
+
+}
+
+#logo-div #logo {
+    margin: 10px auto;
+    min-width: 500px;
+    max-width: 30%;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#logo-div a {
+    margin: 0;
+    padding: 0;
+    max-width: 500px;
+
+}
+
+.center-back{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.center-back #backlink{
+    flex: 20%;
+}
+
+
+.center-back #logoLink{
+    order: 2;
+    flex: 60%;
 }
 
 .center-back .empty{
-    flex: 1;
-    max-width: 10vw;
+    order: 3;
+    flex: 20%;
+
 }
 
-@media all and (max-width: 600px) {
-	    #logo-div #logo {
-	        flex: 1;
-	        margin: 10px auto;
-	        min-width: 80%;
-	        max-width: 30%;
-	        justify-content: center;
-	        align-content: center;
-	    }
+@media all and (max-width: 750px) {
+
+    #logo-div #logo {
+        min-width: 400px;
+    }
+
+    #logo-div a {
+        max-width: 400px;
+    }
+
+
+    #logo-div #logoLink {
+
+        min-width: 70vw;
+
+    }
 }
+
+@media all and (max-width: 575px) {
+
+    #logo-div #logo {
+          min-width: 300px;
+    }
+
+    #logo-div a {
+        max-width: 300px;
+    }
+
+
+    #logo-div #logoLink {
+
+        min-width: 70vw;
+
+    }
+}
+
+@media all and (max-width: 415px) {
+
+
+    #logo-div #logo {
+        min-width: 250px;
+    }
+
+    #logo-div a {
+        max-width: 250px;
+    }
+
+
+    #logo-div #logoLink {
+        min-width: 70vw;
+    }
+}
+
+
+
+@media all and (max-width: 375px) {
+
+
+    #logo-div #logo {
+        min-width: 200px;
+
+    }
+
+    #logo-div a {
+        max-width: 200px;
+    }
+
+    #logo-div #logoLink {
+        min-width: 50vw;
+
+    }
+}
+
+@media all and (max-width: 320px) {
+
+    #logo-div #logo {
+        min-width: 150px;
+    }
+
+    #logo-div a {
+        max-width: 150px;
+
+    }
+
+}
+
+
+
