@@ -1,8 +1,6 @@
 import React from 'react';
 import PlayerSplash from "./PlayerSplash";
 
-
-
 export const AllPlayers = ({allPlayers: players}) =>
 
     <div className=''>
