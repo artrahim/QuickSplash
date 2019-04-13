@@ -1,8 +1,30 @@
 html, body {
     height: 100vh;
     margin: 0;
+    overflow: hidden;
+    min-width: 300px;
 }
 
+.content{
+    min-width: 300px;
+}
+
+.player{
+    width: 150px;
+    height: 150px;
+
+}
+
+.logo{
+    min-width: 135px;
+}
+
+.playerName{
+    color: black;
+    text-align: center;
+    font-size: 23px;
+    font-weight: bold;
+}
 
 #home #navbarContainer {
     width: 100vw;
@@ -10,9 +32,8 @@ html, body {
     background-image: linear-gradient(100deg, #64b3f4 0%, #c2e59c 100%);
     display:flex;
     flex-flow: row;
-
+    min-width: 300px;
 }
-
 
 #home #navbarButton {
     margin: 0 auto;
@@ -21,19 +42,22 @@ html, body {
     display: flex;
     flex: 1 6 35%;
     order: 2;
+    
 }
-
 
 .container {
     display: flex;
-    margin: 5%;
     align-items: center;
     justify-content: center;
+    height: 25%;
+    min-width: 150px;
 }
 
 .container-flex {
     align-items: center;
     justify-content: center;
+    height: 100%;
+    min-width: 300px;
 }
 
 .button {
@@ -41,12 +65,18 @@ html, body {
     margin: 0 auto;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    height: 23vh;
+    width: auto;
+    min-width: 150px; 
+}
+
+.container:hover {
+    transform: scale(1.5);
 }
 
 .textButton {
     position:absolute;
-    font-size: 1.5vw;
+    font-size: 100%;
     font-weight: bold;
     color: white;
     font-family: "Amatic SC";
@@ -75,7 +105,10 @@ html, body {
     justify-content: center;
     align-items: center;
     width: 90%;
+}
 
+.starImage{
+    min-height: 200px;
 }
 
 #home .textImage {
@@ -89,21 +122,66 @@ html, body {
     align-items: center;
 }
 
-@media all and (max-width: 600px) {
-    #navbarContainer{
+
+@media all and (max-width: 575px) {
+    #home #navbarContainer{
         flex-direction: column;
     }
 
-    #navbarImage, #nabvarButton {
+    #home #navbarImage, #nabvarButton {
         order: 0;
 
     }
 
-    .container-flex {
+    #navbarImage{
+        max-height: 40vh;
+    }
+
+    .starImage{
+        margin: none;
+        height: 100%;
+        width: auto;
+    }
+
+    #home .button {
+        width:40%;
+    }
+
+    .container-flex{
+        height: 60vh;
+        width: 100vw;
         display:flex;
+        flex-wrap: wrap;
+        margin: none;
+    }
+
+    .container-flex>div {
+        flex: 0 50%;
+        box-sizing:border-box
+    }
+
+    .container {
+        height: 30vh;
+        max-width: 50vw;
+        margin: none;
+        padding: 0;
     }
 
     .button {
-        width:80%;
+        margin: none;   
+        display: inline-block;
+        position: relative;
+        height: 100%;
+    }
+
+    .textImage{
+        font-size: 19px  !important;
+    }
+}
+
+@media all and (max-width: 300px) {
+    .textImage{
+        min-width: 100px;
+        top: 20%;
     }
 }

@@ -8,35 +8,68 @@ import Logo from '../Game/Utilities/Logo'
 import './Lobby.css';
 import ButtonSplash from "../Game/Utilities/ButtonSplash";
 
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+
 class JoinLobby extends Component {
 
     constructor(props) {
 
         super();
         this.state = {
+            username: cookies.get('username'),
+            nickname: "",
             started: false,
-            lobbyCode: 0
-        }
+            lobbyCode: 0,
+            colour: "",
+        };
+
+        //this.changeState = this.changeState.bind(this);
 
     }
 
+    // changeState(temp)
+    // {
+    //     this.setState(state => ({
+    //         nickname: temp
+    //     }));
+    // }
+
     componentDidMount() {
+        let tname = '';
         $('#button').click(function () {
-            socket.emit('joinLobby', $("#joinCode").val(), $("#nickname").val());
+            // tname = $("#nickname").val();
+            // this.changeState(tname);
+
+            let uname = cookies.get('username');
+
+            socket.emit('joinLobby', $("#joinCode").val(), $("#nickname").val(),uname);
+            // this.setState({
+            //     nickname:  $("#nickname").val()
+            // });
+
         });
 
         socket.on('failedToJoin', function (errorMessage) {
             alert(errorMessage);
         });
 
-        socket.on('waiting', (joinCode) => {
+        socket.on('waiting', (joinCode, aColour) => {
             this.setState(state => ({
                 started: true,
-                lobbyCode: joinCode
+                lobbyCode: joinCode,
+                colour: aColour
             }));
         });
 
     }
+
+    // changeState(tname) {
+    //     this.setState(state => ({
+    //         nickname: tname
+    //     }));
+    //
+    // }
 
     render() {
 
@@ -76,8 +109,10 @@ class JoinLobby extends Component {
                     <Redirect to={{
                         pathname: '/game',
                         state: {
+                            nickname: $("#nickname").val(),
                             isCreator: this.props.location.state ? this.props.location.state.isCreator : false,
-                            lobbyCode: this.state.lobbyCode
+                            lobbyCode: this.state.lobbyCode,
+                            colour: this.state.colour,
                         }
                     }}/>;
                 break;
