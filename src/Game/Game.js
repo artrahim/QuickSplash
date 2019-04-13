@@ -39,10 +39,12 @@ class Game extends Component {
     componentDidMount(){
 
         socket.on('roundTransition', () => {
+            let currentRound = this.state.round;
+            currentRound++;
             this.setState(state => ({
-              hasStarted: true,
-              round: this.round+=1,
-              stage: 1
+                hasStarted: true,
+                round: currentRound,
+                stage: 1
             }));
         });
 
@@ -135,11 +137,11 @@ class Game extends Component {
                 break;
             case 2:
                 //component = <Prompt handleTransition = {() => this.handleClick()}/>;
-                component = <Prompt time={this.state.timePerRound} question={this.state.question1}/>;
+                component = <Prompt done={false} time={this.state.timePerRound} question={this.state.question1}/>;
                 break;
             case 3:
                 //component = <Prompt handleTransition = {() => this.handleClick()}/>;
-                component = <Prompt time={this.state.timePerRound} question={this.state.question2}/>;
+                component = <Prompt done={true} time={this.state.timePerRound} question={this.state.question2}/>;
                 break;
             case 4:
                 component = <Waiting isCreator={isCreator} hasStarted={true}/>;

@@ -32,7 +32,7 @@ class Response extends Component {
         if(this.state.count === 1) {
             socket.emit("response", nickname, $('#response').val(), this.props.question, lobbyCode);
         } else {
-            socket.emit("roundOver", nickname, $('#response').val(), this.props.question, lobbyCode);
+            socket.emit("response2", nickname, $('#response').val(), this.props.question, lobbyCode);
         }
         $('#response').val('');
 
