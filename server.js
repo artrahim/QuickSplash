@@ -22,6 +22,7 @@ let qpDB = mongoose.connection;
 // getting a PlayerInfo Schema and Model
 let PlayerInfo = require('./PlayerInfoModel');
 
+
 io.on('connection', function (socket) {
 
     console.log("user connected");
@@ -130,7 +131,7 @@ io.on('connection', function (socket) {
             currentRound: 0,
             players: [],
             questions: []
-        }
+        };
 
         //add the lobby to the list of lobbies
         rooms.push(room);

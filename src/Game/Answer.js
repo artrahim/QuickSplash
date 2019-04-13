@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import answer from '../Assets/images/answer.png';
+import answer from '../Assets/images/answer.jpg';
 import ImageTextBox from './ImageTextBox';
 import {socket} from "../Router";
 import $ from "jquery";
