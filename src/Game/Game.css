@@ -42,10 +42,14 @@
 }
 
 
-@media all and (max-width: 575px) {
-    #logolink {
-        align-items: center;
-        justify-content: center;
+@media all and (max-width: 750px) {
+
+    .game h1 {
+        font-size: 1.5em;
     }
+
 }
+
+
+
 
