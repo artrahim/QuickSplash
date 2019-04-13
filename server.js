@@ -130,7 +130,8 @@ io.on('connection', function (socket) {
             rules: ruleSet,
             currentRound: 0,
             players: [],
-            questions: []
+            questions: [],
+            isStarted: false
         };
 
         //add the lobby to the list of lobbies
@@ -184,12 +185,14 @@ io.on('connection', function (socket) {
             let temp1 = {
                 username: username,
                 nickname: nickname,
+                playerSocketId: socket.id
             };
             usernames.push(temp1);
             let temp2 = {
                 nickname: nickname,
                 score: 0,
-                colour: getColour()
+                colour: getColour(),
+                playerSocketId: socket.id
             };
             room.players.push(temp2);
             socket.join(room.name);
@@ -212,12 +215,15 @@ io.on('connection', function (socket) {
 
         var room = findLobby(code);
         if (room.players.length >= 3) {
-            loadQuestions(room)
+            loadQuestions(room);
+            // set the game started bool to true
+            room.isStarted = true;
         }
         else{
             let errorMessage = "You need at least 3 players to start the game";
             socket.emit('failedToStart', errorMessage);
         }
+
 
     });
 
@@ -448,6 +454,22 @@ io.on('connection', function (socket) {
         return room;
     }
 
+    // finds the players lobby and returns the index of the room if the player hasn't jioned a r
+    // if the player hasn't joined returns -1
+    function findPlayerLobby(socketId) {
+        let roomId = -1;
+        console.log(rooms.length);
+        for (let i=0; i < rooms.length; i++) {
+            for (let j=0; j < rooms[i].players.length; j++){
+                console.log('Players socketID' + rooms[i].players[j].playerSocketId +"The socket ID" + socketId);
+                if(rooms[i].players[j].playerSocketId === socketId) {
+                    roomId = i;
+                }
+            }
+        }
+        return roomId;
+    }
+
     function getUsername(nickname){
         let username = "";
         for (let i=0; i<usernames.length; i++){
@@ -458,8 +480,7 @@ io.on('connection', function (socket) {
         return username;
     }
 
-    function getColour()
-    {
+    function getColour() {
         let rn = Math.floor(Math.random() * Math.floor(8));  // will generate a random num from 0 to 7
         let colour = '';
 
@@ -497,8 +518,36 @@ io.on('connection', function (socket) {
     }
 
     //actions to be taken when a user disconnects
-    socket.on('disconnect', function (socket) {
-        console.log("user disconnected");
+    socket.on('disconnect', function () {
+        console.log("user disconnected with the following socket id: " + socket.id);
+        // find out which player discounted
+        let roomIndex = findPlayerLobby(socket.id);
+        if (roomIndex != -1) {
+            // remove this player form this room
+            for( let i = 0; i < rooms[roomIndex].players.length; i++) {
+                if ( rooms[roomIndex].players[i].playerSocketId === socket.id) {
+                    rooms[roomIndex].players.splice(i, 1);
+                }
+            }
+            // remove this player from username
+            for (let i =0; i < usernames.length; i++) {
+                if(usernames[i].playerSocketId === socket.id) {
+                    usernames.splice(i,1);
+                }
+            }
+
+            // check the number of players in this room
+            if(rooms[roomIndex].players.length < 3)
+            {
+                // kill this room
+                for( let i = 0; i < rooms[roomIndex].players.length; i++) {
+                    io.sockets.connected[rooms[roomIndex].players[i].playerSocketId].disconnect();
+                }
+            }
+        }
+
+        console.log(io.sockets.connected)
+
     });
 
 
@@ -512,3 +561,5 @@ qpDB.on('error', console.error.bind(console, 'MongoDB connection error:'));
 http.listen(port, function () {
     console.log('listening on *:' + port);
 });
+
+
