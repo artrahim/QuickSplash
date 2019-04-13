@@ -20,6 +20,12 @@
     /*color: red;*/
 }
 
+.rootContainer .loggedOut p {
+    font-size: 40px;
+    font-weight: bold;
+    color: black;
+}
+
 
 .rootContainer .complete p {
     font-size: 30px;
