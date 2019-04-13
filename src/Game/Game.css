@@ -20,6 +20,8 @@
 
     min-width: 100vw;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .game Timer{
@@ -37,5 +39,13 @@
     width: 100%;
     display: block;
     margin: auto;
+}
+
+
+@media all and (max-width: 575px) {
+    #logolink {
+        align-items: center;
+        justify-content: center;
+    }
 }
 

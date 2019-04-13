@@ -59,7 +59,7 @@ class Waiting extends Component {
         return (
             <div className="game">
                 <title>Create a lobby</title>
-                <Logo/>
+                <div id="logolink"><Logo/></div>
                 <br/>
                 <h1>WAITING FOR {text}...</h1>
                 {button}

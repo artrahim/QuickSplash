@@ -72,11 +72,11 @@ class JoinLobby extends Component {
                 component =
                     <div className="lobby">
                         <div className="center-back">
-                            <Link to="/">
+                            <Link id="backlink" to="/">
                                 <Button className="back-button" variant="outline-primary">← Back</Button>
                             </Link>
-                            <Logo/>
-                            <div className="empty"/>
+                            <div id="logoLink"><Logo/></div>
+                            <div className="empty"> </div>
                         </div>
                         <title>Join a lobby</title>
                         <meta name="viewport" content="width=device-width, initial-scale=1"/>
