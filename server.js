@@ -439,28 +439,37 @@ io.on('connection', function (socket) {
 
     function getColour()
     {
-        let rn = Math.floor(Math.random() * Math.floor(5));  // will generate a rannd num from 0 to 4
+        let rn = Math.floor(Math.random() * Math.floor(8));  // will generate a random num from 0 to 7
         let colour = '';
 
         switch (rn) {
 
             case 0:
-                colour = 'blueSplash';
+                colour = 'blueSplashPlayer';
                 break;
             case 1:
-                colour = 'brownSplash';
+                colour = 'tealSplashPlayer';
                 break;
             case 2:
-                colour = 'greenSplash';
+                colour = 'yellowSplashPlayer';
                 break;
             case 3:
-                colour = 'orangeSplash';
+                colour = 'orangeSplashPlayer';
                 break;
             case 4:
-                colour = 'redSplash';
+                colour = 'redSplashPlayer';
+                break;
+            case 5:
+                colour = 'greenSplashPlayer';
+                break;
+            case 6:
+                colour = 'purpleSplashPlayer';
+                break;
+            case 7:
+                colour = 'pinkSplashPlayer';
                 break;
             default:
-                colour = 'blueSplash';
+                colour = 'redSplashPlayer';
 
         }
         return colour;

@@ -85,3 +85,57 @@ h1 {
     min-height: 200px;
     max-height: 30%;
 }
+
+@media all and (max-width: 600px) {
+	    .lobby {
+	        width: 100%;
+	        min-height: 100vh;
+	
+	    }
+	
+	    .lobby #split-container{
+	        padding: 10px;
+	        display: table;
+	        width: 70%;
+	        margin: auto;
+	    }
+	
+	
+	    .lobby label {
+	        text-align: left;
+	        font-family: "Amatic SC";
+	        font-size: 1em;
+	        font-weight: bold;
+	
+	    }
+	
+	    .lobby input {
+	        font-family: "Amatic SC";
+	        font-size: 1em;
+	        line-height: 55px;
+	        border: none;
+	        width: 90%;
+	
+	    }
+	
+	    .lobby .slider {
+	        -webkit-appearance: none;
+	        width: 80%;
+	        height: 33px;
+	        background: #DCDCDC;
+	        margin-top: 20px;
+	    }
+	
+	
+	    .lobby input[type=range]::-webkit-slider-thumb {
+	        -webkit-appearance: none;
+	        height: 50px;
+	        width: 30px;
+	        background: #111111;
+	        cursor: pointer;
+	    }
+	
+	    .back-button {
+	
+	    }
+}

@@ -31,3 +31,14 @@
     flex: 1;
     max-width: 10vw;
 }
+
+@media all and (max-width: 600px) {
+	    #logo-div #logo {
+	        flex: 1;
+	        margin: 10px auto;
+	        min-width: 80%;
+	        max-width: 30%;
+	        justify-content: center;
+	        align-content: center;
+	    }
+}
