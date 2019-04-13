@@ -32,15 +32,17 @@ class Waiting extends Component {
         const lobbyCode = localStorage.getItem('lobbyCode');
 
         $('#button').click(function () {
-            alert(lobbyCode);
             socket.emit('startGame', lobbyCode);
         });
 
         socket.on('addPlayers', (players) => {
-
             this.setState({
                 allPlayers: players
             })
+        });
+
+        socket.on('failedToStart', (errorMessage) => {
+            alert(errorMessage);
         })
     }
 

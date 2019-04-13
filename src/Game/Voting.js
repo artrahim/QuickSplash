@@ -35,6 +35,21 @@ class Voting extends Component {
 
     render() {
 
+        let component = null;
+        switch(this.props.canVote){
+            case true:
+                component =
+                <div id='AnswerBox'>
+                    <Answer id={1} answer={this.props.answer1} question={this.props.question} voteStatus={this.state.voted} hasVoted={this.hasVoted}/>
+                    <Answer id={2} answer={this.props.answer2} question={this.props.question} voteStatus={this.state.voted} hasVoted={this.hasVoted}/>
+                </div>;
+                break;
+            case false:
+                component =
+                    <h1>YOU CAN'T VOTE ON THIS ONE</h1>;
+                break;
+        }
+
         return (
             <div>
                 <div className="center-back">
@@ -45,10 +60,7 @@ class Voting extends Component {
                 <Question question={this.props.question}/>
                 <br/>
                 <br/>
-                <div id='AnswerBox'>
-                    <Answer id={1} answer={this.props.answer1} question={this.props.question} voteStatus={this.state.voted} hasVoted={this.hasVoted}/>
-                    <Answer id={2} answer={this.props.answer2} question={this.props.question} voteStatus={this.state.voted} hasVoted={this.hasVoted}/>
-                </div>
+                {component}
             </div>
         );
 

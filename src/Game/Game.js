@@ -27,6 +27,7 @@ class Game extends Component {
             question2: "",
             timeToVote: 0,
             beingVotedOn: "",
+            canVote: true,
             answer1: "",
             answer2: "",
             first: "",
@@ -53,8 +54,6 @@ class Game extends Component {
                 question2: second,
                 stage: 2,
             }));
-            console.log("1st Question:\t", this.state.question1);
-            console.log("2nd Question:\t", this.state.question2);
         });
 
         socket.on('prompt2', () => {
@@ -69,12 +68,18 @@ class Game extends Component {
             }));
         });
 
-        socket.on('vote', (question, time, a1, a2) => {
+        socket.on('vote', (question, time, a1, a2, p1, p2) => {
+            let thisPlayer = cookies.get('username').nickname;
+            let temp = true;
+            if (thisPlayer === p1 || thisPlayer === p2){
+                temp = false;
+            }
             this.setState(state => ({
                 beingVotedOn: question,
                 timeToVote: time,
                 answer1: a1,
                 answer2: a2,
+                canVote: temp,
                 stage: 5
             }));
         });
@@ -88,12 +93,20 @@ class Game extends Component {
             }));
         });
         socket.on('endGame', () => {
-            alert("Game is over");
             this.setState(state => ({
                 stage: 7
             }));
+            let a;
+            if (localStorage.getItem('codes') === null){
+                a = [];
+            }
+            else{
+                a = JSON.parse(localStorage.getItem('codes'));
+                let thisLobby = localStorage.getItem('lobbyCode');
+                let index = a.indexOf(thisLobby);
+                a.splice(index, 1);
+            }
         });
-
 
     }
 
@@ -102,7 +115,7 @@ class Game extends Component {
         //states are represented by numbers (0 to 6)
         let component = null;
         let thisLobby = localStorage.getItem('lobbyCode');
-        let a = [];
+        let a;
         if (localStorage.getItem('codes') === null){
             a = [];
         }
@@ -130,7 +143,7 @@ class Game extends Component {
                 component = <Waiting isCreator={isCreator} hasStarted={true}/>;
                 break;
             case 5:
-                component = <Voting time={this.state.timeToVote} question={this.state.beingVotedOn} answer1={this.state.answer1} answer2={this.state.answer2} />;
+                component = <Voting time={this.state.timeToVote} question={this.state.beingVotedOn} answer1={this.state.answer1} answer2={this.state.answer2} canVote={this.state.canVote}/>;
                 break;
             case 6:
                 component = <Resultmain first={this.state.first} second={this.state.second} third={this.state.third}/>;
