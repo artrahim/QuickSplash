@@ -561,6 +561,7 @@ io.on('connection', function (socket) {
             {
                 // kill this room
                 for( let i = 0; i < rooms[roomIndex].players.length; i++) {
+                    io.to(rooms[roomIndex].name).emit('endGame');
                     io.sockets.connected[rooms[roomIndex].players[i].playerSocketId].disconnect();
                 }
             }
