@@ -75,8 +75,7 @@ function updateGamePlayed(username) {
     PlayerInfo.findOne(infoQ, 'tGamePlayed', function (err, stats) {
         if (err) {
             console.log("<<<<Hakuna Matata>>>>");
-            // emit Login Failed
-            return handleError(err);
+            console.log(err);
         }
 
         console.log(stats);
