@@ -3,17 +3,64 @@ import OtherPlayer from './OtherPlayer'
 import silver from '../../Assets/images/silver.png';
 import bronze from '../../Assets/images/bronze.png';
 
-class Others extends Component{
+
+function getGif(colour) {
+
+    let playerGif;
+
+    switch (colour) {
+        case 'blueSplashPlayer':
+            playerGif = 'shockedanimateblue';
+            break;
+        case 'tealSplashPlayer':
+            playerGif = 'shockedanimateteal';
+            break;
+        case 'yellowSplashPlayer':
+            playerGif = 'shockedanimateyellow';
+            break;
+        case 'orangeSplashPlayer':
+            playerGif = 'shockedanimateorange';
+            break;
+        case 'redSplashPlayer':
+            playerGif = 'shockedanimatered';
+            break;
+        case 'greenSplashPlayer':
+            playerGif = 'shockedanimategreen';
+            break;
+        case 'purpleSplashPlayer':
+            playerGif = 'shockedanimatepurple';
+            break;
+        case 'pinkSplashPlayer':
+            playerGif = 'shockedanimatepink';
+            break;
+    }
+
+    return playerGif
+
+}
+
+class Others extends Component {
     render() {
         return (
             <div id="Others">
                 <div className="row">
-                    <OtherPlayer othersplash={this.props.splash2} otherFace={this.props.Face2} othermedal={silver} otherusername={this.props.Username2}/>
-                    <OtherPlayer othersplash={this.props.splash3} otherFace={this.props.Face3} othermedal={bronze} otherusername={this.props.Username3}/>
+                    <div className="column">
+                        <img id="otherPlayer" src={"../Game/Assets/images/" + getGif(this.props.splash2.colour) + ".gif"} alt="colorSplash"/>
+                        {/*<img id="otherface" src={this.props.otherFace} alt="avatar"/>*/}
+                        <img id="othermedals" src={silver} alt="medal"/>
+                        <p id="otherusername">{this.props.splash2.nickname}</p>
+                    </div>
+                    <div className="column">
+                        <img id="otherPlayer"
+                             src={"../Game/Assets/images/" + getGif(this.props.splash3.colour) + ".gif"}
+                             alt="colorSplash"/>
+                        <img id="othermedals" src={bronze} alt="medal"/>
+                        <p id="otherusername">{this.props.splash3.nickname}</p>
+                    </div>
                 </div>
             </div>
         );
-    }   
+    }
 }
 
 export default Others;

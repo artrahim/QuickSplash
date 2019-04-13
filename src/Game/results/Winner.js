@@ -1,16 +1,53 @@
 import React, {Component} from 'react'
 
-class Winner extends Component{
+
+function getGif(colour) {
+
+    let playerGif;
+
+    switch (colour) {
+        case 'blueSplashPlayer':
+            playerGif = 'smileanimateblue';
+            break;
+        case 'tealSplashPlayer':
+            playerGif = 'smileanimateteal';
+            break;
+        case 'yellowSplashPlayer':
+            playerGif = 'smileanimateyellow';
+            break;
+        case 'orangeSplashPlayer':
+            playerGif = 'smileanimateorange';
+            break;
+        case 'redSplashPlayer':
+            playerGif = 'smileanimatered';
+            break;
+        case 'greenSplashPlayer':
+            playerGif = 'smileanimategreen';
+            break;
+        case 'purpleSplashPlayer':
+            playerGif = 'smileanimatepurple';
+            break;
+        case 'pinkSplashPlayer':
+            playerGif = 'smileanimatepink';
+            break;
+    }
+
+    return playerGif
+
+}
+
+class Winner extends Component {
     render() {
         return (
             <div id="Winner">
-                <img id="firstSplash" src={this.props.splash1} alt="Winner ColorSplash" />
-                <img id="goldmedal" src={ require('../../Assets/images/gold.png')} alt="goldmedal" />
-                <img id="face1" src={this.props.Face1} alt="Winner Avater" />
-                <p id="firstusername">{this.props.Username1}</p>
+                <img id="firstSplash" src={"../Game/Assets/images/" + getGif(this.props.splash1.colour) + ".gif"}
+                     alt="Winner ColorSplash"/>
+                <img id="goldmedal" src={require('../../Assets/images/gold.png')} alt="goldmedal"/>
+                {/*<img id="face1" src={this.props.Face1} alt="Winner Avater" />*/}
+                <p id="firstusername">{this.props.splash1.nickname}</p>
             </div>
         );
-    }   
+    }
 }
 
 export default Winner;

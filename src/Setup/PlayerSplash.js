@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import './Home.css';
 
+import Test from './Test'
+
 /*
 Makes the player splash.
 Random image source.
@@ -22,8 +24,9 @@ class PlayerSplash extends Component {
     render() {
         return (
             <div style={this.state}>
-                <img className="player" src={this.props.imagesource} alt="player">
-                </img>
+
+                <Test className="player" src={this.props.imagesource} alt="player"/>
+
                 <div className="playerName"> {this.props.text} </div>
             </div>
         )

@@ -30,9 +30,9 @@ class Game extends Component {
             canVote: true,
             answer1: "",
             answer2: "",
-            first: "",
-            second: "",
-            third: ""
+            first: {},
+            second: {},
+            third: {}
         };
 
     }
@@ -85,6 +85,7 @@ class Game extends Component {
         });
 
         socket.on('result', (p1, p2, p3) => {
+            
             this.setState(state => ({
                 first: p1,
                 second: p2,

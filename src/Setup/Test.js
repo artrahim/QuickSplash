@@ -45,6 +45,7 @@ const Image = posed.img({
     draggable: "x",
     hidden: {opacity: 0},
     visible: {opacity: 1},
+    trans: transition
     // transition: {
     //     opacity: {ease: 'easeOut', duration: 300},
     //     default: {ease: 'linear', duration: 500}

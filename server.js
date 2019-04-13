@@ -398,7 +398,7 @@ io.on('connection', function (socket) {
         room.players.sort(function(a, b) {
             return b.score - a.score;
         });
-        io.to(room.name).emit('result', room.players[0].nickname, room.players[1].nickname, room.players[2].nickname);
+        io.to(room.name).emit('result', room.players[0], room.players[1], room.players[2]);
         let numRounds = parseInt(room.rules.numRounds, 10);
         let currentRound = room.currentRound;
         console.log(currentRound);
