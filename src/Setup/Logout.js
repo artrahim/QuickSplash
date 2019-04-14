@@ -5,6 +5,9 @@ import {authenticate} from "../Router";
 import './login.css'
 import Button from "react-bootstrap/Button";
 
+const createjs = window.createjs;
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.2})
+let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.5})
 
 class Logout extends Component {
 
@@ -17,20 +20,31 @@ class Logout extends Component {
 
         this.loginClick = this.loginClick.bind(this);
         this.signUpClick = this.signUpClick.bind(this);
+        this.playTick = this.playTick.bind(this);
+        this.playSplash = this.playSplash.bind(this);
     }
 
     loginClick() {
+        createjs.Sound.play("splash",props);
         this.setState(state => ({
             page: 0
         }));
     }
 
     signUpClick() {
+        createjs.Sound.play("splash",props);
         this.setState(state => ({
             page: 1
         }));
     }
 
+    playTick() {
+        createjs.Sound.play("tick",props1);
+    }
+
+    playSplash() {
+        createjs.Sound.play("splash",props);
+    }
 
     componentDidMount() {
         authenticate.logout();
@@ -44,7 +58,7 @@ class Logout extends Component {
             <div className="rootContainer">
 
                 <Link to="/">
-                    <Button className="back-button" variant="outline-primary" onMouseOver={this.playTick}>←
+                    <Button className="back-button" variant="outline-primary" onClick={this.playSplash} onMouseOver={this.playTick}>←
                         Back</Button>
                 </Link>
                 <div className="wrapper">

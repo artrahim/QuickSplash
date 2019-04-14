@@ -11,6 +11,7 @@ import Voting from "./Voting";
 import ResultMain from "./results/ResultMain";
 
 import './Game.css';
+import WaitingAns from "./WaitingAns";
 
 const cookies = new Cookies();
 
@@ -55,6 +56,10 @@ class Game extends Component {
                 question2: second,
                 stage: 2,
             }));
+
+            console.log('fist question: ' + first);
+            console.log('second question: ' + second);
+            console.log('----------------------------------------------------');
         });
 
         socket.on('prompt2', () => {
@@ -112,6 +117,11 @@ class Game extends Component {
         });
 
         socket.on('done voting', function () {
+
+            console.log("I am done voting ....");
+            this.setState(state => ({
+                stage: 8
+            }));
             
         })
 
@@ -161,6 +171,7 @@ class Game extends Component {
                 }}/>;
                 break;
             case 8:
+                component =<WaitingAns/>;
                 break;
             default:
                 component = <Waiting isCreator={isCreator} hasStarted={false}/>;

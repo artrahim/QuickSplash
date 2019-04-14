@@ -7,6 +7,10 @@ import './login.css'
 import Logo from "./CreateLobby";
 import {Link} from "react-router-dom";
 
+const createjs = window.createjs;
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.2})
+let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.5})
+
 class Login extends Component {
 
     constructor() {
@@ -19,6 +23,7 @@ class Login extends Component {
         this.loginClick = this.loginClick.bind(this);
         this.signUpClick = this.signUpClick.bind(this);
         this.playTick = this.playTick.bind(this);
+        this.playSplash = this.playSplash.bind(this);
     }
 
     loginClick() {
@@ -36,7 +41,11 @@ class Login extends Component {
     }
 
     playTick() {
-        window.createjs.Sound.play("tick");
+        createjs.Sound.play("tick",props1);
+    }
+
+    playSplash() {
+        createjs.Sound.play("splash",props);
     }
 
     render() {
@@ -57,7 +66,7 @@ class Login extends Component {
 
                 <div className="buttonheader">
                 <Link to="/">
-                    <Button className="back-button" variant="outline-primary" onMouseOver={this.playTick}>← Back</Button>
+                    <Button className="back-button" variant="outline-primary" onClick={this.playSplash} onMouseOver={this.playTick}>← Back</Button>
                 </Link>
                 </div>
                 <div className="wrapper">

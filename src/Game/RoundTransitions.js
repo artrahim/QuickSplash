@@ -70,7 +70,7 @@ class RoundTransitions extends Component {
                 imgsource = require('../Assets/images/round5.png');
                 break;
             default:
-                throw new Error("Not in round 1-5");
+                imgsource = require('../Assets/images/round2.png');
         }
         return (
             <div>

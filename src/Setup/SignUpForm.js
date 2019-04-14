@@ -4,6 +4,9 @@ import {socket} from '../Router';
 import {FormError} from './FormError';
 
 const createjs = window.createjs;
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.2})
+let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.5})
+
 
 class SignUpForm extends Component {
     constructor(props) {
@@ -126,7 +129,7 @@ class SignUpForm extends Component {
             socket.emit("signUp", loginInfo);
 
         socket.on('signUp-success', function () {
-            createjs.Sound.play("splash");
+            createjs.Sound.play("splash",props);
             self.setState({
                 formErrors: "",
                 usernameValid: true,
@@ -138,7 +141,7 @@ class SignUpForm extends Component {
 
 
         socket.on("signUp-fail", function () {
-            createjs.Sound.play("buzwrong");
+            createjs.Sound.play("buzwrong",props);
             let fieldErrors = self.state.formError;
             fieldErrors.username = ' is already taken.';
 
@@ -186,7 +189,7 @@ class SignUpForm extends Component {
     }
 
     playTick() {
-        createjs.Sound.play("tick");
+        createjs.Sound.play("tick",props1);
     }
 
     render() {
