@@ -11,6 +11,11 @@ import ButtonSplash from "../Game/Utilities/ButtonSplash";
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
+const createjs = window.createjs;
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
+let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.5})
+
+
 class JoinLobby extends Component {
 
     constructor(props) {
@@ -23,7 +28,8 @@ class JoinLobby extends Component {
             lobbyCode: 0,
             colour: "",
         };
-
+        this.playTick = this.playTick.bind(this);
+        this.playSplash = this.playSplash.bind(this);
     }
 
     componentDidMount() {
@@ -45,6 +51,7 @@ class JoinLobby extends Component {
         });
 
         socket.on('failedToJoin', function (errorMessage) {
+            createjs.Sound.play("buzwrong",props);
             alert(errorMessage);
         });
 
@@ -52,9 +59,18 @@ class JoinLobby extends Component {
             this.setState(state => ({
                 started: true,
             }));
+            createjs.Sound.play("splash",props);
             localStorage.setItem("colour", aColour);
         });
 
+    }
+
+    playTick() {
+        createjs.Sound.play("tick",props1);
+    }
+
+    playSplash() {
+        createjs.Sound.play("splash",props);
     }
 
     render() {
@@ -73,7 +89,7 @@ class JoinLobby extends Component {
                     <div className="lobby">
                         <div className="center-back">
                             <Link id="backlink" to="/">
-                                <Button className="back-button" variant="outline-primary">← Back</Button>
+                                <Button className="back-button" variant="outline-primary"  onClick={this.playSplash} onMouseOver={this.playTick}>← Back</Button>
                             </Link>
                             <div id="logoLink"><Logo/></div>
                             <div className="empty"> </div>
@@ -86,13 +102,13 @@ class JoinLobby extends Component {
                         <div id="container">
                             <label className="option" htmlFor="joinCode">ENTER A JOIN CODE: </label>
                             <br/>
-                            <input defaultValue={lobbyCode} type="text" className="textBox" id="joinCode"/>
+                            <input defaultValue={lobbyCode} type="text" className="textBox" id="joinCode"  onKeyDown={this.playTick}/>
                             <br/><br/>
                             <label className="option" htmlFor="nickname">WHAT SHOULD WE CALL YOU?: </label>
-                            <input defaultValue="" type="text" className="textBox" id="nickname"/>
+                            <input defaultValue="" type="text" className="textBox" id="nickname"  onKeyDown={this.playTick}/>
                         </div>
                         <br/>
-                        <div id="button">
+                        <div id="button"  onClick={this.playSplash}>
                             <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')} text={"Join"}/>
                         </div>
                     </div>
