@@ -26,9 +26,8 @@ class Answer extends Component {
         let question = this.props.question;
         let answer = this.props.answer;
 
-        if (!this.props.voteStatus) {
+        if (!this.props.hasVoted) {
             socket.emit('vote', lobbyCode, question, answer);
-
         }
 
         // change the vote status here
