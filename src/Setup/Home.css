@@ -5,6 +5,9 @@ html, body {
     min-width: 300px;
 }
 
+#home{
+    overflow: hidden;
+}
 
 .route-transition {
     position: absolute;
