@@ -74,7 +74,7 @@ class Home extends Component {
             <div id="home">
                 <HashRouter>
                     <div id="navbarContainer">
-                        {component}
+                        <div className="profilehelper">{component}</div>
                         <div id="navbarImage">
                             <img className="starImage" src={require('../Assets/images/homePage.png')} alt="button">
                             </img>
