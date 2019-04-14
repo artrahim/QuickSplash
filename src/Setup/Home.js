@@ -40,7 +40,7 @@ class Home extends Component {
         composite({
             angle: physics({velocity: 5}),
             radius: tween({
-                from: 1200,
+                from: 1500,
                 ease: easing.easeInOut,
                 duration: 2000
             })
@@ -72,9 +72,12 @@ class Home extends Component {
             <div id="home">
                 <HashRouter>
                     <div id="navbarContainer">
+                        <img className="home-player" id="hp2" src={require('../Assets/images/shockedanimateorange.gif')} alt="splash"/>
+                        <img className="home-player" id = "hp1" src={require('../Assets/images/smileanimatepink.gif')} alt="splash"/>
                         <div className="profilehelper">{component}</div>
                         <div id="navbarImage">
-                            <img className="starImage" src={require('../Assets/images/homePage.png')} alt="button">
+                            <img className="starImage" src={require('../Assets/images/homePage.png')}
+                                 alt="button">
                             </img>
                             <img className="logo" src={require('../Assets/images/logo.png')} alt="button"/>
                             <div className="textImage">Speak Your Mind!</div>

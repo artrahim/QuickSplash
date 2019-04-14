@@ -70,6 +70,7 @@ html, body {
     height: 23vh;
     width: auto;
     min-width: 150px;
+    position: absolute;
 }
 
 /*taken from https://stackoverflow.com/questions/3186688/drop-shadow-for-png-image-in-css*/
@@ -80,10 +81,12 @@ html, body {
 
 .textButton {
     position:absolute;
+    margin: auto;
     font-size: 100%;
     font-weight: bold;
     color: white;
     font-family: "Amatic SC";
+    box-sizing: padding-box;
 }
 
 #home #navbarImage {
@@ -127,9 +130,34 @@ html, body {
     align-items: center;
 }
 
+#home .home-player{
+    max-width: 150px;
+    max-height: 150px;
+    position: absolute;
+    top:10%;
+}
+
+#home #hp1{
+    left: 60%;
+}
+
+#home  #hp2{
+    top: 70%;
+    left: 3%;
+}
+
 @media all and (max-width: 1024px) {
     .logo{
         min-width: 230px;
+    }
+    #home #hp1{
+        left: 50%;
+        top: 30%;
+     }
+
+    #home  #hp2{
+        top: 60%;
+        left: 5%;
     }
 }
 
@@ -157,6 +185,20 @@ html, body {
     #home .textImage {
         position: absolute;
         font-size: 2vw;
+    }
+
+    #home .home-player{
+        max-width: 120px;
+        max-height: 100px;
+    }
+
+    #home #hp1{
+        left: 50%;
+        top: 33%;
+    }
+    #home #hp2{
+        left: 9%;
+        top: 55%;
     }
 
 }
@@ -211,7 +253,7 @@ html, body {
     .button {
         margin: none;
         display: inline-block;
-        position: relative;
+        position: absolute;
         width: 70%;
     }
 
@@ -233,6 +275,22 @@ html, body {
     .playerName{
         font-size: 15px;
     }
+
+    #home .home-player{
+        max-width: 100px;
+        max-height: 100px;
+    }
+
+    #home #hp1{
+        left: 70%;
+        top: 0;
+    }
+
+    #home  #hp2{
+        top: 30%;
+        left: 2%;
+    }
+
 }
 
 @media all and (max-width: 320px) {
@@ -252,7 +310,7 @@ html, body {
     .button {
         margin: none;
         display: inline-block;
-        position: relative;
+        position: absolute;
         width: 50%;
         height: 30%;
     }
@@ -268,6 +326,20 @@ html, body {
 
     .playerName{
         font-size: 8px;
+    }
+    #home .home-player{
+        max-width: 80px;
+        max-height: 80px;
+    }
+
+    #home #hp1{
+        left: 70%;
+        top: 0;
+    }
+
+    #home  #hp2{
+        top: 30%;
+        left: 2%;
     }
 
 }
