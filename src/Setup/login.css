@@ -61,7 +61,7 @@ body{
     flex-direction: column;
     color: #fff; 
     top: 38px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .rootContainer .pageSelectorContainer {
@@ -213,6 +213,6 @@ body{
 
 @media all and (max-height: 700px) {    
     .signUpContainer{
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 }
