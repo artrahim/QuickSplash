@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import silver from '../../Assets/images/silver.png';
 import bronze from '../../Assets/images/bronze.png';
+import PlayerAnimation from "../../Setup/PlayerAnimation";
 
 
 function getGif(colour) {
@@ -44,18 +45,22 @@ class Others extends Component {
             <div id="Others">
                 <div className="row">
                     <div className="column">
-                        <img id="otherPlayer"
-                             src={require("../../Assets/images/" + getGif(this.props.splash2.colour) + ".gif")}
-                             alt="colorSplash"/>
+                        <PlayerAnimation id="otherPlayer"
+                                         src={require("../../Assets/images/" + getGif(this.props.splash2.colour) + ".gif")}
+                                         alt="colorSplash"/>
                         <img id="othermedals" src={silver} alt="medal"/>
-                        <p id="otherusername">{this.props.splash2.nickname}</p>
+                        <div id="temp" className={'playerInfo'}><p id="username">{this.props.splash2.nickname}</p>
+                            <div className='playerScore'><p>{this.props.splash2.score}</p></div>
+                        </div>
                     </div>
                     <div className="column">
-                        <img id="otherPlayer"
-                             src={require("../../Assets/images/" + getGif(this.props.splash3.colour) + ".gif")}
-                             alt="colorSplash"/>
+                        <PlayerAnimation id="otherPlayer"
+                                         src={require("../../Assets/images/" + getGif(this.props.splash3.colour) + ".gif")}
+                                         alt="colorSplash"/>
                         <img id="othermedals" src={bronze} alt="medal"/>
-                        <p id="otherusername">{this.props.splash3.nickname}</p>
+                        <div id="temp" className={'playerInfo'}><p id="username">{this.props.splash3.nickname}</p>
+                            <div className='playerScore'><p>{this.props.splash3.score}</p></div>
+                        </div>
                     </div>
                 </div>
             </div>

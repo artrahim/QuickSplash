@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import {Link, NavLink, Redirect} from 'react-router-dom';
 import {authenticate} from "../Router";
 
 import './login.css'
@@ -52,12 +52,12 @@ class Logout extends Component {
 
                         <div className={"pageSelector " + (this.state.page === 0 ? "currentlySelected" : "")}
                              onClick={this.loginClick}>
-                            Login
+                            <NavLink className='' to={'/login'}>Login</NavLink>
                         </div>
 
                         <div className={"pageSelector " + (this.state.page === 1 ? "currentlySelected" : "")}
                              onClick={this.signUpClick}>
-                            Home
+                            <NavLink className='' to={'/'}>Home</NavLink>
                         </div>
 
                     </div>
@@ -67,8 +67,6 @@ class Logout extends Component {
                     </div>
 
                 </div>
-
-
             </div>
 
         );

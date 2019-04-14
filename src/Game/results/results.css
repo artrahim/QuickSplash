@@ -1,37 +1,76 @@
-*{box-sizing: border-box;}
+*{
+	box-sizing: border-box;
+}
 
-body{margin:0;}
+body{
+	margin:0;
+}
 
-p{font-family: "Amatic SC";}
+p{
+	font-family: "Amatic SC";
+}
 
 /********************************/
 /** 1st place winner **/
 #Players{
 	height: 75vh;
-	min-width: 500px;
+	min-width: 300px;
 	width: 100vw;
 }
 
 #Winner{
 	width: 100%;
 	height: auto;
-	min-height: 50%;
+	min-height: 250px;
 	display: flex;
 	text-align:center;
 	position: relative;
 	justify-content: center;
 	align-items: center;
+	/*border: 1px solid yellow;*/
 }
 
-#Winner p{
-	font-size: 35px;
+.playerScore{
+	color: black;
+	font-size: 50px;
 }
+
+/*#Winner p{*/
+/*	font-size: 35px;*/
+/*}*/
+
+/*.winnerFace{*/
+/*	height: 50%;*/
+/*}*/
+
 
 
 #firstSplash{
-	max-width:40%;
-	min-width: 200px;
+	max-width: 40%;
+	min-width: 210px;
 	height: auto;
+	position: absolute;
+	top: 0;
+
+	margin: auto;
+	/*top: 0;*/
+	left: 0;
+	/*bottom: 0;*/
+	right: 0;
+	/*position: absolute;*/
+
+
+	/*left: 0;*/
+	/*right: 0;*/
+	/*margin-right: 50%;*/
+	/*max-width:50%;*/
+	/*min-width: 150px;*/
+	/*max-height: 100%;*/
+	/*width: auto;*/
+	/*height: auto;*/
+	/*border: 1px solid red;*/
+
+
 }
 #goldmedal{
 	min-width:70px;
@@ -48,21 +87,51 @@ p{font-family: "Amatic SC";}
 	position: absolute;
 }
 
-#firstusername{
-	width:200px;
-	height: 15%;
-	position: absolute;
-	bottom:0;
-	background-color: lightgray;
-	opacity: 0.8;
+/*#username{*/
+/*	width:200px;*/
+/*	height: 15%;*/
+/*	position: absolute;*/
+/*	bottom:0;*/
+/*	background-color: black;*/
+/*	opacity: 0.8;*/
+
+/*}*/
+
+#username{
+	color: black;
+	font-size: 30px;
+	font-weight: bold;
+	color: red;
+	background-color: rgba(192,192,192,0.2);
+	padding-bottom: 0;
+	margin-bottom: 0;
+	/*opacity: 0.4;*/
 }
 
+.playerInfo{
+	/*background-color: blue;*/
+	/*opacity: 0.1;*/
+	width: 20%;
+	position: absolute;
+	bottom:0;
+	height: 40%;
+}
+
+.playerScore{
+	background-color: rgba(0,0,255,0.2);
+	/*opacity: 0.2;*/
+}
+
+.playerScore p {
+	margin-bottom: 0;
+}
 
 
 /********************************/
 /** 2nd and 3rd place winners **/
 #Others{
-	text-align: center
+	text-align: center;
+	margin-top: 5%;
 }
 
 .row{
@@ -113,15 +182,12 @@ p{font-family: "Amatic SC";}
 	margin-left: 20%;
 }
 
-#otherusername{
-	width:150px;
-	position: absolute;
-	bottom:0;
-	background-color: lightgray;
-	opacity: 0.8;
-	margin-bottom: 0;
+#temp{
+	/*margin-top: 5%;*/
+	margin-bottom: -8%;
 }
-	
+
+
 /********************************/
 /** CSs for responsiveness **/
 @media screen and (max-width:750px) {
@@ -130,6 +196,11 @@ p{font-family: "Amatic SC";}
 	#otherface {max-width:59px;}
 	
 	#goldmedal{margin-left: 25%;}
+
+	#Others {
+		text-align: center;
+		margin-top: 8%;
+	}
 	
 	#othermedals{
 		margin-left: 25%;
