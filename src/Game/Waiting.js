@@ -23,8 +23,8 @@ class Waiting extends Component {
 
         this.state = {
             allPlayers: [],
-            windowWidth: 300,
-            windowHeight: 500
+            windowWidth: window.innerWidth,
+            windowHeight: window.innerHeight
         };
     }
 

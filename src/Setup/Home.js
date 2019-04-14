@@ -11,8 +11,6 @@ import {tween, easing, styler, composite, physics} from 'popmotion';
 
 
 import './Home.css';
-// import '../Setup/Profile/test.css'
-import Button from "react-bootstrap/Button";
 
 const Swipeable = posed.div({
     draggable: "x"
@@ -55,8 +53,8 @@ class Home extends Component {
 
     playSplash() {
         const createjs = window.createjs;
-        let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, volume: 0.2});
-        createjs.Sound.play("splash", props);
+        let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
+        createjs.Sound.play("splash",props);
     }
 
     render() {
