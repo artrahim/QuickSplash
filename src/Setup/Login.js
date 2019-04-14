@@ -23,7 +23,6 @@ class Login extends Component {
         this.loginClick = this.loginClick.bind(this);
         this.signUpClick = this.signUpClick.bind(this);
         this.playTick = this.playTick.bind(this);
-        this.playSplash = this.playSplash.bind(this);
     }
 
     loginClick() {
@@ -46,7 +45,7 @@ class Login extends Component {
 
     playSplash() {
         createjs.Sound.play("splash",props);
-    }
+      }
 
     render() {
 
@@ -66,7 +65,7 @@ class Login extends Component {
 
                 <div className="buttonheader">
                 <Link to="/">
-                    <Button className="back-button" variant="outline-primary" onClick={this.playSplash} onMouseOver={this.playTick}>← Back</Button>
+                    <Button className="back-button" variant="outline-primary" onClick={this.playSplash}>← Back</Button>
                 </Link>
                 </div>
                 <TransitionLogin className="wrapper">

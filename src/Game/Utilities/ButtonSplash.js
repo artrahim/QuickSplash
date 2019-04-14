@@ -4,7 +4,6 @@ import '../../Setup/Home.css';
 import {tween, easing, styler, composite, spring} from 'popmotion';
 
 const createjs = window.createjs;
-let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
 let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.5})
 
 
@@ -14,16 +13,10 @@ class ButtonSplash extends Component {
         super(props);
 
         this.playTick = this.playTick.bind(this);
-        this.playSplash = this.playSplash.bind(this);
-
     }
 
     playTick() {
         createjs.Sound.play("tick",props1);
-    }
-
-    playSplash() {
-        createjs.Sound.play("splash",props);
     }
 
     render() {
@@ -31,7 +24,7 @@ class ButtonSplash extends Component {
             <div className="container" >
                 <img className="button" src={this.props.imagesource} alt="button" >
                 </img>
-                <div className="textButton" onClick={this.playSplash} onMouseOver={this.playTick}> {this.props.text} </div>
+                <div className="textButton" onClick={this.playTick} onMouseOver={this.playTick}> {this.props.text} </div>
             </div>
         )
     }

@@ -29,7 +29,7 @@ class Instructions extends Component {
 
                 <div className="center-back">
                     <Link id="backlink" to="/">
-                        <Button className="back-button" variant="outline-primary" onClick={this.playSplash} onMouseOver={this.playTick} >← Back</Button>
+                        <Button className="back-button" variant="outline-primary" onClick={this.playSplash} >← Back</Button>
                     </Link>
                     <div id="logoLink"><Logo/></div>
                     <div className="empty"/>

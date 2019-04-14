@@ -62,8 +62,8 @@ class Home extends Component {
 
         if (authenticate.isAuthenticated) {
             component = <Link to="/profile">
-                <Button className="back-button" variant="outline-primary" onClick={this.playSplash}
-                        onMouseOver={this.playTick}>Profile Page</Button>
+                <Button className="back-button" variant="outline-primary" onClick={this.playTick}
+                        >Profile Page</Button>
             </Link>
         }
 
@@ -83,19 +83,19 @@ class Home extends Component {
                             <div className="container-flex">
                                 <NavLink className="loginButton"
                                          to={authenticate.isAuthenticated ? "/logout" : '/login'}
-                                         onClick={this.playSplash}>
+                                         onClick={this.playTick}>
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
                                                   text={authenticate.isAuthenticated ? "Logout" : "Login"}/>
                                 </NavLink>
-                                <NavLink className="createLobbyButton" to="/createLobby" onClick={this.playSplash}>
+                                <NavLink className="createLobbyButton" to="/createLobby" onClick={this.playTick}>
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
                                                   text={"Create a Lobby"}/>
                                 </NavLink>
-                                <NavLink className="joinLobbyButton" to="/joinLobby" onClick={this.playSplash}>
+                                <NavLink className="joinLobbyButton" to="/joinLobby" onClick={this.playTick}>
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
                                                   text={"Join a Lobby"}/>
                                 </NavLink>
-                                <NavLink className="howToPlayButton" to="/howToPlay" onClick={this.playSplash}>
+                                <NavLink className="howToPlayButton" to="/howToPlay" onClick={this.playTick}>
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
                                                   text={"How To Play"}/>
                                 </NavLink>
