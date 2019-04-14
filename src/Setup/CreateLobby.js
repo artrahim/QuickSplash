@@ -93,7 +93,7 @@ class CreateLobby extends Component {
                     <div className="lobby">
                         <div className="center-back">
                             <Link id="backlink" to="/">
-                                <Button className="back-button" variant="outline-primary"  onMouseOver={this.playTick} onClick={this.playSplash}>← Back</Button>
+                                <Button className="back-button" variant="outline-primary" onClick={this.playSplash}>← Back</Button>
                             </Link>
                             <div id="logoLink"><Logo/></div>
                             <div className="empty"> </div>
@@ -109,20 +109,20 @@ class CreateLobby extends Component {
                                 <label htmlFor="timePerRound">TIME PER ROUND:</label>
                                 <input defaultValue="20 SECONDS" type="text" id="timePerRound" readOnly/>
                                 <input type="range" min={20} max={80} defaultValue={20} className="slider"
-                                       id="slider1"  onChange={this.playTick} onMouseOver={this.playTick} />
+                                       id="slider1"  onChange={this.playTick} />
                                 <br/><br/>
                                 <label htmlFor="numRounds">NUMBER OF ROUNDS:  </label>
                                 <input defaultValue="1 ROUND(S)" type="text" id="numRounds" readOnly/>
-                                <input type="range" min={1} max={10} defaultValue={1} className="slider" id="slider2"  onChange={this.playTick} onMouseOver={this.playTick} />
+                                <input type="range" min={1} max={10} defaultValue={1} className="slider" id="slider2"  onChange={this.playTick} />
                             </div>
                             <div id="right">
                                 <label htmlFor="lobbySize">LOBBY SIZE:  </label>
                                 <input defaultValue="3 PLAYERS" type="text" id="lobbySize" readOnly/>
-                                <input type="range" min={3} max={8} defaultValue={3} className="slider" id="slider3"  onChange={this.playTick} onMouseOver={this.playTick} />
+                                <input type="range" min={3} max={8} defaultValue={3} className="slider" id="slider3"  onChange={this.playTick}/>
                                 <br/><br/>
                                 <label htmlFor="afkTimeout">AFK TIMEOUT:  </label>
                                 <input defaultValue="1 MINUTE(S)" type="text" id="afkTimeout" readOnly/>
-                                <input type="range" min={1} max={5} defaultValue={1} className="slider" id="slider4"  onChange={this.playTick} onMouseOver={this.playTick} />
+                                <input type="range" min={1} max={5} defaultValue={1} className="slider" id="slider4"  onChange={this.playTick}/>
                             </div>
                         </div>
                         <br/>

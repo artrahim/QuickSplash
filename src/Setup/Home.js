@@ -12,8 +12,8 @@ import './Home.css';
 // });
 
 const createjs = window.createjs;
-let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, volume: 0.1})
-let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, volume: 0.5})
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
+let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.5})
 
 class Home extends Component {
 
@@ -46,13 +46,11 @@ class Home extends Component {
             })
         }).pipe(polarToCartesian)
             .start(logoStyler.set);
-
-
     }
 
     playTick() {
-        createjs.Sound.play("tick", props1);
-    }
+        createjs.Sound.play("tick",props1);
+      }
 
     playSplash() {
         createjs.Sound.play("splash", props);
@@ -64,8 +62,8 @@ class Home extends Component {
 
         if (authenticate.isAuthenticated) {
             component = <Link to="/profile">
-                <Button className="back-button" variant="outline-primary" onClick={this.playSplash}
-                        onMouseOver={this.playTick}>Profile Page</Button>
+                <Button className="back-button" variant="outline-primary" onClick={this.playTick}
+                        >Profile Page</Button>
             </Link>
         }
 
@@ -88,20 +86,19 @@ class Home extends Component {
                             <div className="container-flex">
                                 <NavLink className="loginButton"
                                          to={authenticate.isAuthenticated ? "/logout" : '/login'}
-                                         onClick={this.playSplash}>
+                                         onClick={this.playTick}>
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
                                                   text={authenticate.isAuthenticated ? "Logout" : "Login"}/>
                                 </NavLink>
-                                <NavLink className="createLobbyButton" to="/createLobby"
-                                         onClick={this.playSplash}>
+                                <NavLink className="createLobbyButton" to="/createLobby" onClick={this.playTick}>
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
                                                   text={"Create a Lobby"}/>
                                 </NavLink>
-                                <NavLink className="joinLobbyButton" to="/joinLobby" onClick={this.playSplash}>
+                                <NavLink className="joinLobbyButton" to="/joinLobby" onClick={this.playTick}>
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
                                                   text={"Join a Lobby"}/>
                                 </NavLink>
-                                <NavLink className="howToPlayButton" to="/howToPlay" onClick={this.playSplash}>
+                                <NavLink className="howToPlayButton" to="/howToPlay" onClick={this.playTick}>
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
                                                   text={"How To Play"}/>
                                 </NavLink>
