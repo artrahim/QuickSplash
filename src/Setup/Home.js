@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {NavLink, HashRouter, Link} from "react-router-dom";
 import ButtonSplash from "../Game/Utilities/ButtonSplash";
+import Button from 'react-bootstrap/Button';
 
 import posed from 'react-pose';
 
