@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import silver from '../../Assets/images/silver.png';
 import bronze from '../../Assets/images/bronze.png';
-import PlayerAnimation from "../../Setup/PlayerAnimation";
+import PlayerAnimation from "../../Assets/Animations/PlayerAnimation";
 
 
 function getGif(colour) {
