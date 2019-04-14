@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {NavLink, HashRouter, Link} from "react-router-dom";
 import ButtonSplash from "../Game/Utilities/ButtonSplash";
+import Button from 'react-bootstrap/Button';
 
 import posed from 'react-pose';
 
@@ -74,7 +75,7 @@ class Home extends Component {
             <div id="home">
                 <HashRouter>
                     <div id="navbarContainer">
-                        {component}
+                        <div className="profilehelper">{component}</div>
                         <div id="navbarImage">
                             <img className="starImage" src={require('../Assets/images/homePage.png')} alt="button">
                             </img>
