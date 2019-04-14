@@ -1,11 +1,11 @@
 import React from 'react';
-import posed from 'react-pose';
-import { easing } from "popmotion";
+import posed from 'react-pose/lib/index';
+import {easing} from "popmotion";
 
 
 const Image = posed.img({
-    small: { rotateY: -30, easings: easing.easeInOut},
-    big: { rotateY: 30, easings: easing.easeInOut  }
+    small: {scale: 1, easings: easing.easeInOut},
+    big: {scale: 1.2, easings: easing.easeInOut}
 });
 
 class PlayerAnimation extends React.Component {
