@@ -6,7 +6,20 @@ import Logo from '../Game/Utilities/Logo';
 import './intructions.css'
 import {Link} from "react-router-dom";
 
+const createjs = window.createjs;
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
+let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.5})
+
+
 class Instructions extends Component {
+
+    playTick() {
+        createjs.Sound.play("tick",props1);
+    }
+
+    playSplash() {
+        createjs.Sound.play("splash",props);
+    }
 
     render() {
 
@@ -16,7 +29,7 @@ class Instructions extends Component {
 
                 <div className="center-back">
                     <Link id="backlink" to="/">
-                        <Button className="back-button" variant="outline-primary">← Back</Button>
+                        <Button className="back-button" variant="outline-primary" onClick={this.playSplash} onMouseOver={this.playTick} >← Back</Button>
                     </Link>
                     <div id="logoLink"><Logo/></div>
                     <div className="empty"/>

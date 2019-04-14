@@ -53,7 +53,7 @@ class Home extends Component {
 
     playSplash() {
         const createjs = window.createjs;
-        let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.2})
+        let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
         createjs.Sound.play("splash",props);
     }
 
