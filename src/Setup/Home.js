@@ -11,6 +11,10 @@ import './Home.css';
 //     draggable: "x"
 // });
 
+const createjs = window.createjs;
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
+let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.5})
+
 class Home extends Component {
 
     constructor() {
@@ -46,9 +50,11 @@ class Home extends Component {
             .start(logoStyler.set);
     }
 
+    playTick() {
+        createjs.Sound.play("tick",props1);
+      }
+
     playSplash() {
-        const createjs = window.createjs;
-        let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, volume: 0.1})
         createjs.Sound.play("splash", props);
     }
 
