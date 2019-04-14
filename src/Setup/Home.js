@@ -12,8 +12,8 @@ import './Home.css';
 // });
 
 const createjs = window.createjs;
-let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
-let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.5})
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, volume: 0.1})
+let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, volume: 0.5})
 
 class Home extends Component {
 
@@ -40,17 +40,19 @@ class Home extends Component {
         composite({
             angle: physics({velocity: 5}),
             radius: tween({
-                from: 1200,
+                from: 1500,
                 ease: easing.easeInOut,
                 duration: 2000
             })
         }).pipe(polarToCartesian)
             .start(logoStyler.set);
+
+
     }
 
     playTick() {
-        createjs.Sound.play("tick",props1);
-      }
+        createjs.Sound.play("tick", props1);
+    }
 
     playSplash() {
         createjs.Sound.play("splash", props);
@@ -72,9 +74,12 @@ class Home extends Component {
             <div id="home">
                 <HashRouter>
                     <div id="navbarContainer">
+                        <img className="home-player" id="hp2" src={require('../Assets/images/shockedanimateorange.gif')} alt="splash"/>
+                        <img className="home-player" id = "hp1" src={require('../Assets/images/smileanimatepink.gif')} alt="splash"/>
                         <div className="profilehelper">{component}</div>
                         <div id="navbarImage">
-                            <img className="starImage" src={require('../Assets/images/homePage.png')} alt="button">
+                            <img className="starImage" src={require('../Assets/images/homePage.png')}
+                                 alt="button">
                             </img>
                             <img className="logo" src={require('../Assets/images/logo.png')} alt="button"/>
                             <div className="textImage">Speak Your Mind!</div>
@@ -87,7 +92,8 @@ class Home extends Component {
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
                                                   text={authenticate.isAuthenticated ? "Logout" : "Login"}/>
                                 </NavLink>
-                                <NavLink className="createLobbyButton" to="/createLobby" onClick={this.playSplash}>
+                                <NavLink className="createLobbyButton" to="/createLobby"
+                                         onClick={this.playSplash}>
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
                                                   text={"Create a Lobby"}/>
                                 </NavLink>

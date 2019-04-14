@@ -25,7 +25,7 @@ class RoundTransitions extends Component {
         composite({
             angle: physics({ velocity: 5 }),
             radius: tween({
-                from: 1200,
+                from: 1500,
                 to: 0,
                 yoyo: 0,
                 ease: easing.easeInOut,
@@ -40,7 +40,7 @@ class RoundTransitions extends Component {
         composite({
             angle: physics({ velocity: 5 }),
             radius: tween({
-                from: -1200,
+                from: -1500,
                 to: 0,
                 yoyo: 0,
                 ease: easing.easeInOut,
