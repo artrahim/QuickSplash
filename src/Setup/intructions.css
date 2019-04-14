@@ -1,4 +1,6 @@
-.rootContainer{
+.instructions{
+    background-image: linear-gradient(to right bottom, #1b75d8, #0099f0, #00b7e2, #00ceb4, #00e077, #75e65d, #aeea45, #e1ec34, #e8ee40, #eff04b, #f5f255, #fbf45f);
+
     text-align: center;
     height: 100vh;
 
@@ -21,3 +23,14 @@
     /*background-color: red;*/
 
 }
+
+.instructions Button {
+    color: #e1ec34;
+    border: 2px solid #e1ec34;
+}
+
+.instructions Button:hover {
+    background: #e1ec34;
+     color: white;
+     border: 2px solid white;
+ }
