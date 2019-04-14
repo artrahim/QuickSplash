@@ -26,7 +26,7 @@ class Game extends Component {
 
         super(props);
         this.state = {
-            stage: 0,
+            stage: 2,
             hasStarted: false,
             round: 0,
             timePerRound: 0,
