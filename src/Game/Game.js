@@ -75,6 +75,9 @@ class Game extends Component {
             if (thisPlayer === p1 || thisPlayer === p2){
                 temp = false;
             }
+            console.log("Player1", p1);
+            console.log("Player2", p2);
+            console.log("Me", thisPlayer);
             this.setState(state => ({
                 beingVotedOn: question,
                 timeToVote: time,
@@ -137,11 +140,11 @@ class Game extends Component {
                 break;
             case 2:
                 //component = <Prompt handleTransition = {() => this.handleClick()}/>;
-                component = <Prompt done={false} time={this.state.timePerRound} question={this.state.question1}/>;
+                component = <Prompt time={this.state.timePerRound} question={this.state.question1} question2={this.state.question2}/>;
                 break;
             case 3:
                 //component = <Prompt handleTransition = {() => this.handleClick()}/>;
-                component = <Prompt done={true} time={this.state.timePerRound} question={this.state.question2}/>;
+                component = <Prompt time={this.state.timePerRound} question={this.state.question2}/>;
                 break;
             case 4:
                 component = <Waiting isCreator={isCreator} hasStarted={true}/>;

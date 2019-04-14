@@ -10,9 +10,8 @@ class Timer extends Component {
         let c = window.createjs;
         const stage = new c.Stage("canvasDisplay");
 
-        let point = this.props.stage;
-        let question = this.props.question;
-        let done = this.props.done;
+        let question1 = this.props.question1;
+        let question2 = this.props.question2;
 
         // Set timer.
         let time = this.props.time;
@@ -96,14 +95,9 @@ class Timer extends Component {
             if (time === 0)
             {
                 clearInterval(timer);
-                if (point === "answering"){
-                    let lobbyCode = localStorage.getItem('lobbyCode');
-                    let player = cookies.get('username').nickname;
-                    if (!done){
-                        socket.emit('response', player, "-", question, lobbyCode);
-                    }
-                    socket.emit('response2', player, "-", question, lobbyCode);
-                }
+                let lobbyCode = localStorage.getItem('lobbyCode');
+                let player = cookies.get('username').nickname;
+                socket.emit('failedToAnswer', player, lobbyCode, question1, question2);
 
             }
 
