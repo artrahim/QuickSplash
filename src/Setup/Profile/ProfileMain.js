@@ -47,7 +47,7 @@ class ProfileMain extends Component {
 
     render() {
         return (
-            <div>
+            <div id="profilePage">
               <title>Profile Page</title>
               
               

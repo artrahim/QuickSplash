@@ -12,7 +12,6 @@ import {tween, easing, styler, composite, physics} from 'popmotion';
 
 
 import './Home.css';
-import Button from "react-bootstrap/Button";
 
 const Swipeable = posed.div({
     draggable: "x"
