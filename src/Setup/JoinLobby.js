@@ -11,6 +11,7 @@ import ButtonSplash from "../Game/Utilities/ButtonSplash";
 import Cookies from 'universal-cookie';
 import TransitionLeft from "../Assets/Animations/TransitionLeft";
 import TransitionRight from "../Assets/Animations/TransitionRight";
+import ButtonScale from "../Assets/Animations/ButtonScale";
 
 
 const cookies = new Cookies();
@@ -118,9 +119,9 @@ class JoinLobby extends Component {
                             </TransitionRight>
                         </div>
                         <br/>
-                        <div id="button" onClick={this.playSplash}>
+                        <ButtonScale id="button" onClick={this.playSplash}>
                             <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')} text={"Join"}/>
-                        </div>
+                        </ButtonScale>
                     </div>
                 break;
             case true:

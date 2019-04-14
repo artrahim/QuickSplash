@@ -22,17 +22,13 @@ class Waiting extends Component {
         super(props);
 
         this.state = {
-            allPlayers: [{nickname: 'mufasa', colour: 'redSplashPlayer'}],
+            allPlayers: [],
             windowWidth: window.innerWidth,
             windowHeight: window.innerHeight
         };
     }
 
     resize(){
-
-        console.log("resize")
-        // this.render()
-
         this.setState({
             windowHeight: window.innerHeight,
             windowWidth: window.innerWidth
