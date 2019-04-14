@@ -21,10 +21,6 @@ html, body {
     height: 120px;
 }
 
-.logo{
-    min-width: 135px;
-}
-
 .playerName{
     color: black;
     text-align: center;
@@ -101,6 +97,7 @@ html, body {
 }
 
 .logo {
+    min-width: 300px;
     position:absolute;
     margin: 0 auto;
     width:28%;
@@ -130,7 +127,13 @@ html, body {
     align-items: center;
 }
 
-@media all and (max-width: 750px) {
+@media all and (max-width: 1024px) {
+    .logo{
+        min-width: 230px;
+    }
+}
+
+@media all and (max-width: 768px) {
     .player{
         width: 100px;
         height: 100px;
@@ -138,6 +141,10 @@ html, body {
 
     .playerName{
         font-size: 19px;
+    }
+
+    .logo{
+        min-width: 150px;
     }
 
 }
@@ -218,7 +225,7 @@ html, body {
 @media all and (max-width: 320px) {
     .textImage{
         min-width: 100px;
-        top: 20%;
+        top: 40%;
     }
 
     .container {

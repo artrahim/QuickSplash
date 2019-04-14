@@ -37,8 +37,6 @@ class Home extends Component {
             angle: physics({velocity: 5}),
             radius: tween({
                 from: 1200,
-                to: 0,
-                yoyo: 0,
                 ease: easing.easeInOut,
                 duration: 2000
             })
