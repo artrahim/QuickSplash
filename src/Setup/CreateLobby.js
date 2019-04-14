@@ -9,6 +9,11 @@ import Logo from '../Game/Utilities/Logo';
 import './Lobby.css';
 import ButtonSplash from "../Game/Utilities/ButtonSplash";
 
+const createjs = window.createjs;
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
+let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.5})
+
+
 class CreateLobby extends Component {
 
     constructor() {
@@ -18,7 +23,8 @@ class CreateLobby extends Component {
             lobbyCreated: false,
             lobbyCode : null
         }
-
+        this.playTick = this.playTick.bind(this);
+        this.playSplash = this.playSplash.bind(this);
     }
 
     componentDidMount() {
@@ -70,6 +76,14 @@ class CreateLobby extends Component {
     }
      */
 
+    playTick() {
+        createjs.Sound.play("tick",props1);
+    }
+
+    playSplash() {
+        createjs.Sound.play("splash",props);
+    }
+
     render() {
 
         let component = null;
@@ -79,7 +93,7 @@ class CreateLobby extends Component {
                     <div className="lobby">
                         <div className="center-back">
                             <Link id="backlink" to="/">
-                                <Button className="back-button" variant="outline-primary">← Back</Button>
+                                <Button className="back-button" variant="outline-primary"  onMouseOver={this.playTick} onClick={this.playSplash}>← Back</Button>
                             </Link>
                             <div id="logoLink"><Logo/></div>
                             <div className="empty"> </div>
@@ -95,24 +109,24 @@ class CreateLobby extends Component {
                                 <label htmlFor="timePerRound">TIME PER ROUND:</label>
                                 <input defaultValue="3 SECONDS" type="text" id="timePerRound" readOnly/>
                                 <input type="range" min={3} max={80} defaultValue={3} className="slider"
-                                       id="slider1"/>
+                                       id="slider1"  onChange={this.playTick} onMouseOver={this.playTick} />
                                 <br/><br/>
                                 <label htmlFor="numRounds">NUMBER OF ROUNDS:  </label>
                                 <input defaultValue="1 ROUND(S)" type="text" id="numRounds" readOnly/>
-                                <input type="range" min={1} max={10} defaultValue={1} className="slider" id="slider2"/>
+                                <input type="range" min={1} max={10} defaultValue={1} className="slider" id="slider2"  onChange={this.playTick} onMouseOver={this.playTick} />
                             </div>
                             <div id="right">
                                 <label htmlFor="lobbySize">LOBBY SIZE:  </label>
                                 <input defaultValue="3 PLAYERS" type="text" id="lobbySize" readOnly/>
-                                <input type="range" min={3} max={8} defaultValue={3} className="slider" id="slider3"/>
+                                <input type="range" min={3} max={8} defaultValue={3} className="slider" id="slider3"  onChange={this.playTick} onMouseOver={this.playTick} />
                                 <br/><br/>
                                 <label htmlFor="afkTimeout">AFK TIMEOUT:  </label>
                                 <input defaultValue="1 MINUTE(S)" type="text" id="afkTimeout" readOnly/>
-                                <input type="range" min={1} max={5} defaultValue={1} className="slider" id="slider4"/>
+                                <input type="range" min={1} max={5} defaultValue={1} className="slider" id="slider4"  onChange={this.playTick} onMouseOver={this.playTick} />
                             </div>
                         </div>
                         <br/>
-                        <div id="button">
+                        <div id="button"  onClick={this.playSplash}>
                             <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')} text={"Create"}/>
                         </div>
                     </div>
