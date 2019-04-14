@@ -25,6 +25,11 @@ import ProfileMain from "./Setup/Profile/ProfileMain";
 var socket;
 const cookies = new Cookies();
 
+const express = require('express'),
+    app = express(),
+    server = require('http').createServer(app),
+    io = require('socket.io').listen(server);
+
 
 function PrivateRoute({component: Component, ...rest}) {
     return (
@@ -65,7 +70,8 @@ class Router extends Component {
         super();
         this.state = {endpoint: "http://localhost:5000/"};
         // socket = socketIOClient(this.state.endpoint);
-        socket = io();
+
+        server.listen(process.env.PORT || 5000);
     }
 
     componentWillMount() {
