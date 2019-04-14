@@ -8,7 +8,7 @@ import {
 import {AnimatedRoute} from 'react-router-transition';
 
 
-import io from "socket.io-client";
+import socketIOClient from "socket.io-client";
 import Cookies from 'universal-cookie';
 
 import Home from "./Setup/Home";
@@ -24,6 +24,12 @@ import ProfileMain from "./Setup/Profile/ProfileMain";
 
 var socket;
 const cookies = new Cookies();
+
+// const path = require('path');
+// const express = require('express');
+// const app = express();
+// const http = require('http').Server(app);
+//const io = require('socket.io')(http);
 
 
 function PrivateRoute({component: Component, ...rest}) {
@@ -64,8 +70,8 @@ class Router extends Component {
     constructor() {
         super();
         this.state = {endpoint: "http://localhost:5000/"};
-        // socket = socketIOClient(this.state.endpoint);
-        socket = io();
+        socket = socketIOClient(this.state.endpoint);
+        //http.listen(process.env.PORT || 5000);
     }
 
     componentWillMount() {

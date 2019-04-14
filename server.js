@@ -419,12 +419,12 @@ io.on('connection', function (socket) {
                 isLast = true;
             }
             sendVote(room, prompt, answer1, answer2, player1, player2, offset, isLast);
-            offset += 5000
+            offset += 20000
         }
     }
 
     function sendVote(room, prompt, answer1, answer2, player1, player2, offset, isLast){
-        let timeToVote = room.questions.length * 5;
+        let timeToVote = room.questions.length * 30;
         setTimeout(function(){
             console.log(prompt);
             io.to(room.name).emit('vote', prompt, timeToVote, answer1, answer2, player1, player2);

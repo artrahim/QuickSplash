@@ -3,7 +3,6 @@ import {Link, Redirect} from 'react-router-dom';
 import Cookies from "universal-cookie";
 import {socket} from '../Router';
 
-import Logo from "../Game/Utilities/Logo";
 import Waiting from "./Waiting";
 import RoundTransitions from "./RoundTransitions";
 import Prompt from "./Prompt";
