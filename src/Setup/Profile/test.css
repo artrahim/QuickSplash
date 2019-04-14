@@ -1,17 +1,17 @@
-html,body {
+#profilePage, html,body {
   height: 100%;
   margin: 0
 }
 
 
-body{
+#profilePage, body{
   /* background-image: url("bgn.png"); */
   background-image: linear-gradient(100deg, #64b3f4 0%, #c2e59c 100%);
   font-family: "Amatic SC";
 }
 
 
-.box {
+#profilePage, .box {
   display: flex;
   flex-flow: column;
   height: 100vh;
@@ -20,28 +20,34 @@ body{
 
 /********* Header *************/
 
-.box .row.header {
+#profilePage .box .row.header {
   flex: 0 1 auto;
 }
 
-.header {
+#profilePage .header{
+  margin:0;
+  text-align: center !important;
   background-color: silver;
-  text-align: center;
-  min-width: 200px;
+  min-height: 75px;
+  border-bottom: transparent;
 }
+
 
 
 
 /* Back button and Profile page sign*/
-.header-box{
-  min-height:100px;
-	display: flex;
-  justify-content: center;
+#profilePage .header-box{
+  /* min-height:100px; */
+  height: 100%;
+  min-width: 200px;
+  width: 100%;
+  /* justify-content: center; */
   /* background-color: green; */
-  text-align: left;
+  text-align: center;
+  display: inline-block
 }
 
-.backButton{
+#profilePage .backButton{
 	position: fixed;
   top: 0;
   left: 0;
@@ -49,10 +55,14 @@ body{
   border: 3px solid #73AD21;
 }
 
-.center h2{
-  margin:0;
-  font-size: 50px;
+#profilePage, .backProfile{
+  float: left;
 }
+
+#profilesign{
+  margin-top: 2%;
+}
+
 /*******************************************/
 
 
@@ -64,50 +74,52 @@ body{
 
 
 /********* Content *************/
-.box .row.content {
+#profilePage .box .row.content {
   flex: 1 1 auto;
   min-width: 200px;
+  margin:0;
+  background-color: transparent;
 }
 
-.content{
+#profilePage .content{
 	min-height: 300px;
 	text-align: center;
 }
 
 /* Create three equal columns that floats next to each other */
-.column {
+#profilePage .column {
   float: left;
   height: 100%;
   text-align: center;
 }
 
 /* Left and right column */
-.column.side {
+#profilePage .column.side {
   width: 35%;
   height: 100%;
 }
 
 /* Middle column */
-.column.middle {
+#profilePage .column.middle {
   width: 30%;
   height: 100%;
   /* border: 1px solid white; */
 }
 
 /* Clear floats after the columns */
-.content:after {
+#profilePage .content:after {
   content: "";
   display: table;
   clear: both;
 }
 
-.box-outer{
+#profilePage .box-outer{
 	text-align: center;
   height: 100%;
   width: 100%;
 }
 
-.box-inner{
+#profilePage .box-inner{
 	text-align: center;
 }
 /*******************************************/
@@ -115,7 +127,7 @@ body{
 
 
 /* Middle picture/star rating/edit profile*/
-#imageProfile{
+#profilePage #imageProfile{
   width:80%;
   height: auto;
 	border-radius: 50%;
@@ -124,7 +136,7 @@ body{
 
 
 /* Username with online/offline square color and lvl*/
-.username{
+#profilePage .username{
 	border: 1px solid white;
 	max-width: 30%;
 	text-align: center;
@@ -133,21 +145,15 @@ body{
 	margin: 0;
 }
 
-.username h4{
+#profilePage .username h4{
 	margin:0;
 }
-
-
-
-
-
 
 /*******************************************/
 
 
-
 /* Side Info boxes */
-.square-box{
+#profilePage .square-box{
 	width: 85%;
 	min-width: 200px;
 	height: 45%;
@@ -158,19 +164,23 @@ body{
 		margin-top: 5%;
 }
 
-#Stats, #About, #Achievements, #Recent{
+div.square-box:hover{
+	border: 3px solid blue;
+}
+
+#profilePage #Stats, #profilePage #About, #profilePage #Achievements, #profilePage #Recent{
 	font-size: 250%;
 	line-height: 37vh;
 }
 
 
-#Stats1, #About1, #Achievements1, #Recent1{
+#profilePage #Stats1, #profilePage #About1, #profilePage #Achievements1, #profilePage #Recent1{
 	display: none;
 	overflow-x:auto;
 	min-width: 200px;
 }
 
-.items{
+#profilePage .items{
 	width: 100%;
 	height: 5px;
 	padding: 15px;
@@ -178,7 +188,7 @@ body{
 }
 
 
-.items p{
+#profilePage .items p{
 	margin:0;
     padding:0;
     display: inline-block;
@@ -191,29 +201,43 @@ body{
 
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 @media screen and (max-width:599px) {
-  .column.side, .column.middle {
-    width: 100%;
+    #profilePage .column.side, .column.middle {
+    width: 100% !important;
+    /* border: 1px solid white */
   }
-  
-  .image{
-	width:60%;
-	}
+
+  #profilePage .column.side{
+    height: 80%;
+  }
+
+  #profilePage .column.middle{
+    height: 70%;
+  }
+
+  #profilePage #imageProfile{
+    width:80%;
+  }
+
+  #profilePage .square-box{
+    height: 48%;
+      margin-top: 2%;
+  }
 }
 
 @media screen and (max-width:500px) {
-  .column.middle {
+    #profilePage .column.middle {
     height:80%;
   }
 }
 
 @media screen and (max-width:400px) {
-  .column.middle {
+    #profilePage .column.middle {
     height:70%;
   }
 }
 
 @media screen and (max-width:300px) {
-  .column.middle {
+    #profilePage .column.middle {
     height:60%;
   }
 }
@@ -224,6 +248,6 @@ body{
 
 
 /********* Footer *************/
-.box .row.footer {
+#profilePage .box .row.footer {
   flex: 0 1 0px;
 }

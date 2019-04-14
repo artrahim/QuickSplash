@@ -29,6 +29,11 @@ h1 {
     background: none;
 }
 
+.lobby #joinCode, .lobby #nickname{
+    background: white;
+}
+
+
 .lobby .textBox {
     padding-left: 20px;
     padding-right: 20px;
@@ -38,7 +43,7 @@ h1 {
     margin: auto;
 }
 
-#container {
+.lobby #container {
     margin: auto;
     width: 50%;
     min-height: 43vh;

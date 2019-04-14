@@ -25,17 +25,26 @@ class Prompt extends Component {
 
     render() {
 
+        let question = null;
+        switch (this.props.stage) {
+            case 2:
+                question = <Question question={this.props.question1}/>
+                break;
+            case 3:
+                question = <Question question={this.props.question2}/>
+                break;
+        }
         return (
             <div id="prompt">
                 <div className="center-back">
-                    <Timer question1={this.props.question} question2={this.props.question2} time={this.props.time}/>
+                    <Timer time={this.props.time}/>
                     <Logo/>
                     <div className="empty"/>
                 </div>
-                <Question question={this.props.question}/>
+                {question}
                 <br/>
                 <br/>
-                <Response question={this.props.question}/>
+                <Response stage={this.props.stage} time={this.props.time} question1={this.props.question1} question2={this.props.question2}/>
             </div>
         );
 

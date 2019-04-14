@@ -2,21 +2,18 @@ import React, {Component} from "react";
 import {NavLink, HashRouter, Link} from "react-router-dom";
 import ButtonSplash from "../Game/Utilities/ButtonSplash";
 import Button from 'react-bootstrap/Button';
-
 import posed from 'react-pose';
-
 import {authenticate} from '../Router';
-
-
 import {tween, easing, styler, composite, physics} from 'popmotion';
-
-
 import './Home.css';
-import Button from "react-bootstrap/Button";
 
-const Swipeable = posed.div({
-    draggable: "x"
-});
+// const Swipeable = posed.div({
+//     draggable: "x"
+// });
+
+const createjs = window.createjs;
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
+let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.5})
 
 class Home extends Component {
 
@@ -44,8 +41,6 @@ class Home extends Component {
             angle: physics({velocity: 5}),
             radius: tween({
                 from: 1200,
-                to: 0,
-                yoyo: 0,
                 ease: easing.easeInOut,
                 duration: 2000
             })
@@ -53,10 +48,12 @@ class Home extends Component {
             .start(logoStyler.set);
     }
 
+    playTick() {
+        createjs.Sound.play("tick",props1);
+      }
+
     playSplash() {
-        const createjs = window.createjs;
-        let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
-        createjs.Sound.play("splash",props);
+        createjs.Sound.play("splash", props);
     }
 
     render() {

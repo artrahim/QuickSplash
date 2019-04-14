@@ -29,10 +29,6 @@ class Waiting extends Component {
     }
 
     resize(){
-
-        console.log("resize")
-        // this.render()
-
         this.setState({
             windowHeight: window.innerHeight,
             windowWidth: window.innerWidth

@@ -13,6 +13,11 @@ import ResultMain from "./results/ResultMain";
 import './Game.css';
 import WaitingAns from "./WaitingAns";
 
+const createjs = window.createjs;
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
+let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.7})
+
+
 const cookies = new Cookies();
 
 class Game extends Component {
@@ -94,12 +99,13 @@ class Game extends Component {
         });
 
         socket.on('result', (winners) => {
-
+            createjs.Sound.play("cheer",props1);
             this.setState(state => ({
                 players: winners,
                 stage: 6
             }));
         });
+
         socket.on('endGame', () => {
             this.setState(state => ({
                 stage: 7
@@ -150,11 +156,11 @@ class Game extends Component {
                 break;
             case 2:
                 //component = <Prompt handleTransition = {() => this.handleClick()}/>;
-                component = <Prompt time={this.state.timePerRound} question={this.state.question1} question2={this.state.question2}/>;
+                component = <Prompt stage={this.state.stage} time={this.state.timePerRound} question1={this.state.question1} question2={this.state.question2}/>;
                 break;
             case 3:
                 //component = <Prompt handleTransition = {() => this.handleClick()}/>;
-                component = <Prompt time={this.state.timePerRound} question={this.state.question2}/>;
+                component = <Prompt stage={this.state.stage} time={this.state.timePerRound} question1={this.state.question1} question2={this.state.question2}/>;
                 break;
             case 4:
                 component = <Waiting isCreator={isCreator} hasStarted={true}/>;
