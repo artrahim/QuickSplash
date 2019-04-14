@@ -131,7 +131,9 @@ io.on('connection', function (socket) {
             currentRound: 0,
             players: [],
             questions: [],
-            isStarted: false
+            allQuestions: [],
+            isStarted: false,
+            initNumPlayers: 0
         };
 
         //add the lobby to the list of lobbies
@@ -227,6 +229,12 @@ io.on('connection', function (socket) {
 
     });
 
+    socket.on('done voting', function () {
+
+        socket.emit('vote done')
+
+    })
+
     function loadQuestions(room){
         // get random question here
         let questionList = ["DD"];
@@ -239,11 +247,13 @@ io.on('connection', function (socket) {
             console.log("-----------------------LOADED-------------------!");
             // emit socket event to set the question
             console.log(questionList);
+            room.allQuestions = questionList;
             init(room, questionList);
         });
     }
 
     function init(room, questionList) {
+        room.initNumPlayers = room.players.length;
         room.currentRound++;
         io.to(room.name).emit('roundTransition');
         setTimeout(function(){
@@ -273,6 +283,8 @@ io.on('connection', function (socket) {
             //console.log('1st Question: ' + question1 + '\n' + '2nd Question: ' + question2);
 
             playerSocket.emit('prompt1', question1, question2, timePerRound);
+
+            //room.index = index;
 
         }
 
@@ -461,7 +473,8 @@ io.on('connection', function (socket) {
     }
 
     function nextRound(room){
-        loadQuestions(room)
+        room.allQuestions.splice(0,room.initNumPlayers);
+        init(room, room.allQuestions);
     }
 
     function endGame(room){
@@ -582,8 +595,10 @@ io.on('connection', function (socket) {
                 // kill this room
                 for( let i = 0; i < rooms[roomIndex].players.length; i++) {
                     io.to(rooms[roomIndex].name).emit('endGame');
-                    io.sockets.connected[rooms[roomIndex].players[i].playerSocketId].disconnect();
+                    // io.sockets.connected[rooms[roomIndex].players[i].playerSocketId].disconnect();
                 }
+                rooms.splice(roomIndex, 1);
+
             }
         }
 

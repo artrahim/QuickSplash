@@ -11,6 +11,7 @@ import Voting from "./Voting";
 import ResultMain from "./results/ResultMain";
 
 import './Game.css';
+import WaitingAns from "./WaitingAns";
 
 const cookies = new Cookies();
 
@@ -55,6 +56,10 @@ class Game extends Component {
                 question2: second,
                 stage: 2,
             }));
+
+            console.log('fist question: ' + first);
+            console.log('second question: ' + second);
+            console.log('----------------------------------------------------');
         });
 
         socket.on('prompt2', () => {
@@ -90,10 +95,6 @@ class Game extends Component {
 
         socket.on('result', (winners) => {
 
-            console.log("<<<<>>>>>")
-
-            console.log(winners);
-
             this.setState(state => ({
                 players: winners,
                 stage: 6
@@ -115,6 +116,15 @@ class Game extends Component {
                 a.splice(index, 1);
             }
         });
+
+        socket.on('vote done',  () =>{
+
+            console.log("I am done voting ....");
+            this.setState(state => ({
+                stage: 4
+            }));
+            
+        })
 
     }
 

@@ -28,13 +28,14 @@ class Answer extends Component {
 
         if (!this.props.voteStatus) {
             socket.emit('vote', lobbyCode, question, answer);
+
         }
 
         // change the vote status here
         this.props.hasVoted(true);
+        socket.emit('done voting')
 
     }
-
 
 
     render() {

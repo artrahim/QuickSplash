@@ -11,16 +11,14 @@ html, body {
 }
 
 
-
 .content{
     min-width: 300px;
     background-color: magenta;
 }
 
 .player{
-    width: 150px;
-    height: 150px;
-
+    width: 120px;
+    height: 120px;
 }
 
 .logo{
@@ -30,7 +28,7 @@ html, body {
 .playerName{
     color: black;
     text-align: center;
-    font-size: 23px;
+    font-size: 21px;
     font-weight: bold;
 }
 
@@ -132,6 +130,17 @@ html, body {
     align-items: center;
 }
 
+@media all and (max-width: 750px) {
+    .player{
+        width: 100px;
+        height: 100px;
+    }
+
+    .playerName{
+        font-size: 19px;
+    }
+
+}
 
 @media all and (max-width: 575px) {
     #home #navbarContainer{
@@ -188,10 +197,21 @@ html, body {
 
     .textImage{
         font-size: 19px  !important;
+        padding-top: 5%;
     }
 
     .container:hover {
         transform: scale(1.2);
+    }
+
+    .player{
+        width: 80px;
+        height: 80px;
+    }
+
+
+    .playerName{
+        font-size: 15px;
     }
 }
 
@@ -220,4 +240,14 @@ html, body {
     .container:hover {
         transform: scale(1.2);
     }
+
+    .player{
+        width: 40px;
+        height: 40px;
+    }
+
+    .playerName{
+        font-size: 8px;
+    }
+
 }

@@ -23,10 +23,29 @@ class Waiting extends Component {
 
         this.state = {
             allPlayers: [],
+            windowWidth: window.innerWidth,
+            windowHeight: window.innerHeight
         };
     }
 
+    resize(){
+
+        console.log("resize")
+        // this.render()
+
+        this.setState({
+            windowHeight: window.innerHeight,
+            windowWidth: window.innerWidth
+        })
+    }
+
+
     componentDidMount() {
+
+        console.log('<<<window width >>>' + this.state.windowWidth)
+
+
+        window.addEventListener("resize", this.resize.bind(this));
 
         //const lobbyCode = this.props.lobbyCode;
         const lobbyCode = localStorage.getItem('lobbyCode');
@@ -72,7 +91,7 @@ class Waiting extends Component {
                 {code}
                 <h1>WAITING FOR {text}...</h1>
                 {button}
-                <AllPlayers allPlayers={this.state.allPlayers}/>
+                <AllPlayers allPlayers={this.state.allPlayers} width={this.state.windowWidth} height={this.state.windowHeight}/>
             </div>
         );
     }

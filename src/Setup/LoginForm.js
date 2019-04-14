@@ -7,6 +7,9 @@ import {Redirect} from 'react-router-dom'
 import {FormError} from "./FormError";
 
 const createjs = window.createjs;
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
+let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.5})
+
 const cookies = new Cookies();
 
 class LoginForm extends Component {
@@ -55,7 +58,7 @@ class LoginForm extends Component {
         // listen for response
         socket.on('login-success', function (msg) {
             // re-route them to home page
-            createjs.Sound.play("splash");
+            createjs.Sound.play("splash",props);
             self.login();
             let temp ={
                 username: self.state.username,
@@ -68,7 +71,7 @@ class LoginForm extends Component {
         });
 
         socket.on('login-fail', function () {
-            createjs.Sound.play("buzwrong");
+            createjs.Sound.play("buzwrong",props);
             console.log("Incorrect user or pass");
 
             self.setState({wrongAuth: true})
@@ -89,7 +92,7 @@ class LoginForm extends Component {
     }
 
     playTick() {
-        createjs.Sound.play("tick");
+        createjs.Sound.play("tick",props1);
     }
 
 
