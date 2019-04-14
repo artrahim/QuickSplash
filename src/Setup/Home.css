@@ -109,7 +109,7 @@ html, body {
     margin: 0 auto;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    width: 95%;
 }
 
 .starImage{
@@ -121,7 +121,7 @@ html, body {
     font-size: 3vw;
     font-weight: bold;
     color: black;
-    margin: 5% 0 0 0;
+    margin: 8% 0 0 0;
     font-family: "Amatic SC";
     justify-content: center;
     align-items: center;
@@ -133,6 +133,13 @@ html, body {
     }
 }
 
+@media all and (max-width: 850px) {
+
+    .logo{
+        min-width: 170px;
+    }
+
+}
 @media all and (max-width: 768px) {
     .player{
         width: 100px;
@@ -144,10 +151,16 @@ html, body {
     }
 
     .logo{
-        min-width: 150px;
+        min-width: 140px;
+    }
+
+    #home .textImage {
+        position: absolute;
+        font-size: 2vw;
     }
 
 }
+
 
 @media all and (max-width: 575px) {
     #home #navbarContainer{
