@@ -70,8 +70,20 @@ html, body {
     height: 23vh;
     width: auto;
     min-width: 150px;
-    position: absolute;
+    position: relative;
 }
+
+#home .button {
+     display: table;
+     margin: 0 auto;
+     justify-content: center;
+     align-items: center;
+     height: 23vh;
+     width: auto;
+     min-width: 150px;
+     position: absolute;
+ }
+
 
 /*taken from https://stackoverflow.com/questions/3186688/drop-shadow-for-png-image-in-css*/
 .container:hover {
@@ -224,7 +236,7 @@ html, body {
         width: auto;
     }
 
-    #home .button {
+    .button {
         width:40%;
         height: auto;
     }
@@ -250,10 +262,17 @@ html, body {
         min-width: 150px;
     }
 
+  /*#home .button {*/
+        /*margin: none;*/
+        /*display: inline-block;*/
+        /*position: absolute;*/
+        /*width: 70%;*/
+    /*}*/
+
     .button {
         margin: none;
         display: inline-block;
-        position: absolute;
+        position: relative;
         width: 70%;
     }
 
@@ -307,10 +326,18 @@ html, body {
         min-width: 100px;
     }
 
+    /*#home .button {*/
+        /*margin: none;*/
+        /*display: inline-block;*/
+        /*position: absolute;*/
+        /*width: 50%;*/
+        /*height: 30%;*/
+    /*}*/
+
     .button {
         margin: none;
         display: inline-block;
-        position: absolute;
+        position: relative;
         width: 50%;
         height: 30%;
     }
