@@ -8,7 +8,7 @@ import {
 import {AnimatedRoute} from 'react-router-transition';
 
 
-import socketIOClient from "socket.io-client";
+import io from "socket.io-client";
 import Cookies from 'universal-cookie';
 
 import Home from "./Setup/Home";
@@ -64,7 +64,8 @@ class Router extends Component {
     constructor() {
         super();
         this.state = {endpoint: "http://localhost:5000/"};
-        socket = socketIOClient(this.state.endpoint);
+        // socket = socketIOClient(this.state.endpoint);
+        socket = io();
     }
 
     componentWillMount() {
