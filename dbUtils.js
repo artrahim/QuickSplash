@@ -35,6 +35,111 @@ async function getRandomQuestion(n) {
 
 }
 
+
+// returns the total wins of a player
+async function getWins(username) {
+    let tWins = null;
+    let infoQ = {'username': username};
+    await PlayerInfo.findOne(infoQ, 'tWins', function (err, stats) {
+        if (err) {
+            console.log("<<<<Hakuna Matata>>>>");
+            // emit Login Failed
+            return handleError(err);
+        }
+
+        console.log('wins:' + stats.tWins);
+        tWins = stats.tWins;
+    });
+
+    return tWins;
+
+}
+
+// returns the total points of a player
+async function getPoints(username) {
+    let tPoints = null;
+    let infoQ = {'username': username};
+    await PlayerInfo.findOne(infoQ, 'tPoints', function (err, stats) {
+        if (err) {
+            console.log("<<<<Hakuna Matata>>>>");
+            // emit Login Failed
+            return handleError(err);
+        }
+
+        console.log(stats.tPoints);
+        tPoints = stats.tPoints;
+    });
+    return tPoints;
+}
+
+// returns the total points of a player
+async function getGamePlayed(username) {
+    let tGamePlayed = null;
+    let infoQ = {'username': username};
+    await PlayerInfo.findOne(infoQ, 'tGamePlayed', function (err, stats) {
+        if (err) {
+            console.log("<<<<Hakuna Matata>>>>");
+            // emit Login Failed
+            return handleError(err);
+        }
+
+        console.log(stats.tGamePlayed);
+        tGamePlayed = stats.tGamePlayed;
+    });
+    return tGamePlayed;
+}
+
+// returns the email of a player
+async function getEmail(username) {
+    let email = null;
+    let infoQ = {'username': username};
+    await PlayerInfo.findOne(infoQ, 'email', function (err, stats) {
+        if (err) {
+            console.log("<<<<Hakuna Matata>>>>");
+            // emit Login Failed
+            return handleError(err);
+        }
+
+        console.log(stats.email);
+        email = stats.email;
+    });
+    return email;
+}
+
+// returns the email of a player
+async function getFname(username) {
+    let fname = null;
+    let infoQ = {'username': username};
+    await PlayerInfo.findOne(infoQ, 'fname', function (err, stats) {
+        if (err) {
+            console.log("<<<<Hakuna Matata>>>>");
+            // emit Login Failed
+            return handleError(err);
+        }
+
+        console.log(stats.fname);
+        fname = stats.fname;
+    });
+    return fname;
+}
+
+// returns the email of a player
+async function getLname(username) {
+    let lname = null;
+    let infoQ = {'username': username};
+    await PlayerInfo.findOne(infoQ, 'lname', function (err, stats) {
+        if (err) {
+            console.log("<<<<Hakuna Matata>>>>");
+            // emit Login Failed
+            return handleError(err);
+        }
+
+        console.log(stats.lname);
+        lname = stats.lname;
+    });
+    return lname;
+}
+
 // updating fields
 function updatePoints(username, points) {
     let infoQ = {'username': username};
@@ -86,14 +191,26 @@ function updateGamePlayed(username) {
     });
 }
 
-// updatePoints('ds', 10000);
-// updateWins('ds');
-// updateGamePlayed('ds');
+updatePoints('ds', 10000);
+updateWins('ds');
+updateGamePlayed('ds');
+getFname('ds');
+getLname('ds');
+getEmail('ds');
+getWins('ds');
+getPoints('ds');
+getGamePlayed('ds');
 
 module.exports = {
     getRandomQuestion,
     updatePoints,
     updateWins,
-    updateGamePlayed
+    updateGamePlayed,
+    getWins,
+    getPoints,
+    getGamePlayed,
+    getEmail,
+    getFname,
+    getLname
 
 };

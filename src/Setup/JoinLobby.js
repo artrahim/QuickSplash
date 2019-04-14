@@ -94,7 +94,7 @@ class JoinLobby extends Component {
                         <div className="center-back">
                             <Link id="backlink" to="/">
                                 <Button className="back-button" variant="outline-primary" onClick={this.playSplash}
-                                        onMouseOver={this.playTick}>← Back</Button>
+                                        >← Back</Button>
                             </Link>
                             <div id="logoLink"><Logo/></div>
                             <div className="empty"></div>
@@ -119,7 +119,7 @@ class JoinLobby extends Component {
                             </TransitionRight>
                         </div>
                         <br/>
-                        <ButtonScale id="button" onClick={this.playSplash}>
+                        <ButtonScale id="button">
                             <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')} text={"Join"}/>
                         </ButtonScale>
                     </div>

@@ -20,12 +20,10 @@ class Logout extends Component {
 
         this.loginClick = this.loginClick.bind(this);
         this.signUpClick = this.signUpClick.bind(this);
-        this.playTick = this.playTick.bind(this);
-        this.playSplash = this.playSplash.bind(this);
     }
 
     loginClick() {
-        createjs.Sound.play("splash",props);
+        createjs.Sound.play("tick",props1);
         this.setState(state => ({
             page: 0
         }));
@@ -38,14 +36,6 @@ class Logout extends Component {
         }));
     }
 
-    playTick() {
-        createjs.Sound.play("tick",props1);
-    }
-
-    playSplash() {
-        createjs.Sound.play("splash",props);
-    }
-
     componentDidMount() {
         authenticate.logout();
     }
@@ -56,11 +46,6 @@ class Logout extends Component {
         return (
 
             <div className="rootContainer">
-
-                <Link to="/">
-                    <Button className="back-button" variant="outline-primary" onClick={this.playSplash} onMouseOver={this.playTick}>←
-                        Back</Button>
-                </Link>
                 <div className="wrapper">
                     <div className="pageSelectorContainer">
 
