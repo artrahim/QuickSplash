@@ -108,13 +108,13 @@ class JoinLobby extends Component {
                                 <label className="option" htmlFor="joinCode">ENTER A JOIN CODE: </label>
                                 <br/>
                                 <input defaultValue={lobbyCode} type="text" className="textBox" id="joinCode"
-                                       onKeyDown={this.playTick}/>
+                                       onClick={this.playTick}/>
                             </TransitionLeft>
                             <br/><br/>
                             <TransitionRight>
                                 <label className="option" htmlFor="nickname">WHAT SHOULD WE CALL YOU?: </label>
                                 <input defaultValue="" type="text" className="textBox" id="nickname"
-                                       onKeyDown={this.playTick}/>
+                                       onClick={this.playTick}/>
                             </TransitionRight>
                         </div>
                         <br/>
