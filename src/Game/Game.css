@@ -1,7 +1,8 @@
 .game #round-title {
     display: block;
-    margin-top: 0;
-
+    margin: 10px auto;
+    min-width: 300px;
+    max-width: 20%;
 }
 
 .game h2 {
@@ -20,6 +21,8 @@
 
     min-width: 100vw;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .game Timer{
@@ -38,4 +41,16 @@
     display: block;
     margin: auto;
 }
+
+
+@media all and (max-width: 750px) {
+
+    .game h1 {
+        font-size: 1.5em;
+    }
+
+}
+
+
+
 
