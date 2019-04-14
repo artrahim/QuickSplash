@@ -383,26 +383,6 @@ io.on('connection', function (socket) {
         io.to(room.name).emit('checkNoResponse');
     }
 
-    // socket.on('failedToAnswer', function(player, code, question1, question2){
-    //     let room = findLobby(code);
-    //     console.log('Player ' + player + ' did not answer!!!');
-    //     for (let i=0; i<room.questions.length; i++){
-    //         if (room.questions[i].text === question1 || room.questions[i].text === question2){
-    //             for (let j=0; j<2; j++){
-    //                 if (room.questions[i].answers[j] === undefined){
-    //                     let temp = {
-    //                         nickname: player,
-    //                         text: "-",
-    //                         votes: 0
-    //                     };
-    //                     room.questions[i].answers[j] = temp;
-    //                     break;
-    //                 }
-    //             }
-    //         }
-    //     }
-    // });
-
     function voting(room) {
         let offset = 0;
         let answer1;
@@ -498,11 +478,11 @@ io.on('connection', function (socket) {
         if (currentRound < numRounds) {
             setTimeout(function () {
                 nextRound(room);
-            }, 5000);
+            }, 15000);
         } else {
             setTimeout(function () {
                 endGame(room);
-            }, 5000);
+            }, 15000);
         }
     }
 
