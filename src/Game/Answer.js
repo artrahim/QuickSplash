@@ -28,12 +28,17 @@ class Answer extends Component {
 
         if (!this.props.voteStatus) {
             socket.emit('vote', lobbyCode, question, answer);
-
         }
 
-        // change the vote status here
+        // Change the vote status here
         this.props.hasVoted(true);
-        socket.emit('done voting')
+
+        console.log("nickname in answer.js = " + cookies.get('username').nickname);
+
+        console.log("Colour in answer.js = " + cookies.get('username').colour);
+
+
+        socket.emit('done voting', cookies.get('username').nickname, cookies.get('username').colour, lobbyCode)
 
     }
 

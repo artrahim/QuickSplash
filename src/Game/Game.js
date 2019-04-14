@@ -11,7 +11,7 @@ import Voting from "./Voting";
 import ResultMain from "./results/ResultMain";
 
 import './Game.css';
-import WaitingAns from "./WaitingAns";
+// import WaitingAns from "./WaitingAns";
 
 const cookies = new Cookies();
 
@@ -32,8 +32,12 @@ class Game extends Component {
             canVote: true,
             answer1: "",
             answer2: "",
-            players: []
+            players: [],
+            playersVoted: []
         };
+
+
+        console.log("players who have voted = " + this.state.playersVoted)
 
     }
 
@@ -117,18 +121,21 @@ class Game extends Component {
             }
         });
 
-        socket.on('vote done',  () =>{
+        socket.on('vote done',  (voted) =>{
 
-            console.log("I am done voting ....");
+            console.log("I am done voting .... " + voted);
             this.setState(state => ({
-                stage: 4
+                playersVoted: voted,
+                stage: 4,
             }));
-            
+
         })
 
     }
 
     render() {
+
+        console.log("list before passing: " + this.state.playersVoted)
         //render correct stage based on game state
         //states are represented by numbers (0 to 6)
         let component = null;
@@ -144,6 +151,7 @@ class Game extends Component {
         if (a.includes(thisLobby)){
             isCreator = true;
         }
+        console.log("<<<<list >>>" + this.state.playersVoted)
         switch (this.state.stage){
             case 1:
                 //component = <RoundTransitions handleTransition = {() => this.handleClick()}/>;
@@ -158,7 +166,7 @@ class Game extends Component {
                 component = <Prompt stage={this.state.stage} time={this.state.timePerRound} question1={this.state.question1} question2={this.state.question2}/>;
                 break;
             case 4:
-                component = <Waiting isCreator={isCreator} hasStarted={true}/>;
+                component = <Waiting playersVoted={this.state.playersVoted} isCreator={isCreator} hasStarted={true}/>;
                 break;
             case 5:
                 component = <Voting time={this.state.timeToVote} question={this.state.beingVotedOn} answer1={this.state.answer1} answer2={this.state.answer2} canVote={this.state.canVote}/>;
@@ -172,7 +180,9 @@ class Game extends Component {
                 }}/>;
                 break;
             default:
-                component = <Waiting isCreator={isCreator} hasStarted={false}/>;
+                component = <Waiting isCreator={isCreator} hasStarted={false} playersVoted={this.state.playersVoted}/>;
+
+                // console.log("voted player is = " + this.state.playersVoted)
         }
 
         return (

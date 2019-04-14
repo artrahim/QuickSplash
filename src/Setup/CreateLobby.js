@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Logo from '../Game/Utilities/Logo';
 import './Lobby.css';
 import ButtonSplash from "../Game/Utilities/ButtonSplash";
+import TransitionUp from "../Assets/Animations/TransitionUp";
 
 const createjs = window.createjs;
 let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
@@ -90,7 +91,7 @@ class CreateLobby extends Component {
         switch (this.state.lobbyCreated) {
             case false:
                 component =
-                    <div className="lobby">
+                    <TransitionUp className="lobby">
                         <div className="center-back">
                             <Link id="backlink" to="/">
                                 <Button className="back-button" variant="outline-primary"  onMouseOver={this.playTick} onClick={this.playSplash}>← Back</Button>
@@ -129,7 +130,7 @@ class CreateLobby extends Component {
                         <div id="button"  onClick={this.playSplash}>
                             <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')} text={"Create"}/>
                         </div>
-                    </div>
+                    </TransitionUp>
                 break;
             case true:
                 component =

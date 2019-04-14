@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 
 //import './Home.css';
-import PlayerAnimation from "./PlayerAnimation";
+import PlayerAnimation from "../Assets/Animations/PlayerAnimation";
 
 /*
 Makes the player splash.
@@ -34,11 +34,6 @@ class PlayerSplash extends Component {
     }
 
     render() {
-
-        console.log("new resize" )
-
-        console.log("new x and y " + this.props.x + ' ' + this.props.y)
-
         return (
             <div style={{
                 position: 'absolute',
