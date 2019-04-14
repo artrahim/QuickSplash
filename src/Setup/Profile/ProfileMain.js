@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 
 import './test.css';
+import Button from 'react-bootstrap/Button';
+import {Link} from "react-router-dom";
 
 import picprofile from './profilepic.jpg';
 
@@ -41,9 +43,9 @@ class ProfileMain extends Component {
         hiddenSwap("Recent1","Recent");
      }
 
-    backButton() {
-        window.history.back();
-    }
+    // backButton() {
+    //     window.history.back();
+    // }
 
     render() {
         return (
@@ -57,8 +59,13 @@ class ProfileMain extends Component {
                 {/* Header contents */}
                 <div className="row header">
                   <div className="header-box">
-                    {/* <button className="backButton" onClick={this.backButton}>Home Page</button> */}
-                    <h2>Profile Page</h2>
+                    <div className="backProfile">
+                      <Link to="/">
+                        <Button className="back-button" variant="outline-primary" onClick={this.playSplash} onMouseOver={this.playTick}>← Back</Button>
+                      </Link>
+                    </div>
+                      {/* <button className="backButton" onClick={this.backButton}>Home Page</button> */}
+                    <h1 id="profilesign">Profile Page</h1>
                   </div>
                 </div>
 

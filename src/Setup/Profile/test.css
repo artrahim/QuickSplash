@@ -26,24 +26,25 @@
 
 #profilePage .header{
   margin:0;
-  text-align: center;
+  text-align: center !important;
+  background-color: silver;
+  min-height: 75px;
+  border-bottom: transparent;
 }
 
-#profilePage .header {
-  background-color: silver;
-  text-align: center;
-  min-width: 200px;
-}
 
 
 
 /* Back button and Profile page sign*/
 #profilePage .header-box{
-  min-height:100px;
-	/* display: flex; */
-  justify-content: center;
+  /* min-height:100px; */
+  height: 100%;
+  min-width: 200px;
+  width: 100%;
+  /* justify-content: center; */
   /* background-color: green; */
   text-align: center;
+  display: inline-block
 }
 
 #profilePage .backButton{
@@ -52,6 +53,14 @@
   left: 0;
   max-width: 30%;
   border: 3px solid #73AD21;
+}
+
+#profilePage, .backProfile{
+  float: left;
+}
+
+#profilesign{
+  margin-top: 2%;
 }
 
 /*******************************************/
@@ -195,12 +204,10 @@
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 @media screen and (max-width:599px) {
     #profilePage .column.side, .column.middle {
-    width: 100%;
+    width: 100% !important;
+    /* border: 1px solid white */
   }
 
-    #profilePage .image{
-	width:60%;
-	}
 }
 
 @media screen and (max-width:500px) {
