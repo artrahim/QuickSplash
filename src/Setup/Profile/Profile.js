@@ -71,7 +71,7 @@ class Profile extends Component {
                   <div className="header-box">
                     <div className="backProfile">
                       <Link to="/">
-                        <Button className="back-button" variant="outline-primary" onClick={this.playSplash} onMouseOver={this.playTick}>← Back</Button>
+                        <Button className="back-button" variant="outline-primary" onClick={this.playSplash}>← Back</Button>
                       </Link>
                     </div>
                       {/* <button className="backButton" onClick={this.backButton}>Home Page</button> */}
