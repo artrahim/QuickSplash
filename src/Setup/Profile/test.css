@@ -149,13 +149,7 @@
 	margin:0;
 }
 
-
-
-
-
-
 /*******************************************/
-
 
 
 /* Side Info boxes */
@@ -168,6 +162,10 @@
 	border-radius:5px;
 		vertical-align: middle;
 		margin-top: 5%;
+}
+
+div.square-box:hover{
+	border: 3px solid blue;
 }
 
 #profilePage #Stats, #profilePage #About, #profilePage #Achievements, #profilePage #Recent{

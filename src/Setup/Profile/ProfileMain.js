@@ -6,6 +6,10 @@ import {Link} from "react-router-dom";
 
 import picprofile from './profilepic.jpg';
 
+const createjs = window.createjs;
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
+let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.5})
+
 
 
 class ProfileMain extends Component {
@@ -47,6 +51,14 @@ class ProfileMain extends Component {
     //     window.history.back();
     // }
 
+    playTick() {
+      createjs.Sound.play("tick",props1);
+    }
+
+    playSplash() {
+      createjs.Sound.play("splash",props);
+    }
+
     render() {
         return (
             <div id="profilePage">
@@ -73,14 +85,14 @@ class ProfileMain extends Component {
                 <div className="row content">
                   <div className="column side" id="A">
                     <div className="box-outer">
-                      <div className="square-box" id="Stats">Player stats</div>
-                      <div className="square-box" id="Stats1">
+                      <div className="square-box" id="Stats" onClick={this.playSplash} onMouseOver={this.playTick}>Player stats</div>
+                      <div className="square-box" id="Stats1" onClick={this.playSplash} onMouseOver={this.playTick}>
                         <div className="items"><p>Total Points:</p><p>1000</p></div>
                         <div className="items"><p>Total Games Played:</p><p>111</p></div>
                         <div className="items"><p>Total Wins:</p><p>20</p></div>
                       </div>
-                      <div className="square-box" id="About">About me</div>
-                      <div className="square-box" id="About1">
+                      <div className="square-box" id="About" onClick={this.playSplash} onMouseOver={this.playTick}>About me</div>
+                      <div className="square-box" id="About1"onClick={this.playSplash} onMouseOver={this.playTick}>
                         <div className="items"><p>First Name:</p><p>Niro</p></div>
                         <div className="items"><p>Last Name:</p><p>DJ</p></div>
                         <div className="items"><p>Username:</p><p>DJ</p></div>
@@ -103,14 +115,14 @@ class ProfileMain extends Component {
 
                   <div className="column side" id="C">
                     <div className="box-outer">
-                      <div className="square-box" id="Achievements">Achievements</div>
-                      <div className="square-box" id="Achievements1">
+                      <div className="square-box" id="Achievements" onClick={this.playSplash} onMouseOver={this.playTick}>Achievements</div>
+                      <div className="square-box" id="Achievements1" onClick={this.playSplash} onMouseOver={this.playTick}>
                         <div className="items"><p>Win a game:</p><p>n/a</p></div>
                         <div className="items"><p>Win game with 5000pts:</p><p>n/a</p></div>
                         <div className="items"><p>Play 2 games:</p><p>n/a</p></div>
                       </div>
-                      <div className="square-box" id="Recent">Recent Activity</div>
-                      <div className="square-box" id="Recent1">
+                      <div className="square-box" id="Recent" onClick={this.playSplash} onMouseOver={this.playTick}>Recent Activity</div>
+                      <div className="square-box" id="Recent1" onClick={this.playSplash} onMouseOver={this.playTick}>
                         <div className="items"><p>Last game position:</p><p>n/a</p></div>
                         <div className="items"><p>Last game pts:</p><p>n/a</p></div>
                         <div className="items"><p>Most recent achievements:</p><p>n/a</p></div>
