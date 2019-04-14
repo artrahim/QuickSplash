@@ -107,8 +107,8 @@ class CreateLobby extends Component {
                         <div id="split-container">
                             <div id="left">
                                 <label htmlFor="timePerRound">TIME PER ROUND:</label>
-                                <input defaultValue="3 SECONDS" type="text" id="timePerRound" readOnly/>
-                                <input type="range" min={3} max={80} defaultValue={3} className="slider"
+                                <input defaultValue="20 SECONDS" type="text" id="timePerRound" readOnly/>
+                                <input type="range" min={20} max={80} defaultValue={20} className="slider"
                                        id="slider1"  onChange={this.playTick} onMouseOver={this.playTick} />
                                 <br/><br/>
                                 <label htmlFor="numRounds">NUMBER OF ROUNDS:  </label>

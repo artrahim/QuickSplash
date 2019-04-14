@@ -164,6 +164,7 @@ html, body {
 
     #home .button {
         width:40%;
+        height: auto;
     }
 
     .container-flex{

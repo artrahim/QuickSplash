@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 
 import './test.css';
+import Button from 'react-bootstrap/Button';
+import {Link} from "react-router-dom";
 
 import picprofile from './profilepic.jpg';
 
@@ -41,13 +43,13 @@ class ProfileMain extends Component {
         hiddenSwap("Recent1","Recent");
      }
 
-    backButton() {
-        window.history.back();
-    }
+    // backButton() {
+    //     window.history.back();
+    // }
 
     render() {
         return (
-            <div>
+            <div id="profilePage">
               <title>Profile Page</title>
               
               
@@ -57,8 +59,13 @@ class ProfileMain extends Component {
                 {/* Header contents */}
                 <div className="row header">
                   <div className="header-box">
-                    <button className="backButton" onClick={this.backButton}>Home Page</button>
-                    <div className="center"><h2>Profile Page</h2></div>
+                    <div className="backProfile">
+                      <Link to="/">
+                        <Button className="back-button" variant="outline-primary" onClick={this.playSplash} onMouseOver={this.playTick}>← Back</Button>
+                      </Link>
+                    </div>
+                      {/* <button className="backButton" onClick={this.backButton}>Home Page</button> */}
+                    <h1 id="profilesign">Profile Page</h1>
                   </div>
                 </div>
 
@@ -99,7 +106,7 @@ class ProfileMain extends Component {
                       <div className="square-box" id="Achievements">Achievements</div>
                       <div className="square-box" id="Achievements1">
                         <div className="items"><p>Win a game:</p><p>n/a</p></div>
-                        <div className="items"><p>Win game with 5000pts:</p><p>m/a</p></div>
+                        <div className="items"><p>Win game with 5000pts:</p><p>n/a</p></div>
                         <div className="items"><p>Play 2 games:</p><p>n/a</p></div>
                       </div>
                       <div className="square-box" id="Recent">Recent Activity</div>
