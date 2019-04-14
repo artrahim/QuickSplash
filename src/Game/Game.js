@@ -13,6 +13,11 @@ import ResultMain from "./results/ResultMain";
 import './Game.css';
 import WaitingAns from "./WaitingAns";
 
+const createjs = window.createjs;
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
+let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.5})
+
+
 const cookies = new Cookies();
 
 class Game extends Component {
@@ -94,7 +99,7 @@ class Game extends Component {
         });
 
         socket.on('result', (winners) => {
-
+            createjs.Sound.play("cheer",props1);
             this.setState(state => ({
                 players: winners,
                 stage: 6
