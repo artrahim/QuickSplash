@@ -424,7 +424,7 @@ io.on('connection', function (socket) {
     }
 
     function sendVote(room, prompt, answer1, answer2, player1, player2, offset, isLast){
-        let timeToVote = room.questions.length * 30;
+        let timeToVote = room.questions.length * 20;
         setTimeout(function(){
             console.log(prompt);
             io.to(room.name).emit('vote', prompt, timeToVote, answer1, answer2, player1, player2);
@@ -433,7 +433,7 @@ io.on('connection', function (socket) {
         if (isLast){
             setTimeout(function(){
                 results(room);
-            }, (offset+5000));
+            }, (offset+20000));
         }
     }
 

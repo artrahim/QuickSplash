@@ -36,7 +36,7 @@ class Timer extends Component {
         timeOverCircle.y = timeLeftCircle.y;
 
         let timerText = new c.Text(time, '50px Calibri', "black");
-        timerText.x = 45;
+        timerText.x = 50;
         timerText.y = 53;
 
         stage.addChild(timeLeftCircle, timeOverCircle, timerText);
