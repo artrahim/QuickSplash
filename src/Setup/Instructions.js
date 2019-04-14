@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 
+import Button from 'react-bootstrap/Button';
+
+import Logo from '../Game/Utilities/Logo';
 import './intructions.css'
+import {Link} from "react-router-dom";
 
 class Instructions extends Component {
 
@@ -8,8 +12,16 @@ class Instructions extends Component {
 
         return (
 
-            <div className="rootContainer">
+            <div className="instructions">
 
+                <div className="center-back">
+                    <Link id="backlink" to="/">
+                        <Button className="back-button" variant="outline-primary">← Back</Button>
+                    </Link>
+                    <div id="logoLink"><Logo/></div>
+                    <div className="empty"/>
+                </div>
+                <br/>
                 <div className="ins">
                     <div className={"ins-text"}>
 

@@ -250,8 +250,8 @@ h1 {
 
 @media all and (max-width: 375px) {
 
-    h1 {
-        font-size: 1em;
+    .lobby h1 {
+        font-size: x-large;
     }
 
     .lobby {
@@ -279,8 +279,14 @@ h1 {
         font-size: 0.7em;
     }
 
+
     .lobby input {
-        font-size: 0.7em;
+        font-size: 0.65em;
+        line-height: 30px;
+    }
+
+    .lobby  .option {
+        font-size: 1em;
         line-height: 30px;
     }
 

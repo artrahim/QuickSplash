@@ -6,10 +6,21 @@
 }
 
 #response {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 5%;
+    padding-right: 5%;
     border: 2px solid black;
     width: 50%;
     display: block;
     margin: auto;
+}
+
+@media all and (max-width: 500px) {
+
+    #question {
+        font-size: 2em;
+    }
+
+    #response {
+        width:80%;
+    }
 }

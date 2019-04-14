@@ -48,5 +48,9 @@
         align-items: center;
         justify-content: center;
     }
-}
 
+    .game h1 {
+        margin-top: 5%;
+        font-size: x-large;
+    }
+}
