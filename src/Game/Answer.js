@@ -3,6 +3,8 @@ import Cookies from "universal-cookie";
 import {socket} from "../Router";
 
 import answer from '../Assets/images/answer.jpg';
+const createjs = window.createjs;
+let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, volume: 0.5})
 
 const cookies = new Cookies();
 
@@ -22,6 +24,7 @@ class Answer extends Component {
      */
 
     vote() {
+        createjs.Sound.play("tick", props1);
         let lobbyCode = localStorage.getItem('lobbyCode');
         let question = this.props.question;
         let answer = this.props.answer;
