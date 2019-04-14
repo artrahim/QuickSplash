@@ -1,4 +1,6 @@
 import React,{Component} from 'react';
+const createjs = window.createjs;
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.5})
 
 class Timer extends Component {
 
@@ -83,6 +85,13 @@ class Timer extends Component {
             stage.addChild(timerText);
 
             stage.update();
+
+            if (time === 5)
+            {
+                createjs.Sound.play("timer", props);
+                console.log("WTFFFFFFF, TIme: "+time);
+
+            }
 
             // When timer is complete...
             if (time === 0)
