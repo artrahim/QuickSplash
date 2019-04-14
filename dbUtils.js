@@ -35,22 +35,14 @@ async function getRandomQuestion(n) {
 
 }
 
-
 // returns the total wins of a player
 async function getWins(username) {
     let tWins = null;
     let infoQ = {'username': username};
-    await PlayerInfo.findOne(infoQ, 'tWins', function (err, stats) {
-        if (err) {
-            console.log("<<<<Hakuna Matata>>>>");
-            // emit Login Failed
-            return handleError(err);
-        }
-
+    await PlayerInfo.findOne(infoQ, 'tWins').then(function(stats){
         console.log('wins:' + stats.tWins);
         tWins = stats.tWins;
     });
-
     return tWins;
 
 }
@@ -59,14 +51,8 @@ async function getWins(username) {
 async function getPoints(username) {
     let tPoints = null;
     let infoQ = {'username': username};
-    await PlayerInfo.findOne(infoQ, 'tPoints', function (err, stats) {
-        if (err) {
-            console.log("<<<<Hakuna Matata>>>>");
-            // emit Login Failed
-            return handleError(err);
-        }
-
-        console.log(stats.tPoints);
+    await PlayerInfo.findOne(infoQ, 'tPoints').then(function(stats){
+        console.log('tPoints:' + stats.tPoints);
         tPoints = stats.tPoints;
     });
     return tPoints;
@@ -76,14 +62,8 @@ async function getPoints(username) {
 async function getGamePlayed(username) {
     let tGamePlayed = null;
     let infoQ = {'username': username};
-    await PlayerInfo.findOne(infoQ, 'tGamePlayed', function (err, stats) {
-        if (err) {
-            console.log("<<<<Hakuna Matata>>>>");
-            // emit Login Failed
-            return handleError(err);
-        }
-
-        console.log(stats.tGamePlayed);
+    await PlayerInfo.findOne(infoQ, 'tGamePlayed').then(function(stats){
+        console.log('tGamePlayed:' + stats.tGamePlayed);
         tGamePlayed = stats.tGamePlayed;
     });
     return tGamePlayed;
@@ -93,14 +73,8 @@ async function getGamePlayed(username) {
 async function getEmail(username) {
     let email = null;
     let infoQ = {'username': username};
-    await PlayerInfo.findOne(infoQ, 'email', function (err, stats) {
-        if (err) {
-            console.log("<<<<Hakuna Matata>>>>");
-            // emit Login Failed
-            return handleError(err);
-        }
-
-        console.log(stats.email);
+    await PlayerInfo.findOne(infoQ, 'email').then(function(stats){
+        console.log('email:' + stats.email);
         email = stats.email;
     });
     return email;
@@ -110,14 +84,8 @@ async function getEmail(username) {
 async function getFname(username) {
     let fname = null;
     let infoQ = {'username': username};
-    await PlayerInfo.findOne(infoQ, 'fname', function (err, stats) {
-        if (err) {
-            console.log("<<<<Hakuna Matata>>>>");
-            // emit Login Failed
-            return handleError(err);
-        }
-
-        console.log(stats.fname);
+    await PlayerInfo.findOne(infoQ, 'fname').then(function(stats){
+        console.log('fname:' + stats.fname);
         fname = stats.fname;
     });
     return fname;
@@ -127,14 +95,8 @@ async function getFname(username) {
 async function getLname(username) {
     let lname = null;
     let infoQ = {'username': username};
-    await PlayerInfo.findOne(infoQ, 'lname', function (err, stats) {
-        if (err) {
-            console.log("<<<<Hakuna Matata>>>>");
-            // emit Login Failed
-            return handleError(err);
-        }
-
-        console.log(stats.lname);
+    await PlayerInfo.findOne(infoQ, 'lname').then(function(stats){
+        console.log('lname:' + stats.lname);
         lname = stats.lname;
     });
     return lname;
@@ -191,15 +153,6 @@ function updateGamePlayed(username) {
     });
 }
 
-updatePoints('ds', 10000);
-updateWins('ds');
-updateGamePlayed('ds');
-getFname('ds');
-getLname('ds');
-getEmail('ds');
-getWins('ds');
-getPoints('ds');
-getGamePlayed('ds');
 
 module.exports = {
     getRandomQuestion,
