@@ -76,7 +76,7 @@ class Home extends Component {
                     <div id="navbarContainer">
                         <div className="profilehelper">{component}</div>
                         <div id="navbarImage">
-                            <img className="starImage" src={require('../Assets/images/homePage.png')} alt="button">
+                            <img className="starImage" src={require('../Assets/images/homePage2.png')} alt="button">
                             </img>
                             <img className="logo" src={require('../Assets/images/logo.png')} alt="button"/>
                             <div className="textImage">Speak Your Mind!</div>

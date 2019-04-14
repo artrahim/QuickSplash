@@ -1,8 +1,4 @@
 import React,{Component} from 'react';
-import Cookies from "universal-cookie";
-import {socket} from "../../Router";
-
-const cookies = new Cookies();
 
 class Timer extends Component {
 
@@ -10,10 +6,6 @@ class Timer extends Component {
         let c = window.createjs;
         const stage = new c.Stage("canvasDisplay");
 
-        let question1 = this.props.question1;
-        let question2 = this.props.question2;
-
-        let step = this.props.step;
         // Set timer.
         let time = this.props.time;
         let timeLeftColour = "blue";
@@ -43,7 +35,7 @@ class Timer extends Component {
         timeOverCircle.y = timeLeftCircle.y;
 
         let timerText = new c.Text(time, '50px Arial', "black");
-        timerText.x = 47;
+        timerText.x = 45;
         timerText.y = 53;
 
         stage.addChild(timeLeftCircle, timeOverCircle, timerText);
@@ -68,7 +60,7 @@ class Timer extends Component {
             if (time < 10) {
                 timerText.x = 62; // Position for single digit num
             } else
-                timerText.x = 47;
+                timerText.x = 45;
             timerText.y = 53;
 
             // Add new ones
@@ -96,13 +88,6 @@ class Timer extends Component {
             if (time === 0)
             {
                 clearInterval(timer);
-
-                // if (step === "answer") {
-                //     let lobbyCode = localStorage.getItem('lobbyCode');
-                //     let player = cookies.get('username').nickname;
-                //     socket.emit('failedToAnswer', player, lobbyCode, question1, question2);
-                // }
-
 
             }
 

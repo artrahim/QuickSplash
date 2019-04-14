@@ -151,11 +151,11 @@ class Game extends Component {
                 break;
             case 2:
                 //component = <Prompt handleTransition = {() => this.handleClick()}/>;
-                component = <Prompt stage={this.state.stage} time={this.state.timePerRound} question={this.state.question1} question2={this.state.question2}/>;
+                component = <Prompt stage={this.state.stage} time={this.state.timePerRound} question1={this.state.question1} question2={this.state.question2}/>;
                 break;
             case 3:
                 //component = <Prompt handleTransition = {() => this.handleClick()}/>;
-                component = <Prompt stage={this.state.stage} time={this.state.timePerRound} question={this.state.question2}/>;
+                component = <Prompt stage={this.state.stage} time={this.state.timePerRound} question1={this.state.question1} question2={this.state.question2}/>;
                 break;
             case 4:
                 component = <Waiting isCreator={isCreator} hasStarted={true}/>;

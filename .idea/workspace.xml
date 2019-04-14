@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="338d81e4-8d7e-4dee-923b-e7ce8da83f2c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Setup/CreateLobby.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Setup/CreateLobby.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/Prompt.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Prompt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/Response.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Response.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/Utilities/Timer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Utilities/Timer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/Voting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Voting.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Setup/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Setup/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Setup/Profile/ProfileMain.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Setup/Profile/ProfileMain.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Setup/Profile/test.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Setup/Profile/test.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Setup/Lobby.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Setup/Lobby.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,19 +18,34 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Setup/Home.css">
+        <entry file="file://$PROJECT_DIR$/src/Game/Game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="162" column="5" selection-start-line="162" selection-start-column="5" selection-end-line="162" selection-end-column="5" />
+            <state relative-caret-position="476">
+              <caret line="157" column="101" selection-start-line="157" selection-start-column="101" selection-end-line="157" selection-end-column="101" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Game/Utilities/Timer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="58" column="59" selection-start-line="58" selection-start-column="59" selection-end-line="58" selection-end-column="59" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Setup/Lobby.css">
+        <entry file="file://$PROJECT_DIR$/src/Game/Prompt.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3647">
-              <caret line="40" column="7" selection-start-line="40" selection-start-column="7" selection-end-line="40" selection-end-column="7" />
+            <state relative-caret-position="622">
+              <caret line="39" column="27" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -35,8 +53,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Game/Response.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
+            <state relative-caret-position="616">
+              <caret line="49" column="88" selection-start-line="49" selection-start-column="88" selection-end-line="49" selection-end-column="88" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -45,60 +63,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Setup/Home.js">
+        <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Game/Utilities/ButtonSplash.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Game/Answer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Setup/JoinLobby.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-289">
-              <caret line="43" column="26" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Setup/CreateLobby.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="569">
-              <caret line="114" column="67" lean-forward="true" selection-start-line="114" selection-start-column="67" selection-end-line="114" selection-end-column="67" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="816">
+              <caret line="345" selection-start-line="345" selection-end-line="345" />
             </state>
           </provider>
         </entry>
@@ -106,8 +74,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Game/Voting.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="39" column="22" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
+            <state relative-caret-position="799">
+              <caret line="47" column="27" lean-forward="true" selection-start-line="47" selection-start-column="27" selection-end-line="47" selection-end-column="27" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -117,16 +85,27 @@
       </file>
     </leaf>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>container</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Setup/Home.js" />
         <option value="$PROJECT_DIR$/src/Setup/CreateLobby.js" />
         <option value="$PROJECT_DIR$/src/Setup/Profile/ProfileMain.js" />
         <option value="$PROJECT_DIR$/src/Setup/Profile/test.css" />
+        <option value="$PROJECT_DIR$/src/Setup/Home.js" />
+        <option value="$PROJECT_DIR$/src/Setup/Lobby.css" />
+        <option value="$PROJECT_DIR$/src/Game/Game.js" />
+        <option value="$PROJECT_DIR$/src/Game/Response.js" />
+        <option value="$PROJECT_DIR$/src/Game/Prompt.js" />
+        <option value="$PROJECT_DIR$/src/Game/Voting.js" />
+        <option value="$PROJECT_DIR$/src/Game/Utilities/Timer.js" />
       </list>
     </option>
   </component>
@@ -141,11 +120,6 @@
             <path>
               <item name="QuickSplash" type="b2602c69:ProjectViewProjectNode" />
               <item name="QuickSplash" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="QuickSplash" type="b2602c69:ProjectViewProjectNode" />
-              <item name="QuickSplash" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="QuickSplash" type="b2602c69:ProjectViewProjectNode" />
@@ -170,13 +144,6 @@
               <item name="QuickSplash" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Setup" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="QuickSplash" type="b2602c69:ProjectViewProjectNode" />
-              <item name="QuickSplash" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Setup" type="462c0819:PsiDirectoryNode" />
-              <item name="Profile" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -207,7 +174,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1431000" />
+    <option name="totallyTimeSpent" value="3755000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -254,43 +221,6 @@
     </layout-to-restore>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1326">
-          <caret line="345" selection-start-line="345" selection-end-line="345" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game/Response.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game/Game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-221">
-          <caret line="104" column="12" selection-start-line="104" selection-start-column="12" selection-end-line="104" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game/Prompt.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="32" column="44" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Setup/Profile/test.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-438">
@@ -308,6 +238,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Setup/Home.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Setup/Home.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="162" column="5" selection-start-line="162" selection-start-column="5" selection-end-line="162" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Answer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Utilities/ButtonSplash.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Setup/Lobby.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="21" lean-forward="true" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Setup/CreateLobby.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="569">
@@ -318,22 +292,90 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Setup/Home.js">
+    <entry file="file://$PROJECT_DIR$/src/Setup/JoinLobby.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+        <state relative-caret-position="225">
+          <caret line="88" column="38" lean-forward="true" selection-start-line="88" selection-start-column="38" selection-end-line="88" selection-end-column="38" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Game/Utilities/ButtonSplash.js">
+    <entry file="file://$PROJECT_DIR$/src/Setup/Login.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="-765">
           <folding>
-            <element signature="e#0#38#0" expanded="true" />
+            <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Setup/login.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2971" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Setup/LoginForm.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1683">
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="816">
+          <caret line="345" selection-start-line="345" selection-end-line="345" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Response.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="616">
+          <caret line="49" column="88" selection-start-line="49" selection-start-column="88" selection-end-line="49" selection-end-column="88" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="157" column="101" selection-start-line="157" selection-start-column="101" selection-end-line="157" selection-end-column="101" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Prompt.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="622">
+          <caret line="39" column="27" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Voting.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="47" column="27" lean-forward="true" selection-start-line="47" selection-start-column="27" selection-end-line="47" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Game/Utilities/Timer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="58" column="59" selection-start-line="58" selection-start-column="59" selection-end-line="58" selection-end-column="59" />
         </state>
       </provider>
     </entry>

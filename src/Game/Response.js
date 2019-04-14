@@ -25,16 +25,12 @@ class Response extends Component {
             let lobbyCode = localStorage.getItem('lobbyCode');
 
             if(this.props.stage === 2) {
-                if (!this.state.answered) {
-                    let isEmpty = true;
-                    socket.emit("response", nickname, '-', this.props.question, lobbyCode, isEmpty);
-                    socket.emit("response2", nickname, '-', this.props.question2, lobbyCode);
-                }
+                let isEmpty = true;
+                socket.emit("response", nickname, '-', this.props.question1, lobbyCode, isEmpty);
+                socket.emit("response2", nickname, '-', this.props.question2, lobbyCode);
             }
             else if(this.props.stage === 3) {
-                if (!this.state.answered) {
-                    socket.emit("response2", nickname, '-', this.props.question2, lobbyCode);
-                }
+                socket.emit("response2", nickname, '-', this.props.question2, lobbyCode);
             }
         });
     }
@@ -51,15 +47,9 @@ class Response extends Component {
         // send the server a msg saying
         if(this.props.stage === 2) {
             let isEmpty = false;
-            socket.emit("response", nickname, $('#response').val(), this.props.question, lobbyCode, isEmpty);
-            this.setState(state => ({
-                answered: true
-            }));
+            socket.emit("response", nickname, $('#response').val(), this.props.question1, lobbyCode, isEmpty);
         } else if(this.props.stage === 3) {
             socket.emit("response2", nickname, $('#response').val(), this.props.question2, lobbyCode);
-            this.setState(state => ({
-                answered: true
-            }));
         }
         $('#response').val('');
 
