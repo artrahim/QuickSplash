@@ -5,6 +5,10 @@ import $ from 'jquery';
 
 const cookies = new Cookies();
 
+const createjs = window.createjs;
+let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, volume: 0.5})
+
+
 class Response extends Component {
 
     constructor()
@@ -55,10 +59,14 @@ class Response extends Component {
 
     }
 
+    playTick() {
+        createjs.Sound.play("tick", props1);
+    }
+
     render() {
         return (
             <form onSubmit={this.responseHandler}>
-                <input id="response" autoComplete="off"/>
+                <input onClick={this.playTick} id="response" autoComplete="off"/>
             </form>
         );
     }
