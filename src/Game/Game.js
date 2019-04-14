@@ -116,11 +116,11 @@ class Game extends Component {
             }
         });
 
-        socket.on('done voting', function () {
+        socket.on('vote done',  () =>{
 
             console.log("I am done voting ....");
             this.setState(state => ({
-                stage: 8
+                stage: 4
             }));
             
         })
@@ -169,9 +169,6 @@ class Game extends Component {
                 component =  <Redirect to={{
                     pathname: '/'
                 }}/>;
-                break;
-            case 8:
-                component =<WaitingAns/>;
                 break;
             default:
                 component = <Waiting isCreator={isCreator} hasStarted={false}/>;

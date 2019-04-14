@@ -229,6 +229,12 @@ io.on('connection', function (socket) {
 
     });
 
+    socket.on('done voting', function () {
+
+        socket.emit('vote done')
+
+    })
+
     function loadQuestions(room){
         // get random question here
         let questionList = ["DD"];
