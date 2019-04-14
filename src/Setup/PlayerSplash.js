@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 
 //import './Home.css';
-import PlayerAnimation from "./PlayerAnimation";
+import PlayerAnimation from "../Assets/Animations/PlayerAnimation";
 
 /*
 Makes the player splash.
