@@ -151,12 +151,12 @@ html, body {
         min-width: 230px;
     }
     #home #hp1{
-        left: 50%;
-        top: 30%;
+        left: 53%;
+        top: 28%;
      }
 
     #home  #hp2{
-        top: 60%;
+        top: 65%;
         left: 5%;
     }
 }
@@ -176,7 +176,7 @@ html, body {
     }
 
     #home .home-player{
-        max-width: 120px;
+        max-width: 100px;
         max-height: 100px;
     }
 
@@ -185,8 +185,8 @@ html, body {
         top: 33%;
     }
     #home #hp2{
-        left: 9%;
-        top: 55%;
+        left: 3%;
+        top: 60%;
     }
 
 }
