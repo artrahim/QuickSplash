@@ -39,6 +39,8 @@ class PlayerSplash extends Component {
 
         console.log("new x and y " + this.props.x + ' ' + this.props.y)
 
+        const name = this.props.text.toUpperCase();
+
         return (
             <div style={{
                 position: 'absolute',
@@ -47,7 +49,7 @@ class PlayerSplash extends Component {
             }}>
                 <PlayerAnimation className="player" src={this.props.imagesource} alt="player">
                 </PlayerAnimation>
-                <div className="playerName"> {this.props.text} </div>
+                <div className="playerName"> {name} </div>
             </div>
         )
     }

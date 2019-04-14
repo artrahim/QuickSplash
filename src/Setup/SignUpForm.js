@@ -141,7 +141,6 @@ class SignUpForm extends Component {
 
 
         socket.on("signUp-fail", function () {
-            createjs.Sound.play("buzwrong",props);
             let fieldErrors = self.state.formError;
             fieldErrors.username = ' is already taken.';
 
@@ -154,35 +153,30 @@ class SignUpForm extends Component {
     }
 
     setUsername(event) {
-        this.playTick();
         this.setState({username: event.target.value}, ()=>{
             this.checkField("username", this.state.username)
         })
     }
 
     setPassword(event) {
-        this.playTick();
         this.setState({password: event.target.value}, () => {
             this.checkField("password", this.state.password);
         })
     }
 
     setEmail(event) {
-        this.playTick();
         this.setState({email: event.target.value}, () => {
             this.checkField("email", this.state.email);
         })
     }
 
     setFirstName(event) {
-        this.playTick();
         this.setState({fname: event.target.value}, () => {
             this.checkField("fname", this.state.fname);
         })
     }
 
     setLastName(event) {
-        this.playTick();
         this.setState({lname: event.target.value}, () => {
             this.checkField("lname", this.state.lname);
         })
@@ -218,31 +212,31 @@ class SignUpForm extends Component {
                     <div className="inputContainer">
                         <label htmlFor="fname"/>
                         <input className="inputBox" type="text" placeholder="First Name"
-                               onChange={this.setFirstName} autoComplete="off"/>
+                               onChange={this.setFirstName} onClick={this.playTick} autoComplete="off"/>
                     </div>
 
                     <div className="inputContainer">
                         <label htmlFor="lname"/>
                         <input className="inputBox" type="text" placeholder="Last Name"
-                               onChange={this.setLastName} autoComplete="off"/>
+                               onChange={this.setLastName} onClick={this.playTick} autoComplete="off"/>
                     </div>
 
                     <div className="inputContainer">
                         <label htmlFor="email"/>
                         <input className="inputBox" type="text" placeholder="Email"
-                               onChange={this.setEmail} autoComplete="off"/>
+                               onChange={this.setEmail} onClick={this.playTick} autoComplete="off"/>
                     </div>
 
                     <div className="inputContainer">
                         <label htmlFor="username"/>
                         <input className="inputBox" type="text" placeholder="Username"
-                               onChange={this.setUsername} autoComplete="off"/>
+                               onChange={this.setUsername} onClick={this.playTick} autoComplete="off"/>
                     </div>
 
                     <div className="inputContainer">
                         <label htmlFor="password"/>
                         <input className="inputBox" type="password" placeholder="Password"
-                               onChange={this.setPassword} autoComplete="off"/>
+                               onChange={this.setPassword} onClick={this.playTick} autoComplete="off"/>
                     </div>
 
                     <button className="submitButton" type="button" onClick={this.signUpSubmitHandler}>Sign Up</button>

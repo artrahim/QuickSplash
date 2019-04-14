@@ -56,7 +56,6 @@ class JoinLobby extends Component {
         });
 
         socket.on('failedToJoin', function (errorMessage) {
-            createjs.Sound.play("buzwrong", props);
             alert(errorMessage);
         });
 

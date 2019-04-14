@@ -85,17 +85,16 @@ class Profile extends Component {
                     <div className="box-outer">
                       <div className="square-box" id="Stats" onClick={this.playTick}>Player stats</div>
                       <div className="square-box" id="Stats1" onClick={this.playTick}>
-                        <div className="items"><p>Total Points:</p><p>1000</p></div>
-                        <div className="items"><p>Total Games Played:</p><p>111</p></div>
-                        <div className="items"><p>Total Wins:</p><p>20</p></div>
+                        <div className="items"><p>Total Points:</p><p>{this.props.points}</p></div>
+                        <div className="items"><p>Total Games Played:</p><p>{this.props.gameplayed}</p></div>
+                        <div className="items"><p>Total Wins:</p><p>{this.props.wins}</p></div>
                       </div>
                       <div className="square-box" id="About" onClick={this.playTick}>About me</div>
                       <div className="square-box" id="About1"onClick={this.playTick}>
-                        <div className="items"><p>First Name:</p><p>Niro</p></div>
-                        <div className="items"><p>Last Name:</p><p>DJ</p></div>
-                        <div className="items"><p>Username:</p><p>DJ</p></div>
-                        <div className="items"><p>Email:</p><p>Niro</p></div>
-                        <div className="items"><p>Gender:</p><p>Male</p></div>
+                        <div className="items"><p>First Name:</p><p>{this.props.fname}</p></div>
+                        <div className="items"><p>Last Name:</p><p>{this.props.lname}</p></div>
+                        <div className="items"><p>Username:</p><p>{this.props.username}</p></div>
+                        <div className="items"><p>Email:</p><p>{this.props.email}</p></div>
                       </div>
                     </div>
                   </div>
@@ -106,7 +105,7 @@ class Profile extends Component {
                     <div className="box-inner">
                       <br/>
                       <img src={picprofile} alt="profilepic" id="imageProfile" />
-                      <h4 className="username">USERNAME</h4>
+                      <h4 className="username">{this.props.username}</h4>
                     </div>
                   </div>
 

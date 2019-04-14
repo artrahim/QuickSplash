@@ -5,6 +5,9 @@ html, body {
     min-width: 300px;
 }
 
+#home{
+    overflow: hidden;
+}
 
 .route-transition {
     position: absolute;
@@ -97,7 +100,7 @@ html, body {
     font-size: 100%;
     font-weight: bold;
     color: white;
-    font-family: "Amatic SC";
+    font-family: "Amatic SC", sans-serif;
     box-sizing: padding-box;
 }
 
@@ -137,7 +140,7 @@ html, body {
     font-weight: bold;
     color: black;
     margin: 8% 0 0 0;
-    font-family: "Amatic SC";
+    font-family: "Amatic SC", sans-serif;
     justify-content: center;
     align-items: center;
 }
