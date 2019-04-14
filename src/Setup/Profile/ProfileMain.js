@@ -106,7 +106,7 @@ class ProfileMain extends Component {
                       <div className="square-box" id="Achievements">Achievements</div>
                       <div className="square-box" id="Achievements1">
                         <div className="items"><p>Win a game:</p><p>n/a</p></div>
-                        <div className="items"><p>Win game with 5000pts:</p><p>m/a</p></div>
+                        <div className="items"><p>Win game with 5000pts:</p><p>n/a</p></div>
                         <div className="items"><p>Play 2 games:</p><p>n/a</p></div>
                       </div>
                       <div className="square-box" id="Recent">Recent Activity</div>

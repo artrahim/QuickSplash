@@ -208,6 +208,22 @@
     /* border: 1px solid white */
   }
 
+  #profilePage .column.side{
+    height: 80%;
+  }
+
+  #profilePage .column.middle{
+    height: 70%;
+  }
+
+  #profilePage #imageProfile{
+    width:80%;
+  }
+
+  #profilePage .square-box{
+    height: 48%;
+      margin-top: 2%;
+  }
 }
 
 @media screen and (max-width:500px) {
