@@ -55,6 +55,10 @@ class Game extends Component {
                 question2: second,
                 stage: 2,
             }));
+
+            console.log('fist question: ' + first);
+            console.log('second question: ' + second);
+            console.log('----------------------------------------------------');
         });
 
         socket.on('prompt2', () => {
