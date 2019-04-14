@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import './login.css'
 import Logo from "./CreateLobby";
 import {Link} from "react-router-dom";
+import TransitionLeft from "../Assets/Animations/TransitionLeft";
 
 const createjs = window.createjs;
 let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
@@ -69,7 +70,7 @@ class Login extends Component {
                     <Button className="back-button" variant="outline-primary" onClick={this.playSplash} onMouseOver={this.playTick}>← Back</Button>
                 </Link>
                 </div>
-                <div className="wrapper">
+                <TransitionLeft className="wrapper">
                     <div className="pageSelectorContainer">
 
                         <div className={"pageSelector " + (this.state.page === 0 ? "currentlySelected" : "")}
@@ -88,7 +89,7 @@ class Login extends Component {
                         {displayComponent}
                     </div>
 
-                </div>
+                </TransitionLeft>
 
 
             </div>

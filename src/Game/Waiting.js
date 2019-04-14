@@ -22,7 +22,7 @@ class Waiting extends Component {
         super(props);
 
         this.state = {
-            allPlayers: [],
+            allPlayers: [{nickname: 'mufasa', colour: 'redSplashPlayer'}],
             windowWidth: window.innerWidth,
             windowHeight: window.innerHeight
         };
