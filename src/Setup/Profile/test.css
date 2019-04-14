@@ -1,17 +1,17 @@
-#profilePage html,body {
+#profilePage, html,body {
   height: 100%;
   margin: 0
 }
 
 
-#profilePage body{
+#profilePage, body{
   /* background-image: url("bgn.png"); */
   background-image: linear-gradient(100deg, #64b3f4 0%, #c2e59c 100%);
   font-family: "Amatic SC";
 }
 
 
-#profilePage .box {
+#profilePage, .box {
   display: flex;
   flex-flow: column;
   height: 100vh;
@@ -22,6 +22,11 @@
 
 #profilePage .box .row.header {
   flex: 0 1 auto;
+}
+
+#profilePage .header{
+  margin:0;
+  text-align: center;
 }
 
 #profilePage .header {
@@ -35,10 +40,10 @@
 /* Back button and Profile page sign*/
 #profilePage .header-box{
   min-height:100px;
-	display: flex;
+	/* display: flex; */
   justify-content: center;
   /* background-color: green; */
-  text-align: left;
+  text-align: center;
 }
 
 #profilePage .backButton{
@@ -49,10 +54,6 @@
   border: 3px solid #73AD21;
 }
 
-#profilePage .center h2{
-  margin:0;
-  font-size: 50px;
-}
 /*******************************************/
 
 
@@ -67,6 +68,8 @@
 #profilePage .box .row.content {
   flex: 1 1 auto;
   min-width: 200px;
+  margin:0;
+  background-color: transparent;
 }
 
 #profilePage .content{

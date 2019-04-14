@@ -57,8 +57,8 @@ class ProfileMain extends Component {
                 {/* Header contents */}
                 <div className="row header">
                   <div className="header-box">
-                    <button className="backButton" onClick={this.backButton}>Home Page</button>
-                    <div className="center"><h2>Profile Page</h2></div>
+                    {/* <button className="backButton" onClick={this.backButton}>Home Page</button> */}
+                    <h2>Profile Page</h2>
                   </div>
                 </div>
 
