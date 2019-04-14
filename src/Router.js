@@ -20,6 +20,7 @@ import Logout from "./Setup/Logout";
 import Instructions from "./Setup/Instructions";
 
 import '../src/Setup/Home.css'
+import ProfileMain from "./Setup/Profile/ProfileMain";
 
 var socket;
 const cookies = new Cookies();
@@ -125,6 +126,7 @@ class Router extends Component {
                         <PrivateRoute path="/joinLobby" component={JoinLobby}/>
                         <PrivateRoute path="/game" component={Game}/>
                         <PrivateRoute path="/createLobby" component={CreateLobby}/>
+                        <PrivateRoute path="/profile" component={ProfileMain}/>
 
 
                     </HashRouter>

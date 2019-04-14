@@ -11,6 +11,7 @@ import Voting from "./Voting";
 import ResultMain from "./results/ResultMain";
 
 import './Game.css';
+import WaitingAns from "./WaitingAns";
 
 const cookies = new Cookies();
 
@@ -94,10 +95,6 @@ class Game extends Component {
 
         socket.on('result', (winners) => {
 
-            console.log("<<<<>>>>>")
-
-            console.log(winners);
-
             this.setState(state => ({
                 players: winners,
                 stage: 6
@@ -118,6 +115,15 @@ class Game extends Component {
                 a.splice(index, 1);
             }
         });
+
+        socket.on('done voting', function () {
+
+            console.log("I am done voting ....");
+            this.setState(state => ({
+                stage: 8
+            }));
+            
+        })
 
     }
 
@@ -163,6 +169,9 @@ class Game extends Component {
                 component =  <Redirect to={{
                     pathname: '/'
                 }}/>;
+                break;
+            case 8:
+                component =<WaitingAns/>;
                 break;
             default:
                 component = <Waiting isCreator={isCreator} hasStarted={false}/>;

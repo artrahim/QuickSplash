@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {NavLink, HashRouter} from "react-router-dom";
+import {NavLink, HashRouter, Link} from "react-router-dom";
 import ButtonSplash from "../Game/Utilities/ButtonSplash";
 
 import posed from 'react-pose';
@@ -33,13 +33,13 @@ class Home extends Component {
         const logo = document.querySelector('#navbarImage');
         const logoStyler = styler(logo);
 
-        const polarToCartesian = ({ angle, radius }) => ({
+        const polarToCartesian = ({angle, radius}) => ({
             x: radius * Math.cos(angle),
             y: radius * Math.sin(angle)
         });
 
         composite({
-            angle: physics({ velocity: 5 }),
+            angle: physics({velocity: 5}),
             radius: tween({
                 from: 1200,
                 to: 0,
@@ -59,10 +59,21 @@ class Home extends Component {
 
     render() {
 
+        let component = null;
+
+        if (authenticate.isAuthenticated) {
+            component = <Link to="/profile">
+                <Button className="back-button" variant="outline-primary" onClick={this.playSplash}
+                        onMouseOver={this.playTick}>Profile Page</Button>
+            </Link>
+        }
+
+
         return (
             <div id="home">
                 <HashRouter>
                     <div id="navbarContainer">
+                        {component}
                         <div id="navbarImage">
                             <img className="starImage" src={require('../Assets/images/homePage.png')} alt="button">
                             </img>
@@ -71,11 +82,13 @@ class Home extends Component {
                         </div>
                         <div id="navbarButton">
                             <div className="container-flex">
-                                <NavLink className="loginButton" to={authenticate.isAuthenticated ? "/logout" : '/login'} onClick={this.playSplash}>
+                                <NavLink className="loginButton"
+                                         to={authenticate.isAuthenticated ? "/logout" : '/login'}
+                                         onClick={this.playSplash}>
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
                                                   text={authenticate.isAuthenticated ? "Logout" : "Login"}/>
                                 </NavLink>
-                                <NavLink className="createLobbyButton" to="/createLobby"  onClick={this.playSplash}>
+                                <NavLink className="createLobbyButton" to="/createLobby" onClick={this.playSplash}>
                                     <ButtonSplash imagesource={require('../Assets/images/blueSplash.png')}
                                                   text={"Create a Lobby"}/>
                                 </NavLink>
