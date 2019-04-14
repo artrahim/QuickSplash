@@ -71,7 +71,6 @@ class LoginForm extends Component {
         });
 
         socket.on('login-fail', function () {
-            createjs.Sound.play("buzwrong",props);
             console.log("Incorrect user or pass");
 
             self.setState({wrongAuth: true})
@@ -81,13 +80,11 @@ class LoginForm extends Component {
     }
 
     setUsername(event) {
-        this.playTick();
         this.setState({username: event.target.value});
 
     }
 
     setPassword(event) {
-        this.playTick();
         this.setState({password: event.target.value});
     }
 
@@ -125,13 +122,13 @@ class LoginForm extends Component {
                     <div className="inputContainer">
                         <label htmlFor="username"/>
                         <input className="inputBox" type="text" placeholder="Enter Username"
-                               onChange={this.setUsername} autoComplete="off"/>
+                               onChange={this.setUsername} onClick={this.playTick} autoComplete="off"/>
                     </div>
 
                     <div className="inputContainer">
                         <label htmlFor="password"/>
                         <input className="inputBox" type="password" placeholder="Enter Password"
-                               onChange={this.setPassword} autoComplete="off"/>
+                               onChange={this.setPassword} onClick={this.playTick} autoComplete="off"/>
                     </div>
 
 

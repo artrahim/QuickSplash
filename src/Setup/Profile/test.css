@@ -10,11 +10,15 @@
   font-family: "Amatic SC";
 }
 
+#profilePage{
+  width: 100vw;
+}
 
 #profilePage, .box {
   display: flex;
   flex-flow: column;
   height: 100vh;
+  min-width: 300px;
 }
 
 
