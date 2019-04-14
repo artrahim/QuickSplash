@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 
 //import './Home.css';
-import PlayerAnimation from "../Assets/Animations/PlayerAnimation";
+import PlayerAnimation from "./PlayerAnimation";
 
 /*
 Makes the player splash.
@@ -34,6 +34,13 @@ class PlayerSplash extends Component {
     }
 
     render() {
+
+        console.log("new resize" )
+
+        console.log("new x and y " + this.props.x + ' ' + this.props.y)
+
+        const name = this.props.text.toUpperCase();
+
         return (
             <div style={{
                 position: 'absolute',
@@ -42,7 +49,7 @@ class PlayerSplash extends Component {
             }}>
                 <PlayerAnimation className="player" src={this.props.imagesource} alt="player">
                 </PlayerAnimation>
-                <div className="playerName"> {this.props.text} </div>
+                <div className="playerName"> {name} </div>
             </div>
         )
     }

@@ -5,6 +5,9 @@ html, body {
     min-width: 300px;
 }
 
+#home{
+    overflow: hidden;
+}
 
 .route-transition {
     position: absolute;
@@ -19,10 +22,6 @@ html, body {
 .player{
     width: 120px;
     height: 120px;
-}
-
-.logo{
-    min-width: 135px;
 }
 
 .playerName{
@@ -74,7 +73,20 @@ html, body {
     height: 23vh;
     width: auto;
     min-width: 150px;
+    position: relative;
 }
+
+#home .button {
+     display: table;
+     margin: 0 auto;
+     justify-content: center;
+     align-items: center;
+     height: 23vh;
+     width: auto;
+     min-width: 150px;
+     position: absolute;
+ }
+
 
 /*taken from https://stackoverflow.com/questions/3186688/drop-shadow-for-png-image-in-css*/
 .container:hover {
@@ -84,10 +96,12 @@ html, body {
 
 .textButton {
     position:absolute;
+    margin: auto;
     font-size: 100%;
     font-weight: bold;
     color: white;
-    font-family: "Amatic SC";
+    font-family: "Amatic SC", sans-serif;
+    box-sizing: padding-box;
 }
 
 #home #navbarImage {
@@ -101,6 +115,7 @@ html, body {
 }
 
 .logo {
+    min-width: 300px;
     position:absolute;
     margin: 0 auto;
     width:28%;
@@ -112,7 +127,7 @@ html, body {
     margin: 0 auto;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    width: 95%;
 }
 
 .starImage{
@@ -124,13 +139,51 @@ html, body {
     font-size: 3vw;
     font-weight: bold;
     color: black;
-    margin: 5% 0 0 0;
-    font-family: "Amatic SC";
+    margin: 8% 0 0 0;
+    font-family: "Amatic SC", sans-serif;
     justify-content: center;
     align-items: center;
 }
 
-@media all and (max-width: 750px) {
+#home .home-player{
+    max-width: 150px;
+    max-height: 150px;
+    position: absolute;
+    top:10%;
+}
+
+#home #hp1{
+    left: 60%;
+}
+
+#home  #hp2{
+    top: 70%;
+    left: 3%;
+}
+
+@media all and (max-width: 1024px) {
+    .logo{
+        min-width: 230px;
+    }
+    #home #hp1{
+        left: 53%;
+        top: 28%;
+     }
+
+    #home  #hp2{
+        top: 65%;
+        left: 5%;
+    }
+}
+
+@media all and (max-width: 850px) {
+
+    .logo{
+        min-width: 170px;
+    }
+
+}
+@media all and (max-width: 768px) {
     .player{
         width: 100px;
         height: 100px;
@@ -140,7 +193,31 @@ html, body {
         font-size: 19px;
     }
 
+    .logo{
+        min-width: 140px;
+    }
+
+    #home .textImage {
+        position: absolute;
+        font-size: 2vw;
+    }
+
+    #home .home-player{
+        max-width: 100px;
+        max-height: 100px;
+    }
+
+    #home #hp1{
+        left: 50%;
+        top: 33%;
+    }
+    #home #hp2{
+        left: 3%;
+        top: 60%;
+    }
+
 }
+
 
 @media all and (max-width: 575px) {
     #home #navbarContainer{
@@ -162,7 +239,7 @@ html, body {
         width: auto;
     }
 
-    #home .button {
+    .button {
         width:40%;
         height: auto;
     }
@@ -187,6 +264,13 @@ html, body {
         height: 30%;
         min-width: 150px;
     }
+
+  /*#home .button {*/
+        /*margin: none;*/
+        /*display: inline-block;*/
+        /*position: absolute;*/
+        /*width: 70%;*/
+    /*}*/
 
     .button {
         margin: none;
@@ -213,12 +297,28 @@ html, body {
     .playerName{
         font-size: 15px;
     }
+
+    #home .home-player{
+        max-width: 100px;
+        max-height: 100px;
+    }
+
+    #home #hp1{
+        left: 70%;
+        top: 0;
+    }
+
+    #home  #hp2{
+        top: 30%;
+        left: 2%;
+    }
+
 }
 
 @media all and (max-width: 320px) {
     .textImage{
         min-width: 100px;
-        top: 20%;
+        top: 40%;
     }
 
     .container {
@@ -228,6 +328,14 @@ html, body {
         height: 15%;
         min-width: 100px;
     }
+
+    /*#home .button {*/
+        /*margin: none;*/
+        /*display: inline-block;*/
+        /*position: absolute;*/
+        /*width: 50%;*/
+        /*height: 30%;*/
+    /*}*/
 
     .button {
         margin: none;
@@ -248,6 +356,20 @@ html, body {
 
     .playerName{
         font-size: 8px;
+    }
+    #home .home-player{
+        max-width: 80px;
+        max-height: 80px;
+    }
+
+    #home #hp1{
+        left: 70%;
+        top: 0;
+    }
+
+    #home  #hp2{
+        top: 30%;
+        left: 2%;
     }
 
 }

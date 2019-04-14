@@ -104,6 +104,18 @@ io.on('connection', function (socket) {
 
     });
 
+    socket.on('profile', function(uname) {
+
+        console.log('profile info req by ' + uname);
+        getInfo(uname).then(function(info)
+        {
+            console.log('_________________________________________________________');
+            console.log("the profile info: ", info);
+            console.log('_________________________________________________________');
+            socket.emit('profileInfo', info);
+        });
+    });
+
     //actions to be taken when a user creates a lobby
     socket.on('createLobby', function (ruleSet) {
 
@@ -591,6 +603,28 @@ io.on('connection', function (socket) {
 
         }
         return colour;
+    }
+
+    async function getInfo (uname) {
+        let fname,lname,email,wins,gameplayed,points;
+        fname = await dbUtil.getFname(uname);
+        lname = await dbUtil.getLname(uname);
+        email = await dbUtil.getEmail(uname);
+
+        wins = await dbUtil.getWins(uname);
+        gameplayed = await dbUtil.getGamePlayed(uname);
+        points = await dbUtil.getPoints(uname);
+
+        let info = {
+            uname: uname,
+            fname: fname,
+            lname: lname,
+            email: email,
+            wins: wins,
+            gameplayed: gameplayed,
+            points: points
+        }
+        return info;
     }
 
     //actions to be taken when a user disconnects

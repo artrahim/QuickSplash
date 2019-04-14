@@ -1,4 +1,6 @@
 import React,{Component} from 'react';
+const createjs = window.createjs;
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.5})
 
 class Timer extends Component {
 
@@ -8,8 +10,7 @@ class Timer extends Component {
 
         // Set timer.
         let time = this.props.time;
-        let timeLeftColour = "blue";
-        let timeOverColour = "red";
+        let timeLeftColour = "#f49964";
 
         let startAngle = 0.000001 * Math.PI / 180; // Radian = degrees x pi / 180
         let endAngle = 0;
@@ -26,7 +27,7 @@ class Timer extends Component {
 
         // Arc 2
         let timeOverCircle = new c.Shape();
-        timeOverCircle.graphics.s(timeOverColour);
+        // timeOverCircle.graphics.s(timeOverColour);
         timeOverCircle
             .graphics
             .setStrokeStyle(10)
@@ -34,7 +35,7 @@ class Timer extends Component {
         timeOverCircle.x = timeLeftCircle.x;
         timeOverCircle.y = timeLeftCircle.y;
 
-        let timerText = new c.Text(time, '50px Arial', "black");
+        let timerText = new c.Text(time, '50px Calibri', "black");
         timerText.x = 45;
         timerText.y = 53;
 
@@ -56,7 +57,7 @@ class Timer extends Component {
             stage.removeChild(timeOverCircle);
             stage.removeChild(timerText);
 
-            timerText = new c.Text(time, '50px Arial', "black");
+            timerText = new c.Text(time, '50px Calibri', "black");
             if (time < 10) {
                 timerText.x = 62; // Position for single digit num
             } else
@@ -72,7 +73,7 @@ class Timer extends Component {
                 .arc(75, 75, 45, startAngle, endAngle);
 
             timeOverCircle = new c.Shape();
-            timeOverCircle.graphics.s(timeOverColour);
+            // timeOverCircle.graphics.s(timeOverColour);
             timeOverCircle
                 .graphics
                 .setStrokeStyle(10)
@@ -83,6 +84,13 @@ class Timer extends Component {
             stage.addChild(timerText);
 
             stage.update();
+
+            if (time === 5)
+            {
+                createjs.Sound.play("timer", props);
+                console.log("WTFFFFFFF, TIme: "+time);
+
+            }
 
             // When timer is complete...
             if (time === 0)
