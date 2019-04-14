@@ -38,7 +38,7 @@ h1 {
     margin: auto;
 }
 
-#container {
+.lobby #container {
     margin: auto;
     width: 50%;
     min-height: 43vh;

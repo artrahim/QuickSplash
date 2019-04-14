@@ -13,6 +13,7 @@ class Timer extends Component {
         let question1 = this.props.question1;
         let question2 = this.props.question2;
 
+        let step = this.props.step;
         // Set timer.
         let time = this.props.time;
         let timeLeftColour = "blue";
@@ -95,9 +96,13 @@ class Timer extends Component {
             if (time === 0)
             {
                 clearInterval(timer);
-                let lobbyCode = localStorage.getItem('lobbyCode');
-                let player = cookies.get('username').nickname;
-                socket.emit('failedToAnswer', player, lobbyCode, question1, question2);
+
+                // if (step === "answer") {
+                //     let lobbyCode = localStorage.getItem('lobbyCode');
+                //     let player = cookies.get('username').nickname;
+                //     socket.emit('failedToAnswer', player, lobbyCode, question1, question2);
+                // }
+
 
             }
 

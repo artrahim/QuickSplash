@@ -276,18 +276,26 @@ io.on('connection', function (socket) {
 
         }
 
-        var timeUntilVote = ((parseInt(timePerRound, 10) + 2) * 1000);
+        var timeUntilVote = ((parseInt(timePerRound, 10) + 1) * 1000);
+
+        setTimeout(function(){
+            checkNoResponse(room);
+        }, timeUntilVote);
+
         setTimeout(function(){
             voting(room);
-        }, timeUntilVote);
+        }, timeUntilVote + 2000);
 
     }
 
     // send a prompt2 when a response received
-    socket.on('response', function (player, answer, question, code) {
+    socket.on('response', function (player, answer, question, code, isEmpty) {
         var room = findLobby(code);
         //find the question in the lobby's list of questions
         //assign answer to said question
+
+        console.log('response from: ', + player);
+
         for (var i=0; i<room.questions.length; i++){
             if (room.questions[i].text === question){
                 var temp = {
@@ -298,12 +306,17 @@ io.on('connection', function (socket) {
                 room.questions[i].answers.push(temp);
             }
         }
-        socket.emit('prompt2');
+        if (!isEmpty){
+            socket.emit('prompt2');
+        }
     });
 
     // send a waiting screen
     socket.on('response2', function (player, answer, question, code) {
         let room = findLobby(code);
+
+        console.log('response from: ', + player);
+
         //find the question in the lobby's list of questions
         //assign answer to said question
         for (let i=0; i<room.questions.length; i++){
@@ -319,24 +332,29 @@ io.on('connection', function (socket) {
         socket.emit('waiting2');
     });
 
-    socket.on('failedToAnswer', function(player, code, question1, question2){
-        let room = findLobby(code);
-        for (let i=0; i<room.questions.length; i++){
-            if (room.questions[i].text === question1 || room.questions[i].text === question2){
-                for (let j=0; j<2; j++){
-                    if (room.questions[i].answers[j] === undefined){
-                        let temp = {
-                            nickname: player,
-                            text: "-",
-                            votes: 0
-                        };
-                        room.questions[i].answers[j] = temp;
-                        break;
-                    }
-                }
-            }
-        }
-    });
+    function checkNoResponse(room){
+        io.to(room.name).emit('checkNoResponse');
+    }
+
+    // socket.on('failedToAnswer', function(player, code, question1, question2){
+    //     let room = findLobby(code);
+    //     console.log('Player ' + player + ' did not answer!!!');
+    //     for (let i=0; i<room.questions.length; i++){
+    //         if (room.questions[i].text === question1 || room.questions[i].text === question2){
+    //             for (let j=0; j<2; j++){
+    //                 if (room.questions[i].answers[j] === undefined){
+    //                     let temp = {
+    //                         nickname: player,
+    //                         text: "-",
+    //                         votes: 0
+    //                     };
+    //                     room.questions[i].answers[j] = temp;
+    //                     break;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // });
 
     function voting(room){
         let offset = 0;
@@ -346,24 +364,26 @@ io.on('connection', function (socket) {
         let player2;
         for (let i=0; i<room.questions.length; i++){
             let prompt = room.questions[i].text;
-            if (room.questions[i].answers[0] == null) {
+            if (room.questions[i].answers[0] === undefined) {
                 let temp = {
                     nickname: "",
                     text:  "-",
                     votes: 0
                 };
                 answer1 = temp.text;
+                room.questions[i].answers[0] = temp;
             }
             else{
                 answer1 = room.questions[i].answers[0].text;
             }
-            if (room.questions[i].answers[1] == null) {
+            if (room.questions[i].answers[1] === undefined) {
                 let temp = {
                     nickname: "",
                     text:  "-",
                     votes: 0
                 };
                 answer2 = temp.text;
+                room.questions[i].answers[1] = temp;
             }
             else{
                 answer2 = room.questions[i].answers[1].text;

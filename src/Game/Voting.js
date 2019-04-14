@@ -53,7 +53,7 @@ class Voting extends Component {
         return (
             <div>
                 <div className="center-back">
-                    <Timer time={this.props.time}/>
+                    <Timer step={"voting"} time={this.props.time}/>
                     <Logo/>
                     <div className="empty"/>
                 </div>

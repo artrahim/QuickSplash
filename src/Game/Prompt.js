@@ -28,14 +28,14 @@ class Prompt extends Component {
         return (
             <div id="prompt">
                 <div className="center-back">
-                    <Timer question1={this.props.question} question2={this.props.question2} time={this.props.time}/>
+                    <Timer step={"answer"} question1={this.props.question} question2={this.props.question2} time={this.props.time}/>
                     <Logo/>
                     <div className="empty"/>
                 </div>
                 <Question question={this.props.question}/>
                 <br/>
                 <br/>
-                <Response question={this.props.question}/>
+                <Response stage={this.props.stage} time={this.props.time} question={this.props.question} question2={this.props.question2}/>
             </div>
         );
 
