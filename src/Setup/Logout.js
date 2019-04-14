@@ -52,12 +52,12 @@ class Logout extends Component {
 
                         <div className={"pageSelector " + (this.state.page === 0 ? "currentlySelected" : "")}
                              onClick={this.loginClick}>
-                            <NavLink to={'/login'}>Login</NavLink>
+                            <NavLink className='' to={'/login'}>Login</NavLink>
                         </div>
 
                         <div className={"pageSelector " + (this.state.page === 1 ? "currentlySelected" : "")}
                              onClick={this.signUpClick}>
-                            <NavLink to={'/'}>Home</NavLink>
+                            <NavLink className='' to={'/'}>Home</NavLink>
                         </div>
 
                     </div>
