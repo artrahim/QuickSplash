@@ -319,6 +319,25 @@ io.on('connection', function (socket) {
         socket.emit('waiting2');
     });
 
+    socket.on('failedToAnswer', function(player, code, question1, question2){
+        let room = findLobby(code);
+        for (let i=0; i<room.questions.length; i++){
+            if (room.questions[i].text === question1 || room.questions[i].text === question2){
+                for (let j=0; j<2; j++){
+                    if (room.questions[i].answers[j] === undefined){
+                        let temp = {
+                            nickname: player,
+                            text: "-",
+                            votes: 0
+                        };
+                        room.questions[i].answers[j] = temp;
+                        break;
+                    }
+                }
+            }
+        }
+    });
+
     function voting(room){
         let offset = 0;
         let answer1;
@@ -449,6 +468,7 @@ io.on('connection', function (socket) {
         for (var i=0; i < rooms.length; i++){
             if (rooms[i].code.localeCompare(code) === 0){
                 room = rooms[i];
+                rooms[i].isStarted = true;
             }
         }
         return room;
@@ -537,10 +557,11 @@ io.on('connection', function (socket) {
             }
 
             // check the number of players in this room
-            if(rooms[roomIndex].players.length < 3)
+            if(rooms[roomIndex].players.length < 3 && rooms[roomIndex].isStarted)
             {
                 // kill this room
                 for( let i = 0; i < rooms[roomIndex].players.length; i++) {
+                    io.to(rooms[roomIndex].name).emit('endGame');
                     io.sockets.connected[rooms[roomIndex].players[i].playerSocketId].disconnect();
                 }
             }

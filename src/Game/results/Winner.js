@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PlayerAnimation from "../../Setup/PlayerAnimation";
 
 function getGif(colour) {
 
@@ -32,17 +33,21 @@ function getGif(colour) {
     }
 
     return playerGif
-
 }
 
 class Winner extends Component {
     render() {
         return (
             <div id="Winner">
-                <img id="firstSplash" src={require("../../Assets/images/" + getGif(this.props.splash1.colour) + ".gif")}
+                {/*<div className="winnerFace">*/}
+                <PlayerAnimation id="firstSplash" src={require("../../Assets/images/" + getGif(this.props.splash1.colour) + ".gif")}
                      alt="Winner ColorSplash"/>
+                {/*</div>*/}
                 <img id="goldmedal" src={require('../../Assets/images/gold.png')} alt="goldmedal"/>
-                <p id="firstusername">{this.props.splash1.nickname}</p>
+                <div className='playerInfo'>
+                    <p id="username">{this.props.splash1.nickname}</p>
+                    <div className='playerScore'><p>{this.props.splash1.score}</p></div>
+                </div>
             </div>
         );
     }

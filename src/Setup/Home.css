@@ -187,6 +187,7 @@ html, body {
 
     .textImage{
         font-size: 19px  !important;
+        padding-top: 5%;
     }
 
     .container:hover {

@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 
 import Logo from "../../Game/Utilities/Logo";
-import Results from './Results';
 import Winner from "./Winner";
 import Others from "./Others";
 import './results.css';
@@ -10,13 +9,9 @@ class ResultMain extends Component {
 
     constructor(props) {
         super(props);
-
-        console.log("p1 = " + props.top[0].colour);
-
     }
 
     render() {
-
 
         return (
             <div>

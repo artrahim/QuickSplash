@@ -84,11 +84,11 @@ class JoinLobby extends Component {
                         <h1>JOIN A LOBBY</h1>
                         <br/>
                         <div id="container">
-                            <label htmlFor="joinCode">ENTER A JOIN CODE: </label>
+                            <label className="option" htmlFor="joinCode">ENTER A JOIN CODE: </label>
                             <br/>
                             <input defaultValue={lobbyCode} type="text" className="textBox" id="joinCode"/>
                             <br/><br/>
-                            <label htmlFor="nickname">WHAT SHOULD WE CALL YOU?: </label>
+                            <label className="option" htmlFor="nickname">WHAT SHOULD WE CALL YOU?: </label>
                             <input defaultValue="" type="text" className="textBox" id="nickname"/>
                         </div>
                         <br/>
