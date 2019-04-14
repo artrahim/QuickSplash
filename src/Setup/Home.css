@@ -5,6 +5,9 @@ html, body {
     min-width: 300px;
 }
 
+#home{
+    overflow: hidden;
+}
 
 .route-transition {
     position: absolute;
@@ -70,8 +73,20 @@ html, body {
     height: 23vh;
     width: auto;
     min-width: 150px;
-    position: absolute;
+    position: relative;
 }
+
+#home .button {
+     display: table;
+     margin: 0 auto;
+     justify-content: center;
+     align-items: center;
+     height: 23vh;
+     width: auto;
+     min-width: 150px;
+     position: absolute;
+ }
+
 
 /*taken from https://stackoverflow.com/questions/3186688/drop-shadow-for-png-image-in-css*/
 .container:hover {
@@ -85,7 +100,7 @@ html, body {
     font-size: 100%;
     font-weight: bold;
     color: white;
-    font-family: "Amatic SC";
+    font-family: "Amatic SC", sans-serif;
     box-sizing: padding-box;
 }
 
@@ -112,7 +127,7 @@ html, body {
     margin: 0 auto;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    width: 95%;
 }
 
 .starImage{
@@ -124,8 +139,8 @@ html, body {
     font-size: 3vw;
     font-weight: bold;
     color: black;
-    margin: 5% 0 0 0;
-    font-family: "Amatic SC";
+    margin: 8% 0 0 0;
+    font-family: "Amatic SC", sans-serif;
     justify-content: center;
     align-items: center;
 }
@@ -151,16 +166,23 @@ html, body {
         min-width: 230px;
     }
     #home #hp1{
-        left: 50%;
-        top: 30%;
+        left: 53%;
+        top: 28%;
      }
 
     #home  #hp2{
-        top: 60%;
+        top: 65%;
         left: 5%;
     }
 }
 
+@media all and (max-width: 850px) {
+
+    .logo{
+        min-width: 170px;
+    }
+
+}
 @media all and (max-width: 768px) {
     .player{
         width: 100px;
@@ -172,11 +194,16 @@ html, body {
     }
 
     .logo{
-        min-width: 150px;
+        min-width: 140px;
+    }
+
+    #home .textImage {
+        position: absolute;
+        font-size: 2vw;
     }
 
     #home .home-player{
-        max-width: 120px;
+        max-width: 100px;
         max-height: 100px;
     }
 
@@ -185,11 +212,12 @@ html, body {
         top: 33%;
     }
     #home #hp2{
-        left: 9%;
-        top: 55%;
+        left: 3%;
+        top: 60%;
     }
 
 }
+
 
 @media all and (max-width: 575px) {
     #home #navbarContainer{
@@ -211,7 +239,7 @@ html, body {
         width: auto;
     }
 
-    #home .button {
+    .button {
         width:40%;
         height: auto;
     }
@@ -237,10 +265,17 @@ html, body {
         min-width: 150px;
     }
 
+  /*#home .button {*/
+        /*margin: none;*/
+        /*display: inline-block;*/
+        /*position: absolute;*/
+        /*width: 70%;*/
+    /*}*/
+
     .button {
         margin: none;
         display: inline-block;
-        position: absolute;
+        position: relative;
         width: 70%;
     }
 
@@ -294,10 +329,18 @@ html, body {
         min-width: 100px;
     }
 
+    /*#home .button {*/
+        /*margin: none;*/
+        /*display: inline-block;*/
+        /*position: absolute;*/
+        /*width: 50%;*/
+        /*height: 30%;*/
+    /*}*/
+
     .button {
         margin: none;
         display: inline-block;
-        position: absolute;
+        position: relative;
         width: 50%;
         height: 30%;
     }
