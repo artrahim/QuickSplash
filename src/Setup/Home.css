@@ -87,6 +87,10 @@ html, body {
      position: absolute;
  }
 
+.game #button {
+    margin-top: 40px;
+}
+
 
 /*taken from https://stackoverflow.com/questions/3186688/drop-shadow-for-png-image-in-css*/
 .container:hover {

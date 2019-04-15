@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import Cookies from "universal-cookie";
 import {socket} from "../Router";
 
-import answer from '../Assets/images/answer.jpg';
+import answer from '../Assets/images/answer.png';
 const createjs = window.createjs;
 let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, volume: 0.5})
 
