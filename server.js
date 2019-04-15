@@ -536,7 +536,7 @@ io.on('connection', function (socket) {
             } else {
                 setTimeout(function () {
                     endGame(room);
-                }, 15000);
+                }, 23000);
             }
         }
         catch(err){
@@ -714,7 +714,7 @@ io.on('connection', function (socket) {
                     playerSocket.leave(roomName);
                 }
             }
-            
+
         }
     }
 
