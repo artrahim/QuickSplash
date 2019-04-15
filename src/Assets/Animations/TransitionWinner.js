@@ -30,7 +30,6 @@ class TransitionWinner extends React.Component {
 
         const {className, ...props} = this.props;
 
-        console.log("class = " + className)
 
         return (
             <PoseGroup>
