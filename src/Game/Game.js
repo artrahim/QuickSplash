@@ -46,8 +46,8 @@ class Game extends Component {
     }
 
     componentDidMount(){
-        let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,loop: -1,volume: 0.5});
-        this.music = createjs.Sound.play("music",props);
+        let propsMusic = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,loop: -1,volume: 0.3});
+        this.music = createjs.Sound.play("music",propsMusic);
 
         socket.on('roundTransition', () => {
             let currentRound = this.state.round;
