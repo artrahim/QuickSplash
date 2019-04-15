@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a37994d8-296f-427e-a364-e26589d04364" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Game/Answer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Answer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Game.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game/Voting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Voting.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Setup/CreateLobby.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Setup/CreateLobby.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,14 +15,37 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-29">
-              <caret line="678" column="17" selection-start-line="678" selection-start-column="8" selection-end-line="678" selection-end-column="17" />
+            <state relative-caret-position="5509">
+              <caret line="716" column="12" selection-start-line="716" selection-start-column="12" selection-end-line="716" selection-end-column="12" />
               <folding>
                 <element signature="e#847#1636#0" />
                 <element signature="e#1686#2968#0" />
                 <element signature="e#3013#3410#0" />
                 <element signature="e#3516#4857#0" />
                 <element signature="e#20959#21005#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Setup/JoinLobby.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-730">
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Setup/CreateLobby.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1002">
+              <caret line="41" column="66" lean-forward="true" selection-start-line="41" selection-start-column="66" selection-end-line="41" selection-end-column="66" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -85,6 +107,7 @@
       <find>vote</find>
       <find>hasVoted</find>
       <find>afk</find>
+      <find>try</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -93,12 +116,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/Router.js" />
         <option value="$PROJECT_DIR$/src/Game/Game.js" />
         <option value="$PROJECT_DIR$/src/Game/Voting.js" />
         <option value="$PROJECT_DIR$/src/Game/Answer.js" />
+        <option value="$PROJECT_DIR$/src/Setup/CreateLobby.js" />
+        <option value="$PROJECT_DIR$/server.js" />
       </list>
     </option>
   </component>
@@ -132,6 +156,12 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Game" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="QuickSplash" type="b2602c69:ProjectViewProjectNode" />
+              <item name="QuickSplash" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Setup" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -161,13 +191,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4689000" />
+    <option name="totallyTimeSpent" value="5698000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.22916667" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22916667" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -180,7 +210,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.093005955" side_tool="true" weight="0.39770868" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.90699404" visible="true" weight="0.32569557" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.90699404" weight="0.32569557" />
       <window_info anchor="bottom" id="Version Control" order="10" weight="0.32890365" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -291,10 +321,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Setup/JoinLobby.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-730">
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Setup/CreateLobby.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1002">
+          <caret line="41" column="66" lean-forward="true" selection-start-line="41" selection-start-column="66" selection-end-line="41" selection-end-column="66" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-29">
-          <caret line="678" column="17" selection-start-line="678" selection-start-column="8" selection-end-line="678" selection-end-column="17" />
+        <state relative-caret-position="5509">
+          <caret line="716" column="12" selection-start-line="716" selection-start-column="12" selection-end-line="716" selection-end-column="12" />
           <folding>
             <element signature="e#847#1636#0" />
             <element signature="e#1686#2968#0" />
