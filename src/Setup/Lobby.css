@@ -17,13 +17,13 @@ h1 {
 .lobby label {
     text-align: left;
     font-family: "Amatic SC";
-    font-size: 1.3em;
+    font-size: 2em;
     font-weight: bold;
 }
 
 .lobby input {
     font-family: "Amatic SC";
-    font-size: 1.3em;
+    font-size: 2em;
     line-height: 55px;
     border: none;
     background: none;
@@ -93,6 +93,18 @@ h1 {
     max-height: 30%;
 }
 
+@media all and (max-width: 1250px) {
+    .lobby label {
+        font-size: xx-large;
+
+    }
+
+    .lobby input {
+        font-size: xx-large;
+
+    }
+}
+
 @media all and (max-width: 750px) {
     .lobby {
         width: 100%;
@@ -107,14 +119,6 @@ h1 {
         min-height: 47vh;
     }
 
-
-    .lobby label {
-        text-align: left;
-        font-family: "Amatic SC";
-        font-size: 1.1em;
-        font-weight: bold;
-
-    }
 
     .lobby input {
         font-family: "Amatic SC";
@@ -156,6 +160,7 @@ h1 {
     #container {
         min-height: 47vh;
     }
+
     .lobby #split-container{
         display: table;
         width: 90%;
@@ -168,14 +173,12 @@ h1 {
     .lobby label {
         text-align: left;
         font-family: "Amatic SC";
-        font-size: 0.8em;
         font-weight: bold;
 
     }
 
     .lobby input {
         font-family: "Amatic SC";
-        font-size: 0.8em;
         line-height: 55px;
         border: none;
 
@@ -202,12 +205,12 @@ h1 {
 
 @media all and (max-width: 415px) {
 
-    h1 {
-        font-size: 1em;
+    .lobby h1 {
+        font-size: x-large;
     }
 
     .lobby {
-        width: 100%;
+        width: 100vw;
         min-height: 100vh;
 
     }
@@ -229,11 +232,11 @@ h1 {
 
     .lobby label {
         text-align: left;
-        font-size: 0.6em;
+        font-size: 1.5em;
     }
 
     .lobby input {
-        font-size: 0.6em;
+        font-size: 1.5em;
         line-height: 20px;
     }
 
@@ -279,17 +282,17 @@ h1 {
 
     .lobby label {
         text-align: left;
-        font-size: 0.5em;
+        font-size: 1.3em;
     }
 
 
     .lobby input {
-        font-size: 0.5em;
+        font-size: 1.3em;
         line-height: 30px;
     }
 
     .lobby  .option {
-        font-size: 1em;
+        font-size: 1.3em;
         line-height: 30px;
     }
 
