@@ -7,7 +7,9 @@ import Waiting from "./Waiting";
 import RoundTransitions from "./RoundTransitions";
 import Prompt from "./Prompt";
 import Voting from "./Voting";
+import VoteResult from "./VoteResult";
 import ResultMain from "./results/ResultMain";
+
 
 import './Game.css';
 // import WaitingAns from "./WaitingAns";
@@ -34,8 +36,13 @@ class Game extends Component {
             timeToVote: 0,
             beingVotedOn: "",
             canVote: true,
+            question: "",
             answer1: "",
             answer2: "",
+            votes1: 0,
+            votes2: 0,
+            nickname1: "",
+            nickname2: "",
             players: [],
             playersVoted: []
         };
@@ -77,6 +84,24 @@ class Game extends Component {
             this.setState(state => ({
                 stage: 3
             }));
+        });
+
+        socket.on('checkNoResponse', () => {
+            let nickname = cookies.get('username').nickname + '';
+            console.log(nickname);
+            let lobbyCode = localStorage.getItem('lobbyCode');
+            let answered = localStorage.getItem('answered');
+            if(answered === "0") {
+                let isEmpty = true;
+                socket.emit("response", nickname, '-', this.state.question1, lobbyCode, isEmpty);
+                socket.emit("response2", nickname, '-', this.state.question2, lobbyCode, isEmpty);
+                console.log("missed two");
+            }
+            else if(answered === "1") {
+                let isEmpty = true;
+                socket.emit("response2", nickname, '-', this.state.question2, lobbyCode, isEmpty);
+                console.log("missed only one");
+            }
         });
 
         socket.on('waiting2', () => {
@@ -138,24 +163,17 @@ class Game extends Component {
                 stage: 4,
             }));
 
-        })
+        });
 
-        socket.on('checkNoResponse', () => {
-            let nickname = cookies.get('username').nickname + '';
-            console.log(nickname);
-            let lobbyCode = localStorage.getItem('lobbyCode');
-            let answered = localStorage.getItem('answered');
-            if(answered === "0") {
-                let isEmpty = true;
-                socket.emit("response", nickname, '-', this.state.question1, lobbyCode, isEmpty);
-                socket.emit("response2", nickname, '-', this.state.question2, lobbyCode, isEmpty);
-                console.log("missed two");
-            }
-            else if(answered === "1") {
-                let isEmpty = true;
-                socket.emit("response2", nickname, '-', this.state.question2, lobbyCode, isEmpty);
-                console.log("missed only one");
-            }
+        socket.on('voteResults', (q, a1, a2, v1, v2) => {
+            this.setState(state => ({
+                question: q,
+                answer1: a1,
+                answer2: a2,
+                votes1: v1,
+                votes2: v2,
+                stage: 8
+            }));
         });
 
     }
@@ -227,6 +245,15 @@ class Game extends Component {
                 component =  <Redirect to={{
                     pathname: '/'
                 }}/>;
+                break;
+            case 8:
+                component = <VoteResult
+                    question={this.state.question}
+                    answer1={this.state.answer1}
+                    answer2={this.state.answer2}
+                    votes1={this.state.votes1}
+                    votes2={this.state.votes2}
+                />
                 break;
             default:
                 component = <Waiting isCreator={isCreator} hasStarted={false} playersVoted={this.state.playersVoted}/>;

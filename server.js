@@ -434,6 +434,7 @@ io.on('connection', function (socket) {
     function voting(room) {
         try {
             let offset = 0;
+            let offset2 = 10000;
             let answer1;
             let answer2;
             let player1;
@@ -470,7 +471,9 @@ io.on('connection', function (socket) {
                 }
 
                 sendVote(room, prompt, answer1, answer2, player1, player2, offset, isLast);
-                offset += 10000
+                sendVoteResult(room, prompt, offset2);
+                offset += 16000;
+                offset2 += 16000;
             }
         }
         catch(err){
@@ -491,6 +494,22 @@ io.on('connection', function (socket) {
                 results(room);
             }, (offset+10000));
         }
+    }
+
+    function sendVoteResult(room, question, offset){
+        setTimeout( function(){
+            for (let i=0; i<room.questions.length; i++){
+                if (room.questions[i].text === question){
+                    let q = room.questions[i].text;
+                    let a1 = room.questions[i].answers[0].text;
+                    let a2 = room.questions[i].answers[1].text;
+                    let v1 = room.questions[i].answers[0].votes;
+                    let v2 = room.questions[i].answers[0].votes;
+                    io.to(room.name).emit('voteResults', q, a1, a2, v1, v2);
+                    break;
+                }
+            }
+        }, offset);
     }
 
     socket.on('vote', function (code, question, answer) {
