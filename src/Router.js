@@ -22,7 +22,6 @@ import Instructions from "./Setup/Instructions";
 
 import '../src/Setup/Home.css'
 import ProfileMain from "./Setup/Profile/ProfileMain";
-import TestResults from "./Game/TestResults";
 
 var socket;
 const cookies = new Cookies();
@@ -73,9 +72,10 @@ class Router extends Component {
         super();
         this.state = {endpoint: "http://localhost:5000/"};
         socket = socketIOClient(this.state.endpoint);
-        // socket = io.connect('http://quicksplash.herokuapp.com/');
+        // socket = io.connect();
         //http.listen(process.env.PORT || 5000);
-        //socket = io.connect('http://quicksplash.herokuapp.com/');
+        // socket = io.connect('http://quicksplash.herokuapp.com/');
+
     }
 
     componentWillMount() {
@@ -101,7 +101,7 @@ class Router extends Component {
                 <div className="">
                     <HashRouter>
 
-                        <Route exact path="/" component={TestResults}/>
+                        <Route exact path="/" component={Home}/>
 
                         {/*<AnimatedRoute*/}
                         {/*    className='route-transition'*/}
