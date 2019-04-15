@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Cookies from "universal-cookie";
 import {socket} from "../Router";
 import $ from 'jquery';
+import ResponseAnimation from "../Assets/Animations/ResponseAnimation";
 
 const cookies = new Cookies();
 
@@ -61,7 +62,7 @@ class Response extends Component {
     render() {
         return (
             <form onSubmit={this.responseHandler}>
-                <input onClick={this.playTick} id="response" autoComplete="off"/>
+                <ResponseAnimation onClick={this.playTick} id="response" autoComplete="off"/>
             </form>
         );
     }

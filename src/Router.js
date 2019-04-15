@@ -74,7 +74,8 @@ class Router extends Component {
         // socket = socketIOClient(this.state.endpoint);
         socket = io.connect('http://localhost:5000');
         //http.listen(process.env.PORT || 5000);
-        //socket = io.connect('http://quicksplash.herokuapp.com/');
+        // socket = io.connect('http://quicksplash.herokuapp.com/');
+
     }
 
     componentWillMount() {
