@@ -94,6 +94,8 @@ class Game extends Component {
             console.log("Player1", p1);
             console.log("Player2", p2);
             console.log("Me", thisPlayer);
+            console.log("ans1" , a1);
+            console.log("ans2" , a2);
             this.setState(state => ({
                 beingVotedOn: question,
                 timeToVote: time,

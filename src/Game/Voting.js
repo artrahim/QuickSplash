@@ -17,7 +17,6 @@ class Voting extends Component {
         this.state = {
             voted: false
         };
-        //this.voteHandler = this.voteHandler.bind(this);
         this.hasVoted = this.hasVoted.bind(this);
     }
 

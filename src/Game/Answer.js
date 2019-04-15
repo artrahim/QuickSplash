@@ -29,12 +29,13 @@ class Answer extends Component {
         let question = this.props.question;
         let answer = this.props.answer;
 
-        if (!this.props.hasVoted) {
+        if (!this.props.voteStatus) {
             socket.emit('vote', lobbyCode, question, answer);
+            console.log("for question ",question , " vote for this answer ", answer);
+            // Change the vote status here
+            this.props.hasVoted(true);
         }
 
-        // Change the vote status here
-        this.props.hasVoted(true);
 
         console.log("nickname in answer.js = " + cookies.get('username').nickname);
 
