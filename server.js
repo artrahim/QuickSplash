@@ -5,8 +5,8 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const dbUtil = require('./dbUtils');
 const port = process.env.PORT || 5000;
-app.use(express.static(path.join(__dirname, '../../public')));
-
+// app.use(express.static(path.join(__dirname, '../../public')));
+app.use(express.static("./build"));
 var rooms = [];
 var codes = [];
 var usernames = [];
