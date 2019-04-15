@@ -178,12 +178,19 @@ html, body {
         top: 65%;
         left: 5%;
     }
+
+    .textButton{
+        font-size: x-large;
+    }
 }
 
 @media all and (max-width: 850px) {
 
     .logo{
         min-width: 170px;
+    }
+    .textButton{
+        font-size: x-large;
     }
 
 }
@@ -198,12 +205,12 @@ html, body {
     }
 
     .logo{
-        min-width: 140px;
+        min-width: 200px;
     }
 
     #home .textImage {
         position: absolute;
-        font-size: 2vw;
+        font-size: 3vw;
     }
 
     #home .home-player{
@@ -237,6 +244,9 @@ html, body {
         max-height: 40vh;
     }
 
+    .logo{
+        min-width: 150px;
+    }
     .starImage{
         margin: none;
         height: 100%;
@@ -317,6 +327,10 @@ html, body {
         left: 2%;
     }
 
+    .textButton{
+        font-size: large;
+    }
+
 }
 
 @media all and (max-width: 320px) {
@@ -330,7 +344,7 @@ html, body {
         align-items: center;
         justify-content: center;
         height: 15%;
-        min-width: 100px;
+        min-width: 150px;
     }
 
     /*#home .button {*/
@@ -374,6 +388,9 @@ html, body {
     #home  #hp2{
         top: 30%;
         left: 2%;
+    }
+    .textButton{
+        font-size: medium;
     }
 
 }
