@@ -5,7 +5,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const dbUtil = require('./dbUtils');
 const port = process.env.PORT || 5000;
-//app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '../../public')));
 
 var rooms = [];
 var codes = [];
@@ -383,26 +383,6 @@ io.on('connection', function (socket) {
         io.to(room.name).emit('checkNoResponse');
     }
 
-    // socket.on('failedToAnswer', function(player, code, question1, question2){
-    //     let room = findLobby(code);
-    //     console.log('Player ' + player + ' did not answer!!!');
-    //     for (let i=0; i<room.questions.length; i++){
-    //         if (room.questions[i].text === question1 || room.questions[i].text === question2){
-    //             for (let j=0; j<2; j++){
-    //                 if (room.questions[i].answers[j] === undefined){
-    //                     let temp = {
-    //                         nickname: player,
-    //                         text: "-",
-    //                         votes: 0
-    //                     };
-    //                     room.questions[i].answers[j] = temp;
-    //                     break;
-    //                 }
-    //             }
-    //         }
-    //     }
-    // });
-
     function voting(room) {
         let offset = 0;
         let answer1;
@@ -446,10 +426,9 @@ io.on('connection', function (socket) {
         }
     }
 
-    function sendVote(room, prompt, answer1, answer2, player1, player2, offset, isLast) {
-        room.playersVoted = [];
-        let timeToVote = room.questions.length * 5;
-        setTimeout(function () {
+    function sendVote(room, prompt, answer1, answer2, player1, player2, offset, isLast){
+        let timeToVote = room.questions.length * 20;
+        setTimeout(function(){
             console.log(prompt);
             io.to(room.name).emit('vote', prompt, timeToVote, answer1, answer2, player1, player2);
             io.to(room.name).emit('reset');
@@ -457,7 +436,7 @@ io.on('connection', function (socket) {
         if (isLast) {
             setTimeout(function () {
                 results(room);
-            }, (offset + 5000));
+            }, (offset+20000));
         }
     }
 
@@ -499,11 +478,11 @@ io.on('connection', function (socket) {
         if (currentRound < numRounds) {
             setTimeout(function () {
                 nextRound(room);
-            }, 5000);
+            }, 15000);
         } else {
             setTimeout(function () {
                 endGame(room);
-            }, 5000);
+            }, 15000);
         }
     }
 
@@ -673,5 +652,3 @@ qpDB.on('error', console.error.bind(console, 'MongoDB connection error:'));
 http.listen(port, function () {
     console.log('listening on *:' + port);
 });
-
-
