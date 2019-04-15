@@ -16,7 +16,8 @@ export const AllPlayers = ({allPlayers: players, width: windowWidth, height: win
                 let colour = n.colour;
 
 
-                console.log("width = " + windowWidth);
+                console.log('.-------------------------');
+                console.log(players)
 
                 let x = 1400;
                 let y = 500;

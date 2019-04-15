@@ -25,7 +25,7 @@ let PlayerInfo = require('./PlayerInfoModel');
 
 io.on('connection', function (socket) {
 
-    console.log("user connected");
+    // console.log("user connected");
 
     socket.on("login", function (loginInfo) {
 
@@ -41,12 +41,11 @@ io.on('connection', function (socket) {
         // find all athletes who play tennis, selecting the 'name' and 'age' fields
         PlayerInfo.findOne({'username': username}, 'password', function (err, account) {
             if (err) {
-                console.log("<<<<Hakuna Matata>>>>");
                 // emit Login Failed
                 return handleError(err);
             }
 
-            console.log(account);
+            // console.log(account);
 
             if (account !== null && password === account.password)
                 socket.emit('login-success');
@@ -58,7 +57,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on("signUp", function (signUpInfo) {
-        console.log(signUpInfo);
+        // console.log(signUpInfo);
 
         logObj = JSON.parse(signUpInfo);
         let fname = logObj.fname;
@@ -71,7 +70,6 @@ io.on('connection', function (socket) {
 
         PlayerInfo.findOne({'username': username}, username, function (err, account) {
             if (err) {
-                console.log("ERROR PLZ LEAVE.")
                 return handleError(err);
             }
 
@@ -106,7 +104,7 @@ io.on('connection', function (socket) {
 
     socket.on('profile', function(uname) {
 
-        console.log('profile info req by ' + uname);
+        // console.log('profile info req by ' + uname);
         getInfo(uname).then(function(info)
         {
             console.log('_________________________________________________________');
@@ -253,19 +251,20 @@ io.on('connection', function (socket) {
         room.playersVoted.push(temp1);
 
         console.log('------------------------------------')
-        console.log(usernames)
+        console.log(usernames);
         console.log('------------------------------------')
 
-        socket.emit('vote done', room.playersVoted);
+        // socket.emit('vote done', room.playersVoted);
 
 
         for (let i = 0; i < room.playersVoted.length; i++) {
 
             for (let j = 0; j < usernames.length; j++) {
                 console.log("usersnames at i = " + usernames[j]);
-                if (room.playersVoted[i].nickname === usernames[j].nickname) {
-                    io.to(usernames[j].playerSocketId).emit('vote done', room.playersVoted)
-                    break;
+                if ((room.playersVoted[i].nickname === usernames[j].nickname)) {
+                    console.log("<<<<EMITTING TO >>>" + usernames[j].nickname);
+                    console.log(room.playersVoted);
+                    io.to(usernames[j].playerSocketId).emit('vote done', room.playersVoted);
                 }
             }
         }

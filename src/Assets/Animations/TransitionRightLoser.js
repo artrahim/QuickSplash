@@ -30,8 +30,6 @@ class TransitionRightLoser extends React.Component {
 
         const {className, ...props} = this.props;
 
-        console.log("class = " + className)
-
         return (
             <PoseGroup>
                 <Container onExit={clearInterval(this.intervalID)} key={window.location} className={className}>

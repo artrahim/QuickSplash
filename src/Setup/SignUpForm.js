@@ -48,7 +48,7 @@ class SignUpForm extends Component {
         for (let property in object) {
             if (object.hasOwnProperty(property)) {
 
-                console.log("Property = " + property);
+                // console.log("Property = " + property);
 
                 // this.checkField(property, this.state.);
             }
@@ -69,7 +69,7 @@ class SignUpForm extends Component {
         switch (fieldName) {
             case 'email':
                 emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-                console.log("Email is valid: " + emailValid)
+                // console.log("Email is valid: " + emailValid)
                 fieldErrors.email = emailValid ? '' : ' is invalid';
                 break;
             case 'password':
@@ -104,10 +104,10 @@ class SignUpForm extends Component {
 
     validateForm() {
 
-        console.log("email " + this.state.emailValid)
-        console.log("pass = " + this.state.passwordValid)
-        console.log("first name = " + this.state.fnameValid)
-        console.log("last name = " + this.state.lnameValid)
+        // console.log("email " + this.state.emailValid)
+        // console.log("pass = " + this.state.passwordValid)
+        // console.log("first name = " + this.state.fnameValid)
+        // console.log("last name = " + this.state.lnameValid)
 
         this.setState({
             validForm: this.state.emailValid && this.state.usernameValid && this.state.passwordValid && this.state.fnameValid && this.state.lnameValid

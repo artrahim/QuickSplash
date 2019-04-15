@@ -51,7 +51,7 @@ class JoinLobby extends Component {
                 };
                 temp = JSON.stringify(temp);
                 let expTime = 60 * 60;
-                console.log("Cookies info in login form:", temp);
+                // console.log("Cookies info in login form:", temp);
                 cookies.set('username', temp, {path: '/', maxAge: expTime});
                 localStorage.setItem("lobbyCode", $("#joinCode").val());
             }

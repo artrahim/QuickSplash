@@ -31,15 +31,15 @@ class Answer extends Component {
 
         if (!this.props.voteStatus) {
             socket.emit('vote', lobbyCode, question, answer);
-            console.log("for question ",question , " vote for this answer ", answer);
+            // console.log("for question ",question , " vote for this answer ", answer);
             // Change the vote status here
             this.props.hasVoted(true);
         }
 
 
-        console.log("nickname in answer.js = " + cookies.get('username').nickname);
-
-        console.log("Colour in answer.js = " + cookies.get('username').colour);
+        // console.log("nickname in answer.js = " + cookies.get('username').nickname);
+        //
+        // console.log("Colour in answer.js = " + cookies.get('username').colour);
 
 
         socket.emit('done voting', cookies.get('username').nickname, cookies.get('username').colour, lobbyCode)

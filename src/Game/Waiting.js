@@ -27,11 +27,13 @@ class Waiting extends Component {
             windowHeight: window.innerHeight,
             colour: ''
         };
-        
-        console.log("player in waiting voted " + this.state.allPlayers)
+
+        // console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+        // console.log(this.props.playersVoted)
+        // console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
 
         this.setState({allPlayers: this.props.playersVoted}, function () {
-           console.log("set done " + this.state.allPlayers)
+           // console.log("set done " + this.state.allPlayers)
         });
 
     }
@@ -47,7 +49,8 @@ class Waiting extends Component {
     componentDidMount() {
 
         this.setState({allPlayers: this.props.playersVoted}, function () {
-            console.log("set done " + this.state.allPlayers)
+            // console.log("set done " + this.state.allPlayers)
+            // console.log(this.state.allPlayers)
         });
 
         // this.setState({allPlayers: this.props.playersVoted});
@@ -55,10 +58,9 @@ class Waiting extends Component {
         // console.log("waiting palyers = " + this.props.playersVoted);
 
 
-        let uname = cookies.get('username').username;
-        let nickname = cookies.get('username').nickname;
+        // let uname = cookies.get('username').username;
+        // let nickname = cookies.get('username').nickname;
 
-        console.log("my nickname from cookies = " + nickname);
 
         window.addEventListener("resize", this.resize.bind(this));
 
@@ -69,35 +71,31 @@ class Waiting extends Component {
             socket.emit('startGame', lobbyCode);
         });
 
-        socket.on('addPlayers', (players) => {
-            this.setState({
-                allPlayers: players
-            });
-
-            console.log("<<<<shitttt>>>> = " + players[0])
-
-            for (let i = 0; i < players.length; i++) {
-                console.log("<<<<player colour >>>>" + players[i].colour);
-                if (players[i].nickname === nickname)
-                    this.setState({colour: players[i].colour}, function () {
-                        console.log('in waiting add colour: ' + this.state.colour);
-
-                        let temp = {
-                            username: uname,
-                            auth: true,
-                            nickname: nickname,
-                            colour: this.state.colour
-                        };
-
-                        temp = JSON.stringify(temp);
-                        let expTime = 15 * 60;
-                        console.log("Cookies info in waiting:", temp);
-                        cookies.set('username', temp, {path: '/', maxAge: expTime});
-
-                    });
-            }
-
-        });
+        // socket.on('addPlayers', (players) => {
+        //     this.setState({
+        //         allPlayers: players
+        //     });
+        //
+        //
+        //     for (let i = 0; i < players.length; i++) {
+        //         if (players[i].nickname === nickname)
+        //             this.setState({colour: players[i].colour}, function () {
+        //
+        //                 let temp = {
+        //                     username: uname,
+        //                     auth: true,
+        //                     nickname: nickname,
+        //                     colour: this.state.colour
+        //                 };
+        //
+        //                 temp = JSON.stringify(temp);
+        //                 let expTime = 15 * 60;
+        //                 cookies.set('username', temp, {path: '/', maxAge: expTime});
+        //
+        //             });
+        //     }
+        //
+        // });
 
         socket.on('failedToStart', (errorMessage) => {
             alert(errorMessage);
@@ -130,7 +128,7 @@ class Waiting extends Component {
                 {code}
                 <h1>WAITING FOR {text}...</h1>
                 {button}
-                <AllPlayers allPlayers={this.state.allPlayers} width={this.state.windowWidth}
+                <AllPlayers allPlayers={this.props.playersVoted} width={this.state.windowWidth}
                             height={this.state.windowHeight}/>
             </div>
         );

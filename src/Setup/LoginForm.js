@@ -49,7 +49,7 @@ class LoginForm extends Component {
         let self = this;
 
         let loginInfo = JSON.stringify(this.state);
-        console.log(loginInfo);
+        // console.log(loginInfo);
         // creating cookies
         let temp = JSON.stringify(this.state.username);
         cookies.set('username', temp, { path: '/' });
