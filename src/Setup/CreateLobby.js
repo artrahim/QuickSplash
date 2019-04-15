@@ -40,7 +40,7 @@ class CreateLobby extends Component {
             $("#timePerRound").val($("#slider1").val() + " SECONDS");
             $("#numRounds").val($("#slider2").val() + " ROUND(S)");
             $("#lobbySize").val($("#slider3").val() + " PLAYERS");
-            $("#afkTimeout").val($("#slider4").val() + " MINUTE(S)");
+            $("#afkTimeout").val($("#slider4").val() + " QUESTIONS(S)");
             rules = {
                 timePerRound: $("#slider1").val(),
                 numRounds: $("#slider2").val(),

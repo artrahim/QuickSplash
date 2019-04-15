@@ -40,19 +40,24 @@ class JoinLobby extends Component {
     componentDidMount() {
         let tname = '';
         $('#button').click(function () {
-            let uname = cookies.get('username').username;
-            socket.emit('joinLobby', $("#joinCode").val(), $("#nickname").val(), uname);
-            // set the cookies with nickname
-            let temp = {
-                username: uname,
-                auth: true,
-                nickname: $("#nickname").val()
-            };
-            temp = JSON.stringify(temp);
-            let expTime = 15 * 60;
-            console.log("Cookies info in login form:", temp);
-            cookies.set('username', temp, {path: '/', maxAge: expTime});
-            localStorage.setItem("lobbyCode", $("#joinCode").val());
+            if ($("#nickname").val().length > 0) {
+                let uname = cookies.get('username').username;
+                socket.emit('joinLobby', $("#joinCode").val(), $("#nickname").val(), uname);
+                // set the cookies with nickname
+                let temp = {
+                    username: uname,
+                    auth: true,
+                    nickname: $("#nickname").val()
+                };
+                temp = JSON.stringify(temp);
+                let expTime = 60 * 60;
+                console.log("Cookies info in login form:", temp);
+                cookies.set('username', temp, {path: '/', maxAge: expTime});
+                localStorage.setItem("lobbyCode", $("#joinCode").val());
+            }
+            else{
+                alert("Your nickname must be at least 1 character long");
+            }
         });
 
         socket.on('failedToJoin', function (errorMessage) {
@@ -113,7 +118,7 @@ class JoinLobby extends Component {
                             <br/><br/>
                             <TransitionRight>
                                 <label className="option" htmlFor="nickname">WHAT SHOULD WE CALL YOU?: </label>
-                                <input defaultValue="" type="text" className="textBox" id="nickname"
+                                <input maxLength={13} defaultValue="" type="text" className="textBox" id="nickname"
                                        onClick={this.playTick}/>
                             </TransitionRight>
                         </div>

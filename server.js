@@ -470,7 +470,7 @@ io.on('connection', function (socket) {
                 }
 
                 sendVote(room, prompt, answer1, answer2, player1, player2, offset, isLast);
-                offset += 5000
+                offset += 10000
             }
         }
         catch(err){
@@ -479,16 +479,17 @@ io.on('connection', function (socket) {
     }
 
     function sendVote(room, prompt, answer1, answer2, player1, player2, offset, isLast){
-        let timeToVote = room.questions.length * 20;
+        let timeToVote = room.questions.length * 10;
         setTimeout(function(){
             console.log(prompt);
             io.to(room.name).emit('vote', prompt, timeToVote, answer1, answer2, player1, player2);
             io.to(room.name).emit('reset');
+            room.playersVoted = [];
         }, offset);
         if (isLast) {
             setTimeout(function () {
                 results(room);
-            }, (offset+20000));
+            }, (offset+10000));
         }
     }
 
@@ -535,7 +536,7 @@ io.on('connection', function (socket) {
             } else {
                 setTimeout(function () {
                     endGame(room);
-                }, 15000);
+                }, 23000);
             }
         }
         catch(err){
@@ -713,6 +714,7 @@ io.on('connection', function (socket) {
                     playerSocket.leave(roomName);
                 }
             }
+
         }
     }
 
