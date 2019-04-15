@@ -112,17 +112,17 @@ class CreateLobby extends Component {
                                 <input type="range" min={20} max={80} defaultValue={20} className="slider"
                                        id="slider1"  onChange={this.playTick} />
                                 <br/><br/>
-                                <label htmlFor="numRounds">NUMBER OF ROUNDS:  </label>
+                                <label htmlFor="numRounds">NUMBER OF ROUNDS:</label>
                                 <input defaultValue="1 ROUND(S)" type="text" id="numRounds" readOnly/>
-                                <input type="range" min={1} max={10} defaultValue={1} className="slider" id="slider2"  onChange={this.playTick} />
+                                <input type="range" min={1} max={5} defaultValue={1} className="slider" id="slider2"  onChange={this.playTick} />
                             </div>
                             <div id="right">
-                                <label htmlFor="lobbySize">LOBBY SIZE:  </label>
+                                <label htmlFor="lobbySize">LOBBY SIZE:</label>
                                 <input defaultValue="3 PLAYERS" type="text" id="lobbySize" readOnly/>
                                 <input type="range" min={3} max={8} defaultValue={3} className="slider" id="slider3"  onChange={this.playTick}/>
                                 <br/><br/>
-                                <label htmlFor="afkTimeout">AFK TIMEOUT:  </label>
-                                <input defaultValue="1 MINUTE(S)" type="text" id="afkTimeout" readOnly/>
+                                <label htmlFor="afkTimeout">INACTIVITY TIMER:</label>
+                                <input defaultValue="1 QUESTION(S)" type="text" id="afkTimeout" readOnly/>
                                 <input type="range" min={1} max={5} defaultValue={1} className="slider" id="slider4"  onChange={this.playTick}/>
                             </div>
                         </div>

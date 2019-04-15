@@ -206,7 +206,8 @@ io.on('connection', function (socket) {
                 nickname: nickname,
                 score: 0,
                 colour: getColour(),
-                playerSocketId: socket.id
+                playerSocketId: socket.id,
+                AFKCount: 0
             };
             room.players.push(temp2);
             socket.join(room.name);
@@ -297,86 +298,133 @@ io.on('connection', function (socket) {
     }
 
     function sendQuestions(room, questionList) {
-        room.questions = [];
-        let players = io.sockets.adapter.rooms[room.name].sockets;
-        let index = 0;
-        let timePerRound = room.rules.timePerRound;
-        for (let player in players) {
-            let playerSocket = io.sockets.connected[player];
-            let question1 = questionList[index++];
-            var question = {
-                text: question1,
-                answers: []
-            };
-            room.questions.push(question);
-            var numPlayers = Object.keys(players).length;
-            if (index === numPlayers) {
-                index = 0;
+        try {
+            room.questions = [];
+            let players = io.sockets.adapter.rooms[room.name].sockets;
+            let index = 0;
+            let timePerRound = room.rules.timePerRound;
+            for (let player in players) {
+                let playerSocket = io.sockets.connected[player];
+                let question1 = questionList[index++];
+                var question = {
+                    text: question1,
+                    answers: []
+                };
+                room.questions.push(question);
+                var numPlayers = Object.keys(players).length;
+                if (index === numPlayers) {
+                    index = 0;
+                }
+                let question2 = questionList[index];
+                console.log(room.questions);
+
+                playerSocket.emit('prompt1', question1, question2, timePerRound);
+
             }
-            let question2 = questionList[index];
-            console.log(room.questions);
-            //console.log('1st Question: ' + question1 + '\n' + '2nd Question: ' + question2);
 
-            playerSocket.emit('prompt1', question1, question2, timePerRound);
+            var timeUntilVote = ((parseInt(timePerRound, 10) + 1) * 1000);
 
-            //room.index = index;
+            setTimeout(function () {
+                checkNoResponse(room);
+            }, timeUntilVote);
 
+            setTimeout(function () {
+                voting(room);
+            }, timeUntilVote + 2000);
         }
-
-        var timeUntilVote = ((parseInt(timePerRound, 10) + 1) * 1000);
-
-        setTimeout(function () {
-            checkNoResponse(room);
-        }, timeUntilVote);
-
-        setTimeout(function () {
-            voting(room);
-        }, timeUntilVote + 2000);
-
+        catch(err){
+            console.log("ERROR")
+        }
     }
 
     // send a prompt2 when a response received
-    socket.on('response', function (player, answer, question, code, isEmpty) {
-        var room = findLobby(code);
-        //find the question in the lobby's list of questions
-        //assign answer to said question
+    socket.on('response', function (nickname, answer, question, code, isEmpty) {
+        try {
+            var room = findLobby(code);
+            //find the question in the lobby's list of questions
+            //assign answer to said question
 
-        console.log('response from: ', +player);
+            console.log('response from: ', +nickname);
 
-        for (var i = 0; i < room.questions.length; i++) {
-            if (room.questions[i].text === question) {
-                var temp = {
-                    nickname: player,
-                    text: answer,
-                    votes: 0
-                };
-                room.questions[i].answers.push(temp);
+            for (var i = 0; i < room.questions.length; i++) {
+                if (room.questions[i].text === question) {
+                    var temp = {
+                        nickname: nickname,
+                        text: answer,
+                        votes: 0
+                    };
+                    room.questions[i].answers.push(temp);
+                }
+            }
+            if (!isEmpty) {
+                socket.emit('prompt2');
+                for (let i = 0; i < room.players.length; i++) {
+                    if (room.players[i].nickname === nickname) {
+                        room.players[i].AFKCount = 0;
+                    }
+                }
+            } else {
+                for (let i = 0; i < room.players.length; i++) {
+                    if (room.players[i].nickname === nickname) {
+                        room.players[i].AFKCount++;
+                        let maxAFK = room.rules.afkTimeout;
+                        if (room.players[i].AFKCount >= maxAFK) {
+                            console.log("Max AFK", maxAFK);
+                            console.log("AFK Count", room.players[i].AFKCount);
+                            handleDisconnect();
+                        }
+                    }
+                }
             }
         }
-        if (!isEmpty) {
-            socket.emit('prompt2');
+        catch(err){
+            console.log("ERROR")
         }
     });
 
     // send a waiting screen
-    socket.on('response2', function (player, answer, question, code) {
-        let room = findLobby(code);
+    socket.on('response2', function (nickname, answer, question, code, isEmpty) {
+        try {
+            let room = findLobby(code);
 
-        console.log('response from: ', +player);
+            console.log('response from: ', +nickname);
 
-        //find the question in the lobby's list of questions
-        //assign answer to said question
-        for (let i = 0; i < room.questions.length; i++) {
-            if (room.questions[i].text === question) {
-                let temp = {
-                    nickname: player,
-                    text: answer,
-                    votes: 0
-                };
-                room.questions[i].answers.push(temp);
+            //find the question in the lobby's list of questions
+            //assign answer to said question
+            for (let i = 0; i < room.questions.length; i++) {
+                if (room.questions[i].text === question) {
+                    let temp = {
+                        nickname: nickname,
+                        text: answer,
+                        votes: 0
+                    };
+                    room.questions[i].answers.push(temp);
+                }
+            }
+            socket.emit('waiting2');
+            if (!isEmpty) {
+                for (let i = 0; i < room.players.length; i++) {
+                    if (room.players[i].nickname === nickname) {
+                        room.players[i].AFKCount = 0;
+                    }
+                }
+            } else {
+                for (let i = 0; i < room.players.length; i++) {
+                    if (room.players[i].nickname === nickname) {
+                        room.players[i].AFKCount++;
+                        let maxAFK = room.rules.afkTimeout;
+                        if (room.players[i].AFKCount >= maxAFK) {
+                            console.log("Max AFK", maxAFK);
+                            console.log("AFK Count", room.players[i].AFKCount);
+                            handleDisconnect();
+                        }
+                    }
+                }
             }
         }
-        socket.emit('waiting2');
+        catch(err){
+            console.log("ERROR")
+        }
     });
 
     function checkNoResponse(room) {
@@ -384,45 +432,49 @@ io.on('connection', function (socket) {
     }
 
     function voting(room) {
-        let offset = 0;
-        let answer1;
-        let answer2;
-        let player1;
-        let player2;
-        for (let i = 0; i < room.questions.length; i++) {
-            let prompt = room.questions[i].text;
-            if (room.questions[i].answers[0] === undefined) {
-                let temp = {
-                    nickname: "",
-                    text: "-",
-                    votes: 0
-                };
-                answer1 = temp.text;
-                room.questions[i].answers[0] = temp;
-            } else {
-                answer1 = room.questions[i].answers[0].text;
-            }
-            if (room.questions[i].answers[1] === undefined) {
-                let temp = {
-                    nickname: "",
-                    text: "-",
-                    votes: 0
-                };
-                answer2 = temp.text;
-                room.questions[i].answers[1] = temp;
-            } else {
-                answer2 = room.questions[i].answers[1].text;
-            }
-            player1 = room.questions[i].answers[0].nickname;
-            player2 = room.questions[i].answers[1].nickname;
-            let isLast = false;
-            if (i === room.questions.length - 1) {
-                isLast = true;
-            }
+        try {
+            let offset = 0;
+            let answer1;
+            let answer2;
+            let player1;
+            let player2;
+            for (let i = 0; i < room.questions.length; i++) {
+                let prompt = room.questions[i].text;
+                if (room.questions[i].answers[0] === undefined) {
+                    let temp = {
+                        nickname: "",
+                        text: "-",
+                        votes: 0
+                    };
+                    answer1 = temp.text;
+                    room.questions[i].answers[0] = temp;
+                } else {
+                    answer1 = room.questions[i].answers[0].text;
+                }
+                if (room.questions[i].answers[1] === undefined) {
+                    let temp = {
+                        nickname: "",
+                        text: "-",
+                        votes: 0
+                    };
+                    answer2 = temp.text;
+                    room.questions[i].answers[1] = temp;
+                } else {
+                    answer2 = room.questions[i].answers[1].text;
+                }
+                player1 = room.questions[i].answers[0].nickname;
+                player2 = room.questions[i].answers[1].nickname;
+                let isLast = false;
+                if (i === room.questions.length - 1) {
+                    isLast = true;
+                }
 
-            sendVote(room, prompt, answer1, answer2, player1, player2, offset, isLast);
-            offset += 5000
-
+                sendVote(room, prompt, answer1, answer2, player1, player2, offset, isLast);
+                offset += 5000
+            }
+        }
+        catch(err){
+            console.log("ERROR")
         }
     }
 
@@ -461,52 +513,67 @@ io.on('connection', function (socket) {
     });
 
     function results(room) {
-        for (var i = 0; i < room.questions.length; i++) {
-            console.log(room.questions[i].answers);
+        try {
+            for (var i = 0; i < room.questions.length; i++) {
+                console.log(room.questions[i].answers);
+            }
+            for (var i = 0; i < room.players.length; i++) {
+                console.log(room.players[i]);
+            }
+            room.players.sort(function (a, b) {
+                return b.score - a.score;
+            });
+            io.to(room.name).emit('result', room.players);
+            let numRounds = parseInt(room.rules.numRounds, 10);
+            let currentRound = room.currentRound;
+            console.log(currentRound);
+            console.log(numRounds);
+            if (currentRound < numRounds) {
+                setTimeout(function () {
+                    nextRound(room);
+                }, 15000);
+            } else {
+                setTimeout(function () {
+                    endGame(room);
+                }, 15000);
+            }
         }
-        for (var i = 0; i < room.players.length; i++) {
-            console.log(room.players[i]);
-        }
-        room.players.sort(function (a, b) {
-            return b.score - a.score;
-        });
-        io.to(room.name).emit('result', room.players);
-        let numRounds = parseInt(room.rules.numRounds, 10);
-        let currentRound = room.currentRound;
-        console.log(currentRound);
-        console.log(numRounds);
-        if (currentRound < numRounds) {
-            setTimeout(function () {
-                nextRound(room);
-            }, 15000);
-        } else {
-            setTimeout(function () {
-                endGame(room);
-            }, 15000);
+        catch(err){
+            console.log("ERROR")
         }
     }
 
     function nextRound(room) {
-        room.allQuestions.splice(0, room.initNumPlayers);
-        init(room, room.allQuestions);
+        try {
+            room.allQuestions.splice(0, room.initNumPlayers);
+            init(room, room.allQuestions);
+        }
+        catch(err){
+            console.log("ERROR")
+        }
     }
 
     function endGame(room) {
-        for (let i = 0; i < usernames.length; i++) {
-            dbUtil.updateGamePlayed(usernames[i].username);
-        }
-        for (let i = 0; i < room.players.length; i++) {
-            let username = getUsername(room.players[i].nickname);
-            let score = room.players[i].score;
-            dbUtil.updatePoints(username, score);
-            if (i === 0) {
-                dbUtil.updateWins(username);
+        try {
+            for (let i = 0; i < usernames.length; i++) {
+                dbUtil.updateGamePlayed(usernames[i].username);
             }
+            for (let i = 0; i < room.players.length; i++) {
+                let username = getUsername(room.players[i].nickname);
+                let score = room.players[i].score;
+                dbUtil.updatePoints(username, score);
+                if (i === 0) {
+                    dbUtil.updateWins(username);
+                }
+            }
+            io.to(room.name).emit('endGame');
+            let index = rooms.indexOf(room);
+            rooms.splice(index, 1);
+            console.log(rooms);
         }
-        io.to(room.name).emit('endGame');
-        let index = rooms.indexOf(room);
-        rooms.splice(index, 1);
-        console.log(rooms);
+        catch(err){
+            console.log("ERROR")
+        }
     }
 
     function findLobby(code) {
@@ -608,10 +675,17 @@ io.on('connection', function (socket) {
 
     //actions to be taken when a user disconnects
     socket.on('disconnect', function () {
+
+        handleDisconnect();
+
+    });
+
+    function handleDisconnect(){
         console.log("user disconnected with the following socket id: " + socket.id);
         // find out which player discounted
         let roomIndex = findPlayerLobby(socket.id);
         if (roomIndex != -1) {
+            let roomName = rooms[roomIndex].name;
             // remove this player form this room
             for (let i = 0; i < rooms[roomIndex].players.length; i++) {
                 if (rooms[roomIndex].players[i].playerSocketId === socket.id) {
@@ -633,13 +707,14 @@ io.on('connection', function (socket) {
                     // io.sockets.connected[rooms[roomIndex].players[i].playerSocketId].disconnect();
                 }
                 rooms.splice(roomIndex, 1);
-
+                let players = io.sockets.adapter.rooms[roomName].sockets;
+                for (let player in players) {
+                    let playerSocket = io.sockets.connected[player];
+                    playerSocket.leave(roomName);
+                }
             }
         }
-
-        console.log(io.sockets.connected)
-
-    });
+    }
 
 
 });

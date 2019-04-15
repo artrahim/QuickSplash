@@ -15,7 +15,7 @@ class Response extends Component {
     {
         super();
         this.state = {
-            answered: false,
+            count: 0
         };
 
         this.responseHandler = this.responseHandler.bind(this);
@@ -23,20 +23,6 @@ class Response extends Component {
 
     componentDidMount() {
         //this.id = setTimeout(() => this.props.handleTransition(), 3000);
-        socket.on('checkNoResponse', () => {
-            let nickname = cookies.get('username').nickname + '';
-            console.log(nickname);
-            let lobbyCode = localStorage.getItem('lobbyCode');
-
-            if(this.props.stage === 2) {
-                let isEmpty = true;
-                socket.emit("response", nickname, '-', this.props.question1, lobbyCode, isEmpty);
-                socket.emit("response2", nickname, '-', this.props.question2, lobbyCode);
-            }
-            else if(this.props.stage === 3) {
-                socket.emit("response2", nickname, '-', this.props.question2, lobbyCode);
-            }
-        });
     }
 
 
@@ -52,8 +38,17 @@ class Response extends Component {
         if(this.props.stage === 2) {
             let isEmpty = false;
             socket.emit("response", nickname, $('#response').val(), this.props.question1, lobbyCode, isEmpty);
+            localStorage.setItem('answered', "1");
+            /*this.setState(state => ({
+                answered: 1
+            }));*/
         } else if(this.props.stage === 3) {
-            socket.emit("response2", nickname, $('#response').val(), this.props.question2, lobbyCode);
+            let isEmpty = false;
+            socket.emit("response2", nickname, $('#response').val(), this.props.question2, lobbyCode, isEmpty);
+            localStorage.setItem('answered', "2");
+            /*this.setState(state => ({
+                answered: 2,
+            }));*/
         }
         $('#response').val('');
 

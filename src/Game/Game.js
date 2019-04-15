@@ -55,6 +55,7 @@ class Game extends Component {
                 round: currentRound,
                 stage: 1
             }));
+            localStorage.setItem('answered', "0");
         });
 
         socket.on('prompt1', (first, second, time) => {
@@ -135,6 +136,42 @@ class Game extends Component {
 
         })
 
+        socket.on('checkNoResponse', () => {
+            let nickname = cookies.get('username').nickname + '';
+            console.log(nickname);
+            let lobbyCode = localStorage.getItem('lobbyCode');
+            let answered = localStorage.getItem('answered');
+            if(answered === "0") {
+                let isEmpty = true;
+                socket.emit("response", nickname, '-', this.state.question1, lobbyCode, isEmpty);
+                socket.emit("response2", nickname, '-', this.state.question2, lobbyCode, isEmpty);
+                console.log("missed two");
+            }
+            else if(answered === "1") {
+                let isEmpty = true;
+                socket.emit("response2", nickname, '-', this.state.question2, lobbyCode, isEmpty);
+                console.log("missed only one");
+            }
+        });
+
+    }
+
+    componentWillUnmount() {
+        this.setState({
+            stage: 0,
+            hasStarted: false,
+            round: 0,
+            timePerRound: 0,
+            question1: "",
+            question2: "",
+            timeToVote: 0,
+            beingVotedOn: "",
+            canVote: true,
+            answer1: "",
+            answer2: "",
+            players: [],
+            playersVoted: []
+        });
     }
 
     render() {
