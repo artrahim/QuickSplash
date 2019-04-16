@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import Cookies from "universal-cookie";
 import {socket} from '../Router';
@@ -15,8 +15,8 @@ import './Game.css';
 // import WaitingAns from "./WaitingAns";
 
 const createjs = window.createjs;
-let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.1})
-let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,volume: 0.7})
+let props = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, volume: 0.1})
+let props1 = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY, volume: 0.7})
 
 
 const cookies = new Cookies();
@@ -52,9 +52,13 @@ class Game extends Component {
 
     }
 
-    componentDidMount(){
-        let propsMusic = new createjs.PlayPropsConfig().set({interrupt: createjs.Sound.INTERRUPT_ANY,loop: -1,volume: 0.3});
-        this.music = createjs.Sound.play("music",propsMusic);
+    componentDidMount() {
+        let propsMusic = new createjs.PlayPropsConfig().set({
+            interrupt: createjs.Sound.INTERRUPT_ANY,
+            loop: -1,
+            volume: 0.3
+        });
+        this.music = createjs.Sound.play("music", propsMusic);
 
         socket.on('roundTransition', () => {
             let currentRound = this.state.round;
@@ -125,7 +129,7 @@ class Game extends Component {
         socket.on('vote', (question, time, a1, a2, p1, p2) => {
             let thisPlayer = cookies.get('username').nickname;
             let temp = true;
-            if (thisPlayer === p1 || thisPlayer === p2){
+            if (thisPlayer === p1 || thisPlayer === p2) {
                 temp = false;
             }
             // console.log("Player1", p1);
@@ -144,7 +148,7 @@ class Game extends Component {
         });
 
         socket.on('result', (winners) => {
-            createjs.Sound.play("cheer",props1);
+            createjs.Sound.play("cheer", props1);
             this.setState(state => ({
                 players: winners,
                 stage: 6
@@ -156,10 +160,9 @@ class Game extends Component {
                 stage: 7
             }));
             let a;
-            if (localStorage.getItem('codes') === null){
+            if (localStorage.getItem('codes') === null) {
                 a = [];
-            }
-            else{
+            } else {
                 a = JSON.parse(localStorage.getItem('codes'));
                 let thisLobby = localStorage.getItem('lobbyCode');
                 let index = a.indexOf(thisLobby);
@@ -167,13 +170,24 @@ class Game extends Component {
             }
         });
 
-        socket.on('vote done',  (voted) =>{
+        socket.on('vote done', (voted) => {
             this.setState(state => ({
                 playersVoted: voted,
                 stage: 4,
             }));
 
         })
+
+        socket.on('voteResults', (q, a1, a2, v1, v2) => {
+            this.setState(state => ({
+                question: q,
+                answer1: a1,
+                answer2: a2,
+                votes1: v1,
+                votes2: v2,
+                stage: 8
+            }));
+        });
 
         socket.on('addPlayers', (players) => {
             this.setState({
@@ -209,13 +223,12 @@ class Game extends Component {
             // console.log(nickname);
             let lobbyCode = localStorage.getItem('lobbyCode');
             let answered = localStorage.getItem('answered');
-            if(answered === "0") {
+            if (answered === "0") {
                 let isEmpty = true;
                 socket.emit("response", nickname, '-', this.state.question1, lobbyCode, isEmpty);
                 socket.emit("response2", nickname, '-', this.state.question2, lobbyCode, isEmpty);
                 // console.log("missed two");
-            }
-            else if(answered === "1") {
+            } else if (answered === "1") {
                 let isEmpty = true;
                 socket.emit("response2", nickname, '-', this.state.question2, lobbyCode, isEmpty);
                 // console.log("missed only one");
@@ -254,29 +267,32 @@ class Game extends Component {
         let component = null;
         let thisLobby = localStorage.getItem('lobbyCode');
         let a;
-        if (localStorage.getItem('codes') === null){
+        if (localStorage.getItem('codes') === null) {
             a = [];
-        }
-        else{
+        } else {
             a = JSON.parse(localStorage.getItem('codes'));
         }
         let isCreator = false;
-        if (a.includes(thisLobby)){
+        if (a.includes(thisLobby)) {
             isCreator = true;
         }
         // console.log("<<<<list >>>" + this.state.playersVoted)
-        switch (this.state.stage){
+        switch (this.state.stage) {
             case 1:
                 //component = <RoundTransitions handleTransition = {() => this.handleClick()}/>;
                 component = <RoundTransitions round={this.state.round}/>;
                 break;
             case 2:
                 //component = <Prompt handleTransition = {() => this.handleClick()}/>;
-                component = <Prompt stage={this.state.stage} time={this.state.timePerRound} question1={this.state.question1} question2={this.state.question2}/>;
+                component =
+                    <Prompt stage={this.state.stage} time={this.state.timePerRound} question1={this.state.question1}
+                            question2={this.state.question2}/>;
                 break;
             case 3:
                 //component = <Prompt handleTransition = {() => this.handleClick()}/>;
-                component = <Prompt stage={this.state.stage} time={this.state.timePerRound} question1={this.state.question1} question2={this.state.question2}/>;
+                component =
+                    <Prompt stage={this.state.stage} time={this.state.timePerRound} question1={this.state.question1}
+                            question2={this.state.question2}/>;
                 break;
             case 4:
                 component = <Waiting playersVoted={this.state.playersVoted} isCreator={isCreator} hasStarted={true}/>;
@@ -284,13 +300,15 @@ class Game extends Component {
                 // console.log(this.state.playersVoted)
                 break;
             case 5:
-                component = <Voting time={this.state.timeToVote} question={this.state.beingVotedOn} answer1={this.state.answer1} answer2={this.state.answer2} canVote={this.state.canVote}/>;
+                component =
+                    <Voting time={this.state.timeToVote} question={this.state.beingVotedOn} answer1={this.state.answer1}
+                            answer2={this.state.answer2} canVote={this.state.canVote}/>;
                 break;
             case 6:
                 component = <ResultMain top={this.state.players}/>;
                 break;
             case 7:
-                component =  <Redirect to={{
+                component = <Redirect to={{
                     pathname: '/'
                 }}/>;
                 break;
@@ -306,7 +324,7 @@ class Game extends Component {
             default:
                 component = <Waiting isCreator={isCreator} hasStarted={false} playersVoted={this.state.playersVoted}/>;
 
-                // console.log("voted player is = " + this.state.playersVoted)
+            // console.log("voted player is = " + this.state.playersVoted)
         }
 
         return (
