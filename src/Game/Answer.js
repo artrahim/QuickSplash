@@ -41,7 +41,6 @@ class Answer extends Component {
         //
         // console.log("Colour in answer.js = " + cookies.get('username').colour);
 
-
         socket.emit('done voting', cookies.get('username').nickname, cookies.get('username').colour, lobbyCode)
 
     }

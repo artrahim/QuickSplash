@@ -7,7 +7,9 @@ import Waiting from "./Waiting";
 import RoundTransitions from "./RoundTransitions";
 import Prompt from "./Prompt";
 import Voting from "./Voting";
+import VoteResult from "./VoteResult";
 import ResultMain from "./results/ResultMain";
+
 
 import './Game.css';
 // import WaitingAns from "./WaitingAns";
@@ -34,12 +36,19 @@ class Game extends Component {
             timeToVote: 0,
             beingVotedOn: "",
             canVote: true,
+            question: "",
             answer1: "",
             answer2: "",
+            votes1: 0,
+            votes2: 0,
+            nickname1: "",
+            nickname2: "",
             players: [],
             playersVoted: []
         };
 
+
+        console.log("players who have voted = " + this.state.playersVoted)
 
     }
 
@@ -256,6 +265,15 @@ class Game extends Component {
                 component =  <Redirect to={{
                     pathname: '/'
                 }}/>;
+                break;
+            case 8:
+                component = <VoteResult
+                    question={this.state.question}
+                    answer1={this.state.answer1}
+                    answer2={this.state.answer2}
+                    votes1={this.state.votes1}
+                    votes2={this.state.votes2}
+                />
                 break;
             default:
                 component = <Waiting isCreator={isCreator} hasStarted={false} playersVoted={this.state.playersVoted}/>;
