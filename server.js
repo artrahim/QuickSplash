@@ -703,16 +703,17 @@ io.on('connection', function (socket) {
             // check the number of players in this room
             if (rooms[roomIndex].players.length < 3 && rooms[roomIndex].isStarted) {
                 // kill this room
-                for (let i = 0; i < rooms[roomIndex].players.length; i++) {
-                    io.to(rooms[roomIndex].name).emit('endGame');
-                    // io.sockets.connected[rooms[roomIndex].players[i].playerSocketId].disconnect();
-                }
+                io.to(rooms[roomIndex].name).emit('endGame');
                 rooms.splice(roomIndex, 1);
                 let players = io.sockets.adapter.rooms[roomName].sockets;
                 for (let player in players) {
                     let playerSocket = io.sockets.connected[player];
                     playerSocket.leave(roomName);
                 }
+            } else {
+                // kick only the person that left
+                socket.emit('endGame');
+                socket.leave(roomName);
             }
 
         }
@@ -720,7 +721,6 @@ io.on('connection', function (socket) {
 
 
 });
-
 
 //Bind connection to error event (to get notification of connection errors)
 qpDB.on('error', console.error.bind(console, 'MongoDB connection error:'));
