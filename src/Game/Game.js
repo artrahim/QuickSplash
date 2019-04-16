@@ -78,9 +78,10 @@ class Game extends Component {
             }));
         });
 
-        socket.on('waiting2', () => {
+        socket.on('waiting2', (players) => {
             this.setState(state => ({
-                stage: 4
+                stage: 4,
+                playersVoted: players
             }));
         });
 
