@@ -122,12 +122,18 @@ h1 {
 
     .lobby input {
         font-family: "Amatic SC";
-        font-size: 1.1em;
+        font-size: xx-large;
         line-height: 55px;
         border: none;
 
     }
+    .lobby input {
+        font-family: "Amatic SC";
+        font-size: xx-large;
+        line-height: 55px;
+        border: none;
 
+    }
     .lobby .slider {
         -webkit-appearance: none;
         width: 80%;
@@ -174,6 +180,8 @@ h1 {
         text-align: left;
         font-family: "Amatic SC";
         font-weight: bold;
+        font-size: xx-large;
+
 
     }
 
@@ -181,6 +189,7 @@ h1 {
         font-family: "Amatic SC";
         line-height: 55px;
         border: none;
+        font-size: xx-large;
 
     }
 
