@@ -593,6 +593,7 @@ io.on('connection', function (socket) {
     function nextRound(room) {
         try {
             room.allQuestions.splice(0, room.initNumPlayers);
+            room.playersAnswered = [];
             init(room, room.allQuestions);
         }
         catch(err){
