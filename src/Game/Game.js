@@ -62,9 +62,38 @@ class Game extends Component {
             this.setState(state => ({
                 hasStarted: true,
                 round: currentRound,
-                stage: 1
+                stage: 1,
+                playersVoted: []
             }));
             localStorage.setItem('answered', "0");
+        });
+
+        socket.on('addPlayers', (players) => {
+            this.setState({
+                playersVoted: players
+            });
+
+            let uname = cookies.get('username').username;
+            let nickname = cookies.get('username').nickname;
+
+            for (let i = 0; i < players.length; i++) {
+                if (players[i].nickname === nickname)
+                    this.setState({colour: players[i].colour}, function () {
+
+                        let temp = {
+                            username: uname,
+                            auth: true,
+                            nickname: nickname,
+                            colour: this.state.colour
+                        };
+
+                        temp = JSON.stringify(temp);
+                        let expTime = 15 * 60;
+                        cookies.set('username', temp, {path: '/', maxAge: expTime});
+
+                    });
+            }
+
         });
 
         socket.on('prompt1', (first, second, time) => {
