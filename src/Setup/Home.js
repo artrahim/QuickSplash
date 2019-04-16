@@ -80,7 +80,7 @@ class Home extends Component {
                                  alt="button">
                             </img>
                             <img className="logo" src={require('../Assets/images/logo.png')} alt="button"/>
-                            <div className="textImage">Speak Your Mind!</div>
+                            <div className="slogan">Speak Your Mind!</div>
                         </div>
                         <div id="navbarButton">
                             <div className="container-flex">
