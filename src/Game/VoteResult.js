@@ -11,8 +11,7 @@ import './Voting.css';
 
 class VoteResult extends Component {
 
-    constructor()
-    {
+    constructor() {
         super();
     }
 
@@ -30,11 +29,19 @@ class VoteResult extends Component {
                 <br/>
                 <br/>
                 <div id='AnswerBox'>
-                    <Answer voting={false} answer={this.props.answer1} question={this.props.question} voteStatus={false} hasVoted={null}/>
-                    <Answer voting={false} answer={this.props.answer2} question={this.props.question} voteStatus={false} hasVoted={null}/>
-                </div>;
-                <h2>{this.props.votes1}</h2>
-                <h2>{this.props.votes2}</h2>
+                    <Answer voting={false} answer={this.props.answer1} question={this.props.question} voteStatus={false}
+                            hasVoted={null}/>
+                    <Answer voting={false} answer={this.props.answer2} question={this.props.question} voteStatus={false}
+                            hasVoted={null}/>
+                </div>
+                <div id="vote-result">
+                    <div id="votes-left">
+                        <h2>{this.props.votes1}</h2>
+                    </div>
+                    <div id="votes-right">
+                        <h2>{this.props.votes2}</h2>
+                    </div>
+                </div>
             </div>
         );
 
