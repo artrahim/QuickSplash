@@ -144,7 +144,8 @@ io.on('connection', function (socket) {
             allQuestions: [],
             hasStarted: false,
             initNumPlayers: 0,
-            playersVoted: []
+            playersVoted: [],
+            playersAnswered: []
         };
 
         //add the lobby to the list of lobbies
@@ -201,7 +202,7 @@ io.on('connection', function (socket) {
             let temp1 = {
                 username: username,
                 nickname: nickname,
-                playerSocketId: socket.id
+                playerSocketId: socket.id,
             };
             usernames.push(temp1);
             let temp2 = {
@@ -264,9 +265,7 @@ io.on('connection', function (socket) {
         for (let i = 0; i < room.playersVoted.length; i++) {
 
             for (let j = 0; j < usernames.length; j++) {
-                console.log("usersnames at i = " + usernames[j]);
                 if ((room.playersVoted[i].nickname === usernames[j].nickname)) {
-                    console.log("<<<<EMITTING TO >>>" + usernames[j].nickname);
                     console.log(room.playersVoted);
                     io.to(usernames[j].playerSocketId).emit('vote done', room.playersVoted);
                 }
@@ -392,6 +391,31 @@ io.on('connection', function (socket) {
 
             console.log('response from: ', +nickname);
 
+            let playerColour = 'redSplashPlayer';
+
+            for (let i = 0; i< room.players.length; i++){
+                if (room.players[i].nickname === nickname)
+                    playerColour = room.players[i].colour;
+            }
+
+
+            let temp1 = {
+                nickname: nickname,
+                colour: playerColour
+            };
+
+            room.playersAnswered.push(temp1);
+
+            for (let i = 0; i < room.playersAnswered.length; i++) {
+
+                for (let j = 0; j < usernames.length; j++) {
+                    if ((room.playersAnswered[i].nickname === usernames[j].nickname)) {
+                        io.to(usernames[j].playerSocketId).emit('waiting2', room.playersAnswered);
+                    }
+                }
+            }
+
+
             //find the question in the lobby's list of questions
             //assign answer to said question
             for (let i = 0; i < room.questions.length; i++) {
@@ -404,7 +428,7 @@ io.on('connection', function (socket) {
                     room.questions[i].answers.push(temp);
                 }
             }
-            socket.emit('waiting2');
+            // socket.emit('waiting2', room.playersAnswered);
             if (!isEmpty) {
                 for (let i = 0; i < room.players.length; i++) {
                     if (room.players[i].nickname === nickname) {
