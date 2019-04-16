@@ -45,7 +45,14 @@ class Voting extends Component {
                 break;
             case false:
                 component =
-                    <h1>YOU CAN'T VOTE ON THIS ONE</h1>;
+                    <div>
+                        <h1>YOU CAN'T VOTE ON THIS ONE</h1>
+                        <div id='AnswerBox'>
+                            <Answer voting={false} answer={this.props.answer1} question={this.props.question} voteStatus={this.state.voted} hasVoted={this.hasVoted}/>
+                            <Answer voting={false} answer={this.props.answer2} question={this.props.question} voteStatus={this.state.voted} hasVoted={this.hasVoted}/>
+                        </div>;
+                    </div>;
+
                 break;
         }
 

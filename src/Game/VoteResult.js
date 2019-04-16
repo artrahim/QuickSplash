@@ -32,8 +32,10 @@ class VoteResult extends Component {
                 <div id='AnswerBox'>
                     <Answer voting={false} answer={this.props.answer1} question={this.props.question} voteStatus={false}
                             hasVoted={null}/>
+                    <h2 id="mobile-vote-left">{this.props.votes1}</h2>
                     <Answer voting={false} answer={this.props.answer2} question={this.props.question} voteStatus={false}
                             hasVoted={null}/>
+                    <h2 id="mobile-vote-right">{this.props.votes2}</h2>
                 </div>
                 <div id="vote-result">
                     <div id="votes-left">

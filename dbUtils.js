@@ -105,19 +105,22 @@ async function getLname(username) {
 // updating fields
 function updatePoints(username, points) {
     let infoQ = {'username': username};
-    PlayerInfo.findOne(infoQ, 'tPoints', function (err, stats) {
-        if (err) {
-            console.log("<<<<Hakuna Matata>>>>");
-            // emit Login Failed
-            return handleError(err);
-        }
+    if(points !== undefined)
+    {
+        PlayerInfo.findOne(infoQ, 'tPoints', function (err, stats) {
+            if (err) {
+                console.log("<<<<Hakuna Matata>>>>");
+                // emit Login Failed
+                return handleError(err);
+            }
 
-        console.log(stats);
-        stats.tPoints = stats.tPoints + points;
-        stats.save(function () {
-            console.log('Updated the score to ', stats.tPoints);
+            console.log(stats);
+            stats.tPoints = stats.tPoints + points;
+            stats.save(function () {
+                console.log('Updated the score to ', stats.tPoints);
+            });
         });
-    });
+    }
 }
 
 function updateWins(username) {

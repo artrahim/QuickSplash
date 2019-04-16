@@ -122,8 +122,8 @@ class CreateLobby extends Component {
                                 <input type="range" min={3} max={8} defaultValue={3} className="slider" id="slider3"  onChange={this.playTick}/>
                                 <br/><br/>
                                 <label htmlFor="afkTimeout">INACTIVITY TIMER:</label>
-                                <input defaultValue="1 QUESTION(S)" type="text" id="afkTimeout" readOnly/>
-                                <input type="range" min={1} max={5} defaultValue={1} className="slider" id="slider4"  onChange={this.playTick}/>
+                                <input defaultValue="5 QUESTION(S)" type="text" id="afkTimeout" readOnly/>
+                                <input type="range" min={5} max={10} defaultValue={5} className="slider" id="slider4"  onChange={this.playTick}/>
                             </div>
                         </div>
                         <br/>

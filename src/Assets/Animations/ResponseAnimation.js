@@ -49,7 +49,7 @@ class ResponseAnimation extends React.Component {
         return (
             <PoseGroup>
                 <Container onExit={clearInterval(this.intervalID)} key={window.location} className={className}>
-                    <Input className="" pose={isVisible ? 'enter' : 'exit'}  {...props} />
+                    <Input maxLength={25} className="" pose={isVisible ? 'enter' : 'exit'}  {...props} />
                 </Container>
             </PoseGroup>
 

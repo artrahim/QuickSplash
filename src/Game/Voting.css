@@ -31,6 +31,14 @@
 
 }
 
+#mobile-vote-left{
+    display: none;
+}
+
+#mobile-vote-right{
+    display: none;
+}
+
 #votes-left{
     margin-left: 25%;
 }
@@ -48,6 +56,17 @@
     .game #AnswerBox {
         flex-direction: column;
         padding: 1%;
+        max-height: 50%;
+    }
+    #mobile-vote-left{
+        display: inline-block;
     }
 
+    #mobile-vote-right{
+        display: inline-block;
+    }
+
+    #vote-result{
+        display: none;
+    }
 }

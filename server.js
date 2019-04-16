@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 app.use(express.static("./build"));
 var rooms = [];
 var codes = [];
-var usernames = [];
+// var usernames = [];
 var currentRoom = -1;
 
 let mongoose = require('mongoose');
@@ -145,7 +145,8 @@ io.on('connection', function (socket) {
             hasStarted: false,
             initNumPlayers: 0,
             playersVoted: [],
-            playersAnswered: []
+            playersAnswered: [],
+            usernames: []
         };
 
         //add the lobby to the list of lobbies
@@ -204,7 +205,7 @@ io.on('connection', function (socket) {
                 nickname: nickname,
                 playerSocketId: socket.id,
             };
-            usernames.push(temp1);
+            room.usernames.push(temp1);
             let temp2 = {
                 nickname: nickname,
                 score: 0,
@@ -256,7 +257,7 @@ io.on('connection', function (socket) {
         room.playersVoted.push(temp1);
 
         console.log('------------------------------------')
-        console.log(usernames);
+        console.log(room.usernames);
         console.log('------------------------------------')
 
         // socket.emit('vote done', room.playersVoted);
@@ -264,10 +265,10 @@ io.on('connection', function (socket) {
 
         for (let i = 0; i < room.playersVoted.length; i++) {
 
-            for (let j = 0; j < usernames.length; j++) {
-                if ((room.playersVoted[i].nickname === usernames[j].nickname)) {
+            for (let j = 0; j < room.usernames.length; j++) {
+                if ((room.playersVoted[i].nickname === room.usernames[j].nickname)) {
                     console.log(room.playersVoted);
-                    io.to(usernames[j].playerSocketId).emit('vote done', room.playersVoted);
+                    io.to(room.usernames[j].playerSocketId).emit('vote done', room.playersVoted);
                 }
             }
         }
@@ -408,9 +409,9 @@ io.on('connection', function (socket) {
 
             for (let i = 0; i < room.playersAnswered.length; i++) {
 
-                for (let j = 0; j < usernames.length; j++) {
-                    if ((room.playersAnswered[i].nickname === usernames[j].nickname)) {
-                        io.to(usernames[j].playerSocketId).emit('waiting2', room.playersAnswered);
+                for (let j = 0; j < room.usernames.length; j++) {
+                    if ((room.playersAnswered[i].nickname === room.usernames[j].nickname)) {
+                        io.to(room.usernames[j].playerSocketId).emit('waiting2', room.playersAnswered);
                     }
                 }
             }
@@ -509,32 +510,41 @@ io.on('connection', function (socket) {
     }
 
     function sendVote(room, prompt, answer1, answer2, player1, player2, offset, isLast){
-        let timeToVote = room.questions.length * 10;
-        setTimeout(function(){
-            console.log(prompt);
-            io.to(room.name).emit('vote', prompt, timeToVote, answer1, answer2, player1, player2);
-            io.to(room.name).emit('reset');
-            room.playersVoted = [];
-        }, offset);
-        if (isLast) {
-            setTimeout(function () {
-                results(room);
-            }, (offset+16000));
+        try{
+            let timeToVote = room.questions.length * 10;
+            setTimeout(function(){
+                console.log(prompt);
+                io.to(room.name).emit('vote', prompt, timeToVote, answer1, answer2, player1, player2);
+                io.to(room.name).emit('reset');
+                room.playersVoted = [];
+            }, offset);
+            if (isLast) {
+                setTimeout(function () {
+                    results(room);
+                }, (offset+16000));
+            }
+        } catch (err){
+            console.log("ERROR");
         }
     }
 
     function sendVoteResult(room, question, offset){
         setTimeout( function(){
-            for (let i=0; i<room.questions.length; i++){
-                if (room.questions[i].text === question){
-                    let q = room.questions[i].text;
-                    let a1 = room.questions[i].answers[0].text;
-                    let a2 = room.questions[i].answers[1].text;
-                    let v1 = room.questions[i].answers[0].votes;
-                    let v2 = room.questions[i].answers[1].votes;
-                    io.to(room.name).emit('voteResults', q, a1, a2, v1, v2);
-                    break;
+            try{
+                for (let i=0; i<room.questions.length; i++){
+                    if (room.questions[i].text === question){
+                        let q = room.questions[i].text;
+                        let a1 = room.questions[i].answers[0].text;
+                        let a2 = room.questions[i].answers[1].text;
+                        let v1 = room.questions[i].answers[0].votes;
+                        let v2 = room.questions[i].answers[1].votes;
+                        io.to(room.name).emit('voteResults', q, a1, a2, v1, v2);
+                        break;
+                    }
                 }
+
+            }catch (err) {
+                console.log("ERROR");
             }
         }, offset);
     }
@@ -603,11 +613,11 @@ io.on('connection', function (socket) {
 
     function endGame(room) {
         try {
-            for (let i = 0; i < usernames.length; i++) {
-                dbUtil.updateGamePlayed(usernames[i].username);
+            for (let i = 0; i < room.usernames.length; i++) {
+                dbUtil.updateGamePlayed(room.usernames[i].username);
             }
             for (let i = 0; i < room.players.length; i++) {
-                let username = getUsername(room.players[i].nickname);
+                let username = getUsername(room.players[i].nickname, room);
                 let score = room.players[i].score;
                 dbUtil.updatePoints(username, score);
                 if (i === 0) {
@@ -652,11 +662,11 @@ io.on('connection', function (socket) {
         return roomId;
     }
 
-    function getUsername(nickname) {
+    function getUsername(nickname, room) {
         let username = "";
-        for (let i = 0; i < usernames.length; i++) {
-            if (usernames[i].nickname === nickname) {
-                username = usernames[i].username;
+        for (let i = 0; i < room.usernames.length; i++) {
+            if (room.usernames[i].nickname === nickname) {
+                username = room.usernames[i].username;
             }
         }
         return username;
@@ -741,9 +751,9 @@ io.on('connection', function (socket) {
                 }
             }
             // remove this player from username
-            for (let i = 0; i < usernames.length; i++) {
-                if (usernames[i].playerSocketId === socket.id) {
-                    usernames.splice(i, 1);
+            for (let i = 0; i < rooms[roomIndex].usernames.length; i++) {
+                if (rooms[roomIndex].usernames[i].playerSocketId === socket.id) {
+                    rooms[roomIndex].usernames.splice(i, 1);
                 }
             }
 
