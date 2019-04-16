@@ -29,8 +29,10 @@ class VoteResult extends Component {
                 <Question question={this.props.question}/>
                 <br/>
                 <br/>
-                <h1>{this.props.answer1}</h1>
-                <h1>{this.props.answer2}</h1>
+                <div id='AnswerBox'>
+                    <Answer voting={false} answer={this.props.answer1} question={this.props.question} voteStatus={false} hasVoted={null}/>
+                    <Answer voting={false} answer={this.props.answer2} question={this.props.question} voteStatus={false} hasVoted={null}/>
+                </div>;
                 <h2>{this.props.votes1}</h2>
                 <h2>{this.props.votes2}</h2>
             </div>

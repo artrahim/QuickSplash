@@ -142,7 +142,7 @@ io.on('connection', function (socket) {
             players: [],
             questions: [],
             allQuestions: [],
-            isStarted: false,
+            hasStarted: false,
             initNumPlayers: 0,
             playersVoted: [],
             playersAnswered: []
@@ -194,7 +194,11 @@ io.on('connection', function (socket) {
                 }
             }
         }
-        if (uniqueName && correctCode && hasSpace) {
+        let hasStarted = room.hasStarted;
+        if (hasStarted){
+            errorMessage = "Sorry, the lobby you tried to join has already started playing";
+        }
+        if (uniqueName && correctCode && hasSpace && !hasStarted) {
             let temp1 = {
                 username: username,
                 nickname: nickname,
@@ -231,7 +235,7 @@ io.on('connection', function (socket) {
         if (room.players.length >= 3) {
             loadQuestions(room);
             // set the game started bool to true
-            room.isStarted = true;
+            room.hasStarted = true;
         } else {
             let errorMessage = "You need at least 3 players to start the game";
             socket.emit('failedToStart', errorMessage);
@@ -515,7 +519,7 @@ io.on('connection', function (socket) {
         if (isLast) {
             setTimeout(function () {
                 results(room);
-            }, (offset+10000));
+            }, (offset+16000));
         }
     }
 
@@ -527,7 +531,7 @@ io.on('connection', function (socket) {
                     let a1 = room.questions[i].answers[0].text;
                     let a2 = room.questions[i].answers[1].text;
                     let v1 = room.questions[i].answers[0].votes;
-                    let v2 = room.questions[i].answers[0].votes;
+                    let v2 = room.questions[i].answers[1].votes;
                     io.to(room.name).emit('voteResults', q, a1, a2, v1, v2);
                     break;
                 }
@@ -625,7 +629,7 @@ io.on('connection', function (socket) {
         for (var i = 0; i < rooms.length; i++) {
             if (rooms[i].code.localeCompare(code) === 0) {
                 room = rooms[i];
-                rooms[i].isStarted = true;
+                rooms[i].hasStarted = true;
             }
         }
         return room;
@@ -743,7 +747,7 @@ io.on('connection', function (socket) {
             }
 
             // check the number of players in this room
-            if (rooms[roomIndex].players.length < 3 && rooms[roomIndex].isStarted) {
+            if (rooms[roomIndex].players.length < 3 && rooms[roomIndex].hasStarted) {
                 // kill this room
                 for (let i = 0; i < rooms[roomIndex].players.length; i++) {
                     io.to(rooms[roomIndex].name).emit('endGame');

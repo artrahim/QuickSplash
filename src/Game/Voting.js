@@ -39,8 +39,8 @@ class Voting extends Component {
             case true:
                 component =
                 <div id='AnswerBox'>
-                    <Answer id={1} answer={this.props.answer1} question={this.props.question} voteStatus={this.state.voted} hasVoted={this.hasVoted}/>
-                    <Answer id={2} answer={this.props.answer2} question={this.props.question} voteStatus={this.state.voted} hasVoted={this.hasVoted}/>
+                    <Answer voting={true} answer={this.props.answer1} question={this.props.question} voteStatus={this.state.voted} hasVoted={this.hasVoted}/>
+                    <Answer voting={true} answer={this.props.answer2} question={this.props.question} voteStatus={this.state.voted} hasVoted={this.hasVoted}/>
                 </div>;
                 break;
             case false:
