@@ -52,6 +52,7 @@ class Voting extends Component {
         return (
             <div>
                 <Logo/>
+                <h1>VOTING</h1>
                 <Question question={this.props.question}/>
                 <br/>
                 <br/>

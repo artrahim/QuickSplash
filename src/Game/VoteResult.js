@@ -26,6 +26,7 @@ class VoteResult extends Component {
         return (
             <div>
                 <Logo/>
+                <h1>RESULTS</h1>
                 <Question question={this.props.question}/>
                 <br/>
                 <br/>
