@@ -59,7 +59,7 @@ class Others extends Component {
             that.showOtherLoser();
         }, 3000);
 
-        console.log("init state = " + this.state.hidden)
+        // console.log("init state = " + this.state.hidden)
     }
 
     show() {

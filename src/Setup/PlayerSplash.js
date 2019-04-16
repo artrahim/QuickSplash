@@ -35,10 +35,6 @@ class PlayerSplash extends Component {
 
     render() {
 
-        console.log("new resize" )
-
-        console.log("new x and y " + this.props.x + ' ' + this.props.y)
-
         const name = this.props.text.toUpperCase();
 
         return (

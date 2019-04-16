@@ -7,7 +7,9 @@ import Waiting from "./Waiting";
 import RoundTransitions from "./RoundTransitions";
 import Prompt from "./Prompt";
 import Voting from "./Voting";
+import VoteResult from "./VoteResult";
 import ResultMain from "./results/ResultMain";
+
 
 import './Game.css';
 // import WaitingAns from "./WaitingAns";
@@ -34,8 +36,13 @@ class Game extends Component {
             timeToVote: 0,
             beingVotedOn: "",
             canVote: true,
+            question: "",
             answer1: "",
             answer2: "",
+            votes1: 0,
+            votes2: 0,
+            nickname1: "",
+            nickname2: "",
             players: [],
             playersVoted: []
         };
@@ -55,9 +62,38 @@ class Game extends Component {
             this.setState(state => ({
                 hasStarted: true,
                 round: currentRound,
-                stage: 1
+                stage: 1,
+                playersVoted: []
             }));
             localStorage.setItem('answered', "0");
+        });
+
+        socket.on('addPlayers', (players) => {
+            this.setState({
+                playersVoted: players
+            });
+
+            let uname = cookies.get('username').username;
+            let nickname = cookies.get('username').nickname;
+
+            for (let i = 0; i < players.length; i++) {
+                if (players[i].nickname === nickname)
+                    this.setState({colour: players[i].colour}, function () {
+
+                        let temp = {
+                            username: uname,
+                            auth: true,
+                            nickname: nickname,
+                            colour: this.state.colour
+                        };
+
+                        temp = JSON.stringify(temp);
+                        let expTime = 15 * 60;
+                        cookies.set('username', temp, {path: '/', maxAge: expTime});
+
+                    });
+            }
+
         });
 
         socket.on('prompt1', (first, second, time) => {
@@ -68,9 +104,9 @@ class Game extends Component {
                 stage: 2,
             }));
 
-            console.log('fist question: ' + first);
-            console.log('second question: ' + second);
-            console.log('----------------------------------------------------');
+            // console.log('fist question: ' + first);
+            // console.log('second question: ' + second);
+            // console.log('----------------------------------------------------');
         });
 
         socket.on('prompt2', () => {
@@ -79,9 +115,10 @@ class Game extends Component {
             }));
         });
 
-        socket.on('waiting2', () => {
+        socket.on('waiting2', (players) => {
             this.setState(state => ({
-                stage: 4
+                stage: 4,
+                playersVoted: players
             }));
         });
 
@@ -91,11 +128,11 @@ class Game extends Component {
             if (thisPlayer === p1 || thisPlayer === p2){
                 temp = false;
             }
-            console.log("Player1", p1);
-            console.log("Player2", p2);
-            console.log("Me", thisPlayer);
-            console.log("ans1" , a1);
-            console.log("ans2" , a2);
+            // console.log("Player1", p1);
+            // console.log("Player2", p2);
+            // console.log("Me", thisPlayer);
+            // console.log("ans1" , a1);
+            // console.log("ans2" , a2);
             this.setState(state => ({
                 beingVotedOn: question,
                 timeToVote: time,
@@ -131,8 +168,6 @@ class Game extends Component {
         });
 
         socket.on('vote done',  (voted) =>{
-
-            console.log("I am done voting .... " + voted);
             this.setState(state => ({
                 playersVoted: voted,
                 stage: 4,
@@ -140,21 +175,50 @@ class Game extends Component {
 
         })
 
+        socket.on('addPlayers', (players) => {
+            this.setState({
+                playersVoted: players
+            });
+
+
+            let uname = cookies.get('username').username;
+            let nickname = cookies.get('username').nickname;
+
+            for (let i = 0; i < players.length; i++) {
+                if (players[i].nickname === nickname)
+                    this.setState({colour: players[i].colour}, function () {
+
+                        let temp = {
+                            username: uname,
+                            auth: true,
+                            nickname: nickname,
+                            colour: this.state.colour
+                        };
+
+                        temp = JSON.stringify(temp);
+                        let expTime = 15 * 60;
+                        cookies.set('username', temp, {path: '/', maxAge: expTime});
+
+                    });
+            }
+
+        });
+
         socket.on('checkNoResponse', () => {
             let nickname = cookies.get('username').nickname + '';
-            console.log(nickname);
+            // console.log(nickname);
             let lobbyCode = localStorage.getItem('lobbyCode');
             let answered = localStorage.getItem('answered');
             if(answered === "0") {
                 let isEmpty = true;
                 socket.emit("response", nickname, '-', this.state.question1, lobbyCode, isEmpty);
                 socket.emit("response2", nickname, '-', this.state.question2, lobbyCode, isEmpty);
-                console.log("missed two");
+                // console.log("missed two");
             }
             else if(answered === "1") {
                 let isEmpty = true;
                 socket.emit("response2", nickname, '-', this.state.question2, lobbyCode, isEmpty);
-                console.log("missed only one");
+                // console.log("missed only one");
             }
         });
 
@@ -184,7 +248,7 @@ class Game extends Component {
 
     render() {
 
-        console.log("list before passing: " + this.state.playersVoted)
+        // console.log("list before passing: " + this.state.playersVoted)
         //render correct stage based on game state
         //states are represented by numbers (0 to 6)
         let component = null;
@@ -200,7 +264,7 @@ class Game extends Component {
         if (a.includes(thisLobby)){
             isCreator = true;
         }
-        console.log("<<<<list >>>" + this.state.playersVoted)
+        // console.log("<<<<list >>>" + this.state.playersVoted)
         switch (this.state.stage){
             case 1:
                 //component = <RoundTransitions handleTransition = {() => this.handleClick()}/>;
@@ -216,6 +280,8 @@ class Game extends Component {
                 break;
             case 4:
                 component = <Waiting playersVoted={this.state.playersVoted} isCreator={isCreator} hasStarted={true}/>;
+                // console.log("whdhdfdhfjdhfjdhfjdfhdjfhd")
+                // console.log(this.state.playersVoted)
                 break;
             case 5:
                 component = <Voting time={this.state.timeToVote} question={this.state.beingVotedOn} answer1={this.state.answer1} answer2={this.state.answer2} canVote={this.state.canVote}/>;
@@ -227,6 +293,15 @@ class Game extends Component {
                 component =  <Redirect to={{
                     pathname: '/'
                 }}/>;
+                break;
+            case 8:
+                component = <VoteResult
+                    question={this.state.question}
+                    answer1={this.state.answer1}
+                    answer2={this.state.answer2}
+                    votes1={this.state.votes1}
+                    votes2={this.state.votes2}
+                />
                 break;
             default:
                 component = <Waiting isCreator={isCreator} hasStarted={false} playersVoted={this.state.playersVoted}/>;

@@ -88,7 +88,7 @@ class Timer extends Component {
             if (time === 5)
             {
                 createjs.Sound.play("timer", props);
-                console.log("WTFFFFFFF, TIme: "+time);
+                // console.log("WTFFFFFFF, TIme: "+time);
 
             }
 

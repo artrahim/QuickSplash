@@ -30,7 +30,7 @@ class Response extends Component {
     async responseHandler(event)
     {
         let nickname = cookies.get('username').nickname + '';
-        console.log(nickname);
+        // console.log(nickname);
         let lobbyCode = localStorage.getItem('lobbyCode');
 
         event.preventDefault();

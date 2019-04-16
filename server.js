@@ -25,7 +25,7 @@ let PlayerInfo = require('./PlayerInfoModel');
 
 io.on('connection', function (socket) {
 
-    console.log("user connected");
+    // console.log("user connected");
 
     socket.on("login", function (loginInfo) {
 
@@ -41,12 +41,11 @@ io.on('connection', function (socket) {
         // find all athletes who play tennis, selecting the 'name' and 'age' fields
         PlayerInfo.findOne({'username': username}, 'password', function (err, account) {
             if (err) {
-                console.log("<<<<Hakuna Matata>>>>");
                 // emit Login Failed
                 return handleError(err);
             }
 
-            console.log(account);
+            // console.log(account);
 
             if (account !== null && password === account.password)
                 socket.emit('login-success');
@@ -58,7 +57,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on("signUp", function (signUpInfo) {
-        console.log(signUpInfo);
+        // console.log(signUpInfo);
 
         logObj = JSON.parse(signUpInfo);
         let fname = logObj.fname;
@@ -71,7 +70,6 @@ io.on('connection', function (socket) {
 
         PlayerInfo.findOne({'username': username}, username, function (err, account) {
             if (err) {
-                console.log("ERROR PLZ LEAVE.")
                 return handleError(err);
             }
 
@@ -106,7 +104,7 @@ io.on('connection', function (socket) {
 
     socket.on('profile', function(uname) {
 
-        console.log('profile info req by ' + uname);
+        // console.log('profile info req by ' + uname);
         getInfo(uname).then(function(info)
         {
             console.log('_________________________________________________________');
@@ -144,9 +142,10 @@ io.on('connection', function (socket) {
             players: [],
             questions: [],
             allQuestions: [],
-            isStarted: false,
+            hasStarted: false,
             initNumPlayers: 0,
-            playersVoted: []
+            playersVoted: [],
+            playersAnswered: []
         };
 
         //add the lobby to the list of lobbies
@@ -195,11 +194,15 @@ io.on('connection', function (socket) {
                 }
             }
         }
-        if (uniqueName && correctCode && hasSpace) {
+        let hasStarted = room.hasStarted;
+        if (hasStarted){
+            errorMessage = "Sorry, the lobby you tried to join has already started playing";
+        }
+        if (uniqueName && correctCode && hasSpace && !hasStarted) {
             let temp1 = {
                 username: username,
                 nickname: nickname,
-                playerSocketId: socket.id
+                playerSocketId: socket.id,
             };
             usernames.push(temp1);
             let temp2 = {
@@ -232,7 +235,7 @@ io.on('connection', function (socket) {
         if (room.players.length >= 3) {
             loadQuestions(room);
             // set the game started bool to true
-            room.isStarted = true;
+            room.hasStarted = true;
         } else {
             let errorMessage = "You need at least 3 players to start the game";
             socket.emit('failedToStart', errorMessage);
@@ -253,19 +256,18 @@ io.on('connection', function (socket) {
         room.playersVoted.push(temp1);
 
         console.log('------------------------------------')
-        console.log(usernames)
+        console.log(usernames);
         console.log('------------------------------------')
 
-        socket.emit('vote done', room.playersVoted);
+        // socket.emit('vote done', room.playersVoted);
 
 
         for (let i = 0; i < room.playersVoted.length; i++) {
 
             for (let j = 0; j < usernames.length; j++) {
-                console.log("usersnames at i = " + usernames[j]);
-                if (room.playersVoted[i].nickname === usernames[j].nickname) {
-                    io.to(usernames[j].playerSocketId).emit('vote done', room.playersVoted)
-                    break;
+                if ((room.playersVoted[i].nickname === usernames[j].nickname)) {
+                    console.log(room.playersVoted);
+                    io.to(usernames[j].playerSocketId).emit('vote done', room.playersVoted);
                 }
             }
         }
@@ -389,6 +391,31 @@ io.on('connection', function (socket) {
 
             console.log('response from: ', +nickname);
 
+            let playerColour = 'redSplashPlayer';
+
+            for (let i = 0; i< room.players.length; i++){
+                if (room.players[i].nickname === nickname)
+                    playerColour = room.players[i].colour;
+            }
+
+
+            let temp1 = {
+                nickname: nickname,
+                colour: playerColour
+            };
+
+            room.playersAnswered.push(temp1);
+
+            for (let i = 0; i < room.playersAnswered.length; i++) {
+
+                for (let j = 0; j < usernames.length; j++) {
+                    if ((room.playersAnswered[i].nickname === usernames[j].nickname)) {
+                        io.to(usernames[j].playerSocketId).emit('waiting2', room.playersAnswered);
+                    }
+                }
+            }
+
+
             //find the question in the lobby's list of questions
             //assign answer to said question
             for (let i = 0; i < room.questions.length; i++) {
@@ -401,7 +428,7 @@ io.on('connection', function (socket) {
                     room.questions[i].answers.push(temp);
                 }
             }
-            socket.emit('waiting2');
+            // socket.emit('waiting2', room.playersAnswered);
             if (!isEmpty) {
                 for (let i = 0; i < room.players.length; i++) {
                     if (room.players[i].nickname === nickname) {
@@ -434,6 +461,7 @@ io.on('connection', function (socket) {
     function voting(room) {
         try {
             let offset = 0;
+            let offset2 = 10000;
             let answer1;
             let answer2;
             let player1;
@@ -470,7 +498,9 @@ io.on('connection', function (socket) {
                 }
 
                 sendVote(room, prompt, answer1, answer2, player1, player2, offset, isLast);
-                offset += 10000
+                sendVoteResult(room, prompt, offset2);
+                offset += 16000;
+                offset2 += 16000;
             }
         }
         catch(err){
@@ -489,8 +519,24 @@ io.on('connection', function (socket) {
         if (isLast) {
             setTimeout(function () {
                 results(room);
-            }, (offset+10000));
+            }, (offset+16000));
         }
+    }
+
+    function sendVoteResult(room, question, offset){
+        setTimeout( function(){
+            for (let i=0; i<room.questions.length; i++){
+                if (room.questions[i].text === question){
+                    let q = room.questions[i].text;
+                    let a1 = room.questions[i].answers[0].text;
+                    let a2 = room.questions[i].answers[1].text;
+                    let v1 = room.questions[i].answers[0].votes;
+                    let v2 = room.questions[i].answers[1].votes;
+                    io.to(room.name).emit('voteResults', q, a1, a2, v1, v2);
+                    break;
+                }
+            }
+        }, offset);
     }
 
     socket.on('vote', function (code, question, answer) {
@@ -583,7 +629,7 @@ io.on('connection', function (socket) {
         for (var i = 0; i < rooms.length; i++) {
             if (rooms[i].code.localeCompare(code) === 0) {
                 room = rooms[i];
-                rooms[i].isStarted = true;
+                rooms[i].hasStarted = true;
             }
         }
         return room;
@@ -701,7 +747,7 @@ io.on('connection', function (socket) {
             }
 
             // check the number of players in this room
-            if (rooms[roomIndex].players.length < 3 && rooms[roomIndex].isStarted) {
+            if (rooms[roomIndex].players.length < 3 && rooms[roomIndex].hasStarted) {
                 // kill this room
                 io.to(rooms[roomIndex].name).emit('endGame');
                 rooms.splice(roomIndex, 1);
